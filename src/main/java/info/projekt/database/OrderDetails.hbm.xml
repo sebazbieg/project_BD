@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="info.projekt.database.OrderDetails" table="order_details" catalog="northwind" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="orders" class="info.projekt.database.Orders" fetch="select">
+            <column name="OrderID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="products" class="info.projekt.database.Products" fetch="select">
+            <column name="ProductID" not-null="true" />
+        </many-to-one>
+        <property name="unitPrice" type="double">
+            <column name="UnitPrice" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="quantity" type="short">
+            <column name="Quantity" not-null="true" />
+        </property>
+        <property name="discount" type="float">
+            <column name="Discount" precision="12" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

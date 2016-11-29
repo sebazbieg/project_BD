@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="info.projekt.database.Categories" table="categories" catalog="northwind" optimistic-lock="version">
+        <id name="categoryId" type="java.lang.Byte">
+            <column name="CategoryID" />
+            <generator class="identity" />
+        </id>
+        <property name="categoryName" type="string">
+            <column name="CategoryName" length="15" not-null="true" unique="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="Description" length="16777215" not-null="true" />
+        </property>
+        <property name="picture" type="string">
+            <column name="Picture" length="50" not-null="true" />
+        </property>
+        <set name="productses" table="products" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CategoryID" not-null="true" />
+            </key>
+            <one-to-many class="info.projekt.database.Products" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="info.projekt.database.Suppliers" table="suppliers" catalog="northwind" optimistic-lock="version">
+        <id name="supplierId" type="java.lang.Integer">
+            <column name="SupplierID" />
+            <generator class="identity" />
+        </id>
+        <property name="companyName" type="string">
+            <column name="CompanyName" length="40" not-null="true" />
+        </property>
+        <property name="contactName" type="string">
+            <column name="ContactName" length="30" not-null="true" />
+        </property>
+        <property name="contactTitle" type="string">
+            <column name="ContactTitle" length="30" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="Address" length="60" not-null="true" />
+        </property>
+        <property name="city" type="string">
+            <column name="City" length="15" not-null="true" />
+        </property>
+        <property name="region" type="string">
+            <column name="Region" length="15" not-null="true" />
+        </property>
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="10" not-null="true" />
+        </property>
+        <property name="country" type="string">
+            <column name="Country" length="15" not-null="true" />
+        </property>
+        <property name="phone" type="string">
+            <column name="Phone" length="24" not-null="true" />
+        </property>
+        <property name="fax" type="string">
+            <column name="Fax" length="24" not-null="true" />
+        </property>
+        <property name="homePage" type="string">
+            <column name="HomePage" not-null="true" />
+        </property>
+        <set name="productses" table="products" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SupplierID" not-null="true" />
+            </key>
+            <one-to-many class="info.projekt.database.Products" />
+        </set>
+    </class>
+</hibernate-mapping>

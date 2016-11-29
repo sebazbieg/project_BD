@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 19:03:16 by Hibernate Tools 5.2.0.Beta1
+// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,9 +10,6 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class Shippers implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private Integer shipperId;
 	private String companyName;
 	private String phone;

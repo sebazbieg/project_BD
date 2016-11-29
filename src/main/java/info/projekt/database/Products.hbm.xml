@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="info.projekt.database.Products" table="products" catalog="northwind" optimistic-lock="version">
+        <id name="productId" type="java.lang.Integer">
+            <column name="ProductID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categories" class="info.projekt.database.Categories" fetch="select">
+            <column name="CategoryID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="suppliers" class="info.projekt.database.Suppliers" fetch="select">
+            <column name="SupplierID" not-null="true" />
+        </many-to-one>
+        <property name="productName" type="string">
+            <column name="ProductName" length="40" not-null="true" />
+        </property>
+        <property name="quantityPerUnit" type="string">
+            <column name="QuantityPerUnit" length="20" not-null="true" />
+        </property>
+        <property name="unitPrice" type="double">
+            <column name="UnitPrice" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="unitsInStock" type="short">
+            <column name="UnitsInStock" not-null="true" />
+        </property>
+        <property name="unitsOnOrder" type="short">
+            <column name="UnitsOnOrder" not-null="true" />
+        </property>
+        <property name="reorderLevel" type="short">
+            <column name="ReorderLevel" not-null="true" />
+        </property>
+        <property name="discontinued" type="string">
+            <column name="Discontinued" length="2" not-null="true" />
+        </property>
+        <set name="orderDetailses" table="order_details" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" not-null="true" />
+            </key>
+            <one-to-many class="info.projekt.database.OrderDetails" />
+        </set>
+    </class>
+</hibernate-mapping>

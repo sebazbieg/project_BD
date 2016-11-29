@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="info.projekt.database.Employees" table="employees" catalog="northwind" optimistic-lock="version">
+        <id name="employeeId" type="java.lang.Integer">
+            <column name="EmployeeID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="employees" class="info.projekt.database.Employees" fetch="select">
+            <column name="ReportsTo" />
+        </many-to-one>
+        <property name="lastName" type="string">
+            <column name="LastName" length="20" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="FirstName" length="10" not-null="true" />
+        </property>
+        <property name="title" type="string">
+            <column name="Title" length="30" not-null="true" />
+        </property>
+        <property name="titleOfCourtesy" type="string">
+            <column name="TitleOfCourtesy" length="25" not-null="true" />
+        </property>
+        <property name="birthDate" type="timestamp">
+            <column name="BirthDate" length="19" not-null="true" />
+        </property>
+        <property name="hireDate" type="timestamp">
+            <column name="HireDate" length="19" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="Address" length="60" not-null="true" />
+        </property>
+        <property name="city" type="string">
+            <column name="City" length="15" not-null="true" />
+        </property>
+        <property name="region" type="string">
+            <column name="Region" length="15" not-null="true" />
+        </property>
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="10" not-null="true" />
+        </property>
+        <property name="country" type="string">
+            <column name="Country" length="15" not-null="true" />
+        </property>
+        <property name="homePhone" type="string">
+            <column name="HomePhone" length="24" not-null="true" />
+        </property>
+        <property name="extension" type="string">
+            <column name="Extension" length="4" not-null="true" />
+        </property>
+        <property name="photo" type="string">
+            <column name="Photo" length="50" not-null="true" />
+        </property>
+        <property name="notes" type="string">
+            <column name="Notes" length="16777215" />
+        </property>
+        <set name="orderses" table="orders" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EmployeeID" not-null="true" />
+            </key>
+            <one-to-many class="info.projekt.database.Orders" />
+        </set>
+        <set name="employeeses" table="employees" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ReportsTo" />
+            </key>
+            <one-to-many class="info.projekt.database.Employees" />
+        </set>
+    </class>
+</hibernate-mapping>
