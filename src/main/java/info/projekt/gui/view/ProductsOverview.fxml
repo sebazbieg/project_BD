@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.ProductOverviewController">
+<AnchorPane prefHeight="350.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.ProductOverviewController">
    <children>
       <ButtonBar layoutX="231.0" layoutY="246.0" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
@@ -15,7 +15,7 @@
             <Button mnemonicParsing="false" text="Wyszukaj" />
         </buttons>
       </ButtonBar>
-      <TableView fx:id="productTable" prefHeight="229.0" prefWidth="500.0">
+      <TableView fx:id="productTable" prefHeight="350.0" prefWidth="850.0">
         <columns>
           <TableColumn fx:id="productIdColumn" minWidth="30.0" prefWidth="30.0" text="ID" />
           <TableColumn fx:id="productNameColumn" minWidth="50.0" prefWidth="150.0" text="ProductName" />

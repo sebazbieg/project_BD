@@ -10,7 +10,7 @@ import info.projekt.database.Products;
 
 public class ProductsQueries {
 
-	public static List<Products> ProductsList() {
+	public static ArrayList<Products> ProductsList() {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

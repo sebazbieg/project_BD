@@ -1,10 +1,12 @@
 package info.projekt.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import info.projekt.dao.ProductsQueries;
+import info.projekt.database.Products;
 import info.projekt.gui.model.ProductModel;
 import info.projekt.gui.view.ProductOverviewController;
-//import info.projekt.database.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import java.lang.Integer;
 
 public class MainAppGUI extends Application {
 
@@ -20,14 +23,17 @@ public class MainAppGUI extends Application {
 	private BorderPane rootLayout;
 
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
-	
-    public MainAppGUI() {
-    //	productData.setAll(r)
-        // Add some sample data
-     //   productData.add(new ProductModel(1, "Komputer", null, null, "1", 0.5, 100, 50, 120, "y"));
-    //    productData.add(new ProductModel(2, "Mysz"));
-      //  productData.add(new ProductModel(3, "Klawiatura"));
-    }  
+	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+
+	public MainAppGUI() {
+		for (int i = 0; i < productList.size(); i++) {
+			Products tempProduct = productList.get(i);
+			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
+					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
+					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
+					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+		}
+	}
 
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
@@ -77,9 +83,9 @@ public class MainAppGUI extends Application {
 			AnchorPane productsOverview = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(productsOverview);
-			
-	        ProductOverviewController controller = loader.getController();
-	        controller.setMainAppGUI(this);
+
+			ProductOverviewController controller = loader.getController();
+			controller.setMainAppGUI(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,6 +93,5 @@ public class MainAppGUI extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 }
