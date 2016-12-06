@@ -1,11 +1,11 @@
 package info.projekt.main;
-import java.util.List;
-import info.projekt.dao.CustomersQuery;
+
+import info.projekt.dao.CustomersQueries;
 
 public class Main {
 
 	public static void main(String[] args) {
-		CustomersQuery.customersList();
+		CustomersQueries.customersList();
 	}
 
 }
