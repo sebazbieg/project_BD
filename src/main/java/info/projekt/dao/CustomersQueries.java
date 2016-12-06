@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import info.projekt.database.Customers;
 import info.projekt.dao.HibernateUtil;
 
-public class CustomersQuery {
+public class CustomersQueries {
 
 	public static void addCustomers(Customers customers) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
