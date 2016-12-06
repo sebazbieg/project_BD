@@ -2,12 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.ProductOverviewController">
    <children>
       <ButtonBar layoutX="231.0" layoutY="246.0" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
@@ -16,21 +15,19 @@
             <Button mnemonicParsing="false" text="Wyszukaj" />
         </buttons>
       </ButtonBar>
-      <TableView prefHeight="229.0" prefWidth="500.0">
+      <TableView fx:id="productTable" prefHeight="229.0" prefWidth="500.0">
         <columns>
-          <TableColumn minWidth="30.0" prefWidth="30.0" text="ID" />
-          <TableColumn minWidth="50.0" prefWidth="150.0" text="ProductName" />
-            <TableColumn minWidth="30.0" prefWidth="100.0" text="SupplierID" />
-            <TableColumn minWidth="30.0" prefWidth="100.0" text="CategoryID" />
-            <TableColumn prefWidth="75.0" text="QuantityPerUnit" />
-            <TableColumn prefWidth="75.0" text="UnitPrice" />
-            <TableColumn prefWidth="75.0" text="UnitsInStock" />
-            <TableColumn prefWidth="75.0" text="UnitsOnOrder" />
-            <TableColumn prefWidth="75.0" text="ReorderLevel" />
-            <TableColumn prefWidth="75.0" text="Column X" />
-            <TableColumn prefWidth="75.0" text="Discontinued" />
+          <TableColumn fx:id="productIdColumn" minWidth="30.0" prefWidth="30.0" text="ID" />
+          <TableColumn fx:id="productNameColumn" minWidth="50.0" prefWidth="150.0" text="ProductName" />
+            <TableColumn fx:id="supplierIdColumn" minWidth="30.0" prefWidth="100.0" text="SupplierID" />
+            <TableColumn fx:id="categoryIdColumn" minWidth="30.0" prefWidth="100.0" text="CategoryID" />
+            <TableColumn fx:id="quantityPerUnitColumn" prefWidth="75.0" text="QuantityPerUnit" />
+            <TableColumn fx:id="unitPriceColumn" prefWidth="75.0" text="UnitPrice" />
+            <TableColumn fx:id="unitsInStockColumn" prefWidth="75.0" text="UnitsInStock" />
+            <TableColumn fx:id="unitsOnOrderColumn" prefWidth="75.0" text="UnitsOnOrder" />
+            <TableColumn fx:id="reorderLevelColumn" prefWidth="75.0" text="ReorderLevel" />
+            <TableColumn fx:id="discontinuedColumn" prefWidth="75.0" text="Discontinued" />
         </columns>
       </TableView>
-      <ScrollBar layoutX="190.0" layoutY="229.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
