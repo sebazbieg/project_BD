@@ -1,9 +1,11 @@
 package info.projekt.gui.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import info.projekt.gui.MainAppGUI;
 import info.projekt.gui.model.ProductModel;
 
@@ -79,7 +81,6 @@ public class ProductOverviewController {
         unitsOnOrderColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOnOrderProperty().asObject());
         reorderLevelColumn.setCellValueFactory(cellData -> cellData.getValue().reorderLevelProperty().asObject());
         discontinuedColumn.setCellValueFactory(cellData -> cellData.getValue().discontinuedProperty());
-        
     }
 
     /**
@@ -92,5 +93,23 @@ public class ProductOverviewController {
 
         // Add observable list data to the table
         productTable.setItems(mainAppGUI.getProductData());
+    }
+   
+    @FXML
+    private void handleDeleteProduct() {
+        int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            productTable.getItems().remove(selectedIndex);
+            
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainAppGUI.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
     }
 }

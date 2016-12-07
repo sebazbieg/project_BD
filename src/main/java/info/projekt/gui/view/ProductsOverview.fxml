@@ -11,7 +11,7 @@
       <ButtonBar layoutX="231.0" layoutY="246.0" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
             <Button mnemonicParsing="false" text="Dodaj" />
-            <Button mnemonicParsing="false" text="Usuń" />
+            <Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="Usuń" />
             <Button mnemonicParsing="false" text="Wyszukaj" />
         </buttons>
       </ButtonBar>

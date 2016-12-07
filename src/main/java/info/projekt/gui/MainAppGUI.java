@@ -24,6 +24,8 @@ public class MainAppGUI extends Application {
 
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	
+	
 
 	public MainAppGUI() {
 		for (int i = 0; i < productList.size(); i++) {
@@ -91,6 +93,10 @@ public class MainAppGUI extends Application {
 		}
 	}
 
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
