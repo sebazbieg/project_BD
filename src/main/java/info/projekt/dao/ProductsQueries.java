@@ -28,14 +28,14 @@ public class ProductsQueries {
 		return results;
 	}
 
-	public static void deleteProducts(String productName) {
+	public static void deleteProducts(Integer productId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "DELETE FROM Products " + "WHERE productName = :productName";
+		String hql = "DELETE FROM Products " + "WHERE Integer productId = :productId";
 		Query<Products> query = session.createQuery(hql);
-		query.setParameter("productName", productName);
+		query.setParameter("productId", productId);
 		int result = query.executeUpdate();
-		System.out.println("Rows affected: " + result);
+//		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 	}
