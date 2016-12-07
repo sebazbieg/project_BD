@@ -2,11 +2,16 @@ package info.projekt.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import info.projekt.database.Categories;
+import info.projekt.database.Customers;
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Products;
+import info.projekt.database.Suppliers;
 
 public class ProductsQueries {
 
@@ -21,7 +26,30 @@ public class ProductsQueries {
 		session.close();
 		// System.out.println("Rozmiar listy to: " + results.size());
 		return results;
+	}
 
+	public static void deleteProducts(String productName) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "DELETE FROM Products " + "WHERE productName = :productName";
+		Query<Products> query = session.createQuery(hql);
+		query.setParameter("productName", productName);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	public static void addProducts(Products products) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Products newProducts = new Products(products.getCategories(), products.getSuppliers(),
+				products.getProductName(), products.getQuantityPerUnit(), products.getUnitPrice(),
+				products.getUnitsInStock(), products.getUnitsOnOrder(), products.getReorderLevel(),
+				products.getDiscontinued());
+		session.beginTransaction();
+		session.save(newProducts);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }
