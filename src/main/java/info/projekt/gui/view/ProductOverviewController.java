@@ -99,7 +99,7 @@ public class ProductOverviewController {
 		int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			ProductModel selectedItem = productTable.getSelectionModel().getSelectedItem();
-			Integer id = (Integer) selectedItem.getProductId();
+			Integer id = selectedItem.getProductId();
 			ProductsQueries.deleteProducts(id);
 			productTable.getItems().remove(selectedIndex);
 
