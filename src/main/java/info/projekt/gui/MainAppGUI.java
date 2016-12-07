@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Products;
 import info.projekt.gui.model.ProductModel;
+import info.projekt.gui.view.ProductEditDialogController;
 import info.projekt.gui.view.ProductOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.lang.Integer;
 
@@ -22,8 +24,8 @@ public class MainAppGUI extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
-	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	public static ObservableList<ProductModel> productData = FXCollections.observableArrayList();
+	public static ArrayList<Products> productList = ProductsQueries.ProductsList();
 	
 	
 
@@ -91,6 +93,35 @@ public class MainAppGUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean showProductEditDialog(Products product) {
+	    try {
+	        // Load the fxml file and create a new stage for the popup dialog.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainAppGUI.class.getResource("view/ProductEditDialog.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+	        // Create the dialog Stage.
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Product");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        // Set the person into the controller.
+	        ProductEditDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setProduct(product);
+
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	public Stage getPrimaryStage() {

@@ -32,9 +32,11 @@ public class ProductModel {
 	/**
 	 * Default constructor.
 	 */
-	/*
-	 * public ProductModel() { this(null, null, null, null, null, null); }
-	 */
+
+	public ProductModel() {
+		this(0, null, null, null, null, 0.0, 0, 0, 0, null);
+	}
+
 	/**
 	 * Constructor with some initial data.
 	 * 
@@ -92,7 +94,7 @@ public class ProductModel {
 	public ObjectProperty<Suppliers> supplierIdProperty() {
 		return supplierId;
 	}
-	
+
 	public Categories getCategoryId() {
 		return categoryId.get();
 	}
@@ -104,7 +106,7 @@ public class ProductModel {
 	public ObjectProperty<Categories> categoryIdProperty() {
 		return categoryId;
 	}
-	
+
 	public String getQuantityPerUnit() {
 		return productName.get();
 	}
@@ -116,7 +118,7 @@ public class ProductModel {
 	public StringProperty quantityPerUnitProperty() {
 		return quantityPerUnit;
 	}
-	
+
 	public Double getUnitPrice() {
 		return unitPrice.get();
 	}
@@ -128,7 +130,7 @@ public class ProductModel {
 	public DoubleProperty unitPriceProperty() {
 		return unitPrice;
 	}
-	
+
 	public Integer getUnitsInStock() {
 		return unitsInStock.get();
 	}
@@ -140,7 +142,7 @@ public class ProductModel {
 	public IntegerProperty unitsInStockProperty() {
 		return unitsInStock;
 	}
-	
+
 	public Integer getUnitsOnOrder() {
 		return unitsOnOrder.get();
 	}
@@ -152,7 +154,7 @@ public class ProductModel {
 	public IntegerProperty unitsOnOrderProperty() {
 		return unitsOnOrder;
 	}
-	
+
 	public Integer getReorderLevel() {
 		return reorderLevel.get();
 	}
@@ -164,7 +166,7 @@ public class ProductModel {
 	public IntegerProperty reorderLevelProperty() {
 		return reorderLevel;
 	}
-	
+
 	public String getDiscontinued() {
 		return discontinued.get();
 	}
