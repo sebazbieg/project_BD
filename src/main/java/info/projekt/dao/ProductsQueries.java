@@ -31,7 +31,7 @@ public class ProductsQueries {
 	public static void deleteProducts(Integer productId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "DELETE FROM Products " + "WHERE Integer productId = :productId";
+		String hql = "DELETE FROM Products " + "WHERE productId = :productId";
 		Query<Products> query = session.createQuery(hql);
 		query.setParameter("productId", productId);
 		int result = query.executeUpdate();

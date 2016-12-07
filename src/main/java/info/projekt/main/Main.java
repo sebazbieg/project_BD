@@ -19,7 +19,7 @@ public class Main {
 		System.out.println(products.getProductName());
 		System.out.println(products.getProductId());
 		ProductsQueries.addProducts(products);
-		ProductsQueries.deleteProducts(products.getProductName());
+	//	ProductsQueries.deleteProducts(products.getProductName());
 	}
 
 }
