@@ -1,5 +1,6 @@
 package info.projekt.gui.view;
 
+import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
