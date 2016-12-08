@@ -118,31 +118,14 @@ public class ProductOverviewController {
 
 	@FXML
 	private void handleNewProduct() {
-
-		// int selectedIndex =
-		// productTable.getSelectionModel().getSelectedIndex();
-		// if (selectedIndex >= 0) {
-		// ProductModel selectedItem =
-		// productTable.getSelectionModel().getSelectedItem();
-
-		// selectedItem.setCategoryId(null);
 		Products tempProduct = new Products();
 		
 		boolean okClicked = mainAppGUI.showProductEditDialog(tempProduct);
 		if (okClicked) {
-	//		mainAppGUI.getProductData().add(tempProduct);
-			MainAppGUI.productData.removeAll(MainAppGUI.productData);
-			ProductsQueries.addProducts(ProductEditDialogController.productModel);
-			
-			MainAppGUI.productList = ProductsQueries.ProductsList();
-			for (int i = 0; i < MainAppGUI.productList.size(); i++) {
-				tempProduct = MainAppGUI.productList.get(i);
-				MainAppGUI.productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
-						tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
-						Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
-						Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
-			}
-			
+			mainAppGUI.getProductData().removeAll(mainAppGUI.getProductData());
+			ProductsQueries.addProducts(ProductEditDialogController.getProduct());
+			mainAppGUI.setProductList(ProductsQueries.ProductsList());
+			mainAppGUI.refreshProductOverview();			
 		}
 
 	}

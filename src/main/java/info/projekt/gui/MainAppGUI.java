@@ -24,24 +24,27 @@ public class MainAppGUI extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	public static ObservableList<ProductModel> productData = FXCollections.observableArrayList();
-	public static ArrayList<Products> productList = ProductsQueries.ProductsList();
+	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
+	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 	
 	
 
 	public MainAppGUI() {
-		for (int i = 0; i < productList.size(); i++) {
-			Products tempProduct = productList.get(i);
-			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
-					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
-					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
-					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
-		}
+		refreshProductOverview();
 	}
 
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
+	public ArrayList<Products> getProductList() {
+		return productList;
+	}
+	public void setProductList(ArrayList<Products> productList) {
+		this.productList = productList;
+	}
+	
+	
+	
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -122,6 +125,16 @@ public class MainAppGUI extends Application {
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+	
+	public void refreshProductOverview() {
+		for (int i = 0; i < productList.size(); i++) {
+			Products tempProduct = productList.get(i);
+			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
+					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
+					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
+					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+		}
 	}
 
 	public Stage getPrimaryStage() {

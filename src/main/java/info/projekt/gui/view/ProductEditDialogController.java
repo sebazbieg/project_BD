@@ -7,7 +7,6 @@ import info.projekt.dao.SuppliersQueries;
 import info.projekt.database.Categories;
 import info.projekt.database.Products;
 import info.projekt.database.Suppliers;
-import info.projekt.gui.model.ProductModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -33,10 +32,18 @@ public class ProductEditDialogController {
 
 
 	    private Stage dialogStage;
-	    public static Products productModel;
+	    private static Products product;
 	    private boolean okClicked = false;
 
-	    /**
+	    public static Products getProduct() {
+			return product;
+		}
+/*
+		public void setProductModel(Products productModel) {
+			this.productModel = productModel;
+		}
+*/
+		/**
 	     * Initializes the controller class. This method is automatically called
 	     * after the fxml file has been loaded.
 	     */
@@ -58,16 +65,18 @@ public class ProductEditDialogController {
 	     * 
 	     * @param person
 	     */
-	    public void setProduct(Products productModel) {
-	        this.productModel = productModel;
+	    
+	    
+	    public void setProduct(Products product) {
+	        ProductEditDialogController.product = product;
 
-	        productNameField.setText(productModel.getProductName());
-	        quantityPerUnitField.setText(productModel.getQuantityPerUnit());
-	        unitPriceField.setText(String.valueOf(productModel.getUnitPrice()));
-	        unitsInStockField.setText(Integer.toString(productModel.getUnitsInStock()));
-	        unitsOnOrderField.setText(Integer.toString(productModel.getUnitsOnOrder()));
-	        reorderLevelField.setText(Integer.toString(productModel.getReorderLevel()));
-	        discontinuedField.setText(productModel.getDiscontinued());
+	        productNameField.setText(product.getProductName());
+	        quantityPerUnitField.setText(product.getQuantityPerUnit());
+	        unitPriceField.setText(String.valueOf(product.getUnitPrice()));
+	        unitsInStockField.setText(Integer.toString(product.getUnitsInStock()));
+	        unitsOnOrderField.setText(Integer.toString(product.getUnitsOnOrder()));
+	        reorderLevelField.setText(Integer.toString(product.getReorderLevel()));
+	        discontinuedField.setText(product.getDiscontinued());
 	    }
 
 	    /**
@@ -85,18 +94,18 @@ public class ProductEditDialogController {
 	    @FXML
 	    private void handleOk() {
 	        if (isInputValid()) {
-	        	productModel.setProductName(productNameField.getText());
-	        	productModel.setQuantityPerUnit(quantityPerUnitField.getText());
-	        	productModel.setUnitPrice(Double.parseDouble(unitPriceField.getText()));
-	        	productModel.setUnitsInStock(Short.parseShort(unitsInStockField.getText()));
-	        	productModel.setUnitsOnOrder(Short.parseShort(unitsOnOrderField.getText()));
-	        	productModel.setReorderLevel(Short.parseShort(reorderLevelField.getText()));
-	        	productModel.setDiscontinued(discontinuedField.getText());
+	        	getProduct().setProductName(productNameField.getText());
+	        	getProduct().setQuantityPerUnit(quantityPerUnitField.getText());
+	        	getProduct().setUnitPrice(Double.parseDouble(unitPriceField.getText()));
+	        	getProduct().setUnitsInStock(Short.parseShort(unitsInStockField.getText()));
+	        	getProduct().setUnitsOnOrder(Short.parseShort(unitsOnOrderField.getText()));
+	        	getProduct().setReorderLevel(Short.parseShort(reorderLevelField.getText()));
+	        	getProduct().setDiscontinued(discontinuedField.getText());
 	    		Suppliers suppliers = SuppliersQueries.getSupplier();
 	    		//Categories categories = CategoriesQueries.getCustomer();
 	    		ArrayList list = (ArrayList) CategoriesQueries.categoriesList();
-	    		productModel.setCategories((Categories) list.get(1));
-	    		productModel.setSuppliers(suppliers);
+	    		getProduct().setCategories((Categories) list.get(1));
+	    		getProduct().setSuppliers(suppliers);
 
 	            okClicked = true;
 	            dialogStage.close();
