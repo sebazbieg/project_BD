@@ -35,14 +35,6 @@ public class ProductEditDialogController {
 	    private static Products product;
 	    private boolean okClicked = false;
 
-	    public static Products getProduct() {
-			return product;
-		}
-/*
-		public void setProductModel(Products productModel) {
-			this.productModel = productModel;
-		}
-*/
 		/**
 	     * Initializes the controller class. This method is automatically called
 	     * after the fxml file has been loaded.
@@ -65,7 +57,10 @@ public class ProductEditDialogController {
 	     * 
 	     * @param person
 	     */
-	    
+
+	    public static Products getProduct() {
+			return product;
+		}
 	    
 	    public void setProduct(Products product) {
 	        ProductEditDialogController.product = product;
