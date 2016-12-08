@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.RootController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ToggleButton layoutX="6.0" layoutY="14.0" mnemonicParsing="false" text="Produkty" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <ToggleButton layoutX="6.0" layoutY="45.0" mnemonicParsing="false" text="Zamówienia" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <ToggleButton layoutX="6.0" layoutY="77.0" mnemonicParsing="false" text="Klienci" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <ToggleButton layoutX="6.0" layoutY="110.0" mnemonicParsing="false" text="Dostawcy" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <ToggleButton layoutX="6.0" layoutY="143.0" mnemonicParsing="false" text="Przewoźnicy" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <ToggleButton layoutX="6.0" layoutY="175.0" mnemonicParsing="false" text="Pracownicy" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <Button layoutX="24.0" layoutY="361.0" mnemonicParsing="false" text="Wyjście" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
             <Button layoutX="24.0" layoutY="327.0" mnemonicParsing="false" text="Wyloguj" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+            <Button layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleProductsClicked" text="Produkty" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button layoutX="24.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleOrdersClicked" text="Zamówienia" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
          </children>
       </AnchorPane>
    </left>

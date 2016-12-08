@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import info.projekt.dao.ProductsQueries;
+import info.projekt.database.Orders;
 import info.projekt.database.Products;
+import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
 import info.projekt.gui.view.ProductEditDialogController;
 import info.projekt.gui.view.ProductOverviewController;
@@ -23,11 +25,16 @@ public class MainAppGUI extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	
+	public BorderPane getRootLayout() {
+		return rootLayout;
+	}
 
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
-	
-	
+
+	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
+	// private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
 
 	public MainAppGUI() {
 		refreshProductOverview();
@@ -36,15 +43,24 @@ public class MainAppGUI extends Application {
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
+
 	public ArrayList<Products> getProductList() {
 		return productList;
 	}
+
 	public void setProductList(ArrayList<Products> productList) {
 		this.productList = productList;
 	}
-	
-	
-	
+
+	public ObservableList<OrderModel> getOrderData() {
+		return orderData;
+	}
+	// public ArrayList<Orders> getOrderList() {
+	// return orderList;
+	// }
+	// public void setOrderList(ArrayList<Orders> orderList) {
+	// this.orderList = orderList;
+	// }
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -53,7 +69,7 @@ public class MainAppGUI extends Application {
 
 		initRootLayout();
 		// showLoginPane();
-		showProductsOverview();
+		// showProductsOverview();
 	}
 
 	public void initRootLayout() {
@@ -97,36 +113,69 @@ public class MainAppGUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean showProductEditDialog(Products product) {
-	    try {
-	        // Load the fxml file and create a new stage for the popup dialog.
-	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(MainAppGUI.class.getResource("view/ProductEditDialog.fxml"));
-	        AnchorPane page = (AnchorPane) loader.load();
-	        // Create the dialog Stage.
-	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Product");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(primaryStage);
-	        Scene scene = new Scene(page);
-	        dialogStage.setScene(scene);
-	        
-	        // Set the person into the controller.
-	        ProductEditDialogController controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
-	        controller.setProduct(product);
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGUI.class.getResource("view/ProductEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Product");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
 
-	        // Show the dialog and wait until the user closes it
-	        dialogStage.showAndWait();
+			// Set the person into the controller.
+			ProductEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setProduct(product);
 
-	        return controller.isOkClicked();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
+	
+	
+	public void showOrdersOverview() {
+		System.out.println("Tu pojawi się okno z zamówieniami!");
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGUI.class.getResource("view/OrdersOverview.fxml"));
+			AnchorPane ordersOverview = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(ordersOverview);
+
+			ProductOverviewController controller = loader.getController();
+			controller.setMainAppGUI(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean showOrderEditDialog(Orders order) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			
+			// UWAGA !!!!!!!!! PLIK PONIŻEJ NIE ISTNIEJE !!!!!!!
+			
+			loader.setLocation(MainAppGUI.class.getResource("view/ProductEdialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			return true;
+		} catch(IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -137,10 +186,20 @@ public class MainAppGUI extends Application {
 		}
 	}
 
+	public void refreshOrderOverview() {
+//		for (int i = 0; i < orderList.size(); i++) {
+//			Orders tempOrder = orderList.get(i);
+//			orderData.add(
+//					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
+//							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
+//							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
+//		}
+	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
