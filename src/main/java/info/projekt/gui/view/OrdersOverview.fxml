@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.OrderOverviewController">
    <children>
-      <TableView fx:id="orderTable" layoutX="7.0" prefHeight="350.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="orderTable" prefHeight="350.0" prefWidth="850.0">
         <columns>
           <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="customerIdColumn" prefWidth="75.0" text="CustomerID" />

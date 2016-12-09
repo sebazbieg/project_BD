@@ -3,6 +3,7 @@ package info.projekt.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
@@ -36,10 +37,11 @@ public class MainAppGUI extends Application {
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
-	// private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
+	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
 
 	public MainAppGUI() {
 		refreshProductOverview();
+		refreshOrderOverview();
 	}
 
 	public ObservableList<ProductModel> getProductData() {
@@ -71,7 +73,7 @@ public class MainAppGUI extends Application {
 
 		initRootLayout();
 		// showLoginPane();
-		 showProductsOverview();
+		showProductsOverview();
 	}
 
 	public void initRootLayout() {
@@ -192,13 +194,13 @@ public class MainAppGUI extends Application {
 	}
 
 	public void refreshOrderOverview() {
-//		for (int i = 0; i < orderList.size(); i++) {
-//			Orders tempOrder = orderList.get(i);
-//			orderData.add(
-//					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
-//							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
-//							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
-//		}
+		for (int i = 0; i < orderList.size(); i++) {
+			Orders tempOrder = orderList.get(i);
+			orderData.add(
+					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
+							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
+							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
+		}
 	}
 
 	public Stage getPrimaryStage() {

@@ -18,7 +18,7 @@ public class OrdersQueries {
 		ArrayList<Orders> results = (ArrayList<Orders>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		// System.out.println("Rozmiar listy to: " + results.size());
+//		System.out.println("Rozmiar listy to: " + results.size());
 		return results;
 	}
 
