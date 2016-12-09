@@ -9,6 +9,8 @@ import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
+import info.projekt.gui.view.AddProductToOrderDialogController;
+import info.projekt.gui.view.OrderEditDialogController;
 import info.projekt.gui.view.OrderOverviewController;
 import info.projekt.gui.view.ProductEditDialogController;
 import info.projekt.gui.view.ProductOverviewController;
@@ -151,6 +153,35 @@ public class MainAppGui extends Application {
 			return false;
 		}
 	}
+	
+	public boolean showOrderEditDialog(Orders order) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/OrderEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			OrderEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setOrder(order);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public void showOrdersOverview() {
 		System.out.println("Tu pojawi się okno z zamówieniami!");
@@ -168,21 +199,35 @@ public class MainAppGui extends Application {
 		}
 	}
 
-	public boolean showOrderEditDialog(Orders order) {
+	public void/*boolean*/ showAddProductToOrderDialogController(/*Products product*/){
 		try {
+			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-
-			// UWAGA !!!!!!!!! PLIK PONIŻEJ NIE ISTNIEJE !!!!!!!
-
-			loader.setLocation(MainAppGui.class.getResource("view/ProductEdialog.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/AddProductToOrderDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
-			return true;
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Product to Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			AddProductToOrderDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setProduct(product);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+//			return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+//			return false;
 		}
 	}
-
+	
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);

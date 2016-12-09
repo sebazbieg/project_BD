@@ -39,7 +39,7 @@
             <TextField fx:id="shipNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="shipAddressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="shipCityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="shipCityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="shipRegionField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="shipPostalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="shipCountryField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
