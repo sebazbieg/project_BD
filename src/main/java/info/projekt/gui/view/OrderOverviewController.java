@@ -107,7 +107,7 @@ public class OrderOverviewController {
 		if (selectedIndex >= 0) {
 			OrderModel selectedItem = orderTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getOrderId();
-			// OrdersQueries.deleteProducts(id);
+			OrdersQueries.deleteOrders(id);
 			orderTable.getItems().remove(selectedIndex);
 
 		} else {
@@ -129,8 +129,8 @@ public class OrderOverviewController {
 		boolean okClicked = mainAppGui.showOrderEditDialog(tempOrder);
 		if (okClicked) {
 			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
-			// ProductsQueries.addOrder(OrderEditDialogController.getOrder());
-			// mainAppGUI.setOrderList(OrdersQueries.OrdersList());
+	//		OrdersQueries.addOrder(OrderEditDialogController.getOrder());
+			mainAppGui.setOrderList(OrdersQueries.OrdersList());
 			mainAppGui.refreshOrderOverview();
 		}
 

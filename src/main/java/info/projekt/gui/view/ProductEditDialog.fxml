@@ -42,7 +42,7 @@
             <TextField fx:id="discontinuedField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="379.0" layoutY="306.0" prefHeight="40.0" prefWidth="200.0">
+      <ButtonBar layoutX="379.0" layoutY="306.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#handleOk" text="OK" />
             <Button layoutX="3.0" mnemonicParsing="false" onAction="#handleCancel" text="Anuluj" />
