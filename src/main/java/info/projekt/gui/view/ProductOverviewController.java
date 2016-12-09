@@ -8,7 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Products;
-import info.projekt.gui.MainAppGUI;
+import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.ProductModel;
 
 public class ProductOverviewController {
@@ -57,7 +57,7 @@ public class ProductOverviewController {
 	private Label discontinuedLabel;
 
 	// Reference to the main application.
-	private MainAppGUI mainAppGUI;
+	private MainAppGui mainAppGui;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -88,8 +88,8 @@ public class ProductOverviewController {
 	 * 
 	 * @param mainApp
 	 */
-	public void setMainAppGUI(MainAppGUI mainAppGUI) {
-		this.mainAppGUI = mainAppGUI;
+	public void setMainAppGUI(MainAppGui mainAppGui) {
+		this.mainAppGui = mainAppGui;
 
 		// Add observable list data to the table
 		productTable.setItems(mainAppGUI.getProductData());
@@ -107,7 +107,7 @@ public class ProductOverviewController {
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainAppGUI.getPrimaryStage());
+			alert.initOwner(mainAppGui.getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Person Selected");
 			alert.setContentText("Please select a person in the table.");
@@ -120,12 +120,12 @@ public class ProductOverviewController {
 	private void handleNewProduct() {
 		Products tempProduct = new Products();
 		
-		boolean okClicked = mainAppGUI.showProductEditDialog(tempProduct);
+		boolean okClicked = mainAppGui.showProductEditDialog(tempProduct);
 		if (okClicked) {
-			mainAppGUI.getProductData().removeAll(mainAppGUI.getProductData());
+			mainAppGui.getProductData().removeAll(mainAppGui.getProductData());
 			ProductsQueries.addProducts(ProductEditDialogController.getProduct());
-			mainAppGUI.setProductList(ProductsQueries.ProductsList());
-			mainAppGUI.refreshProductOverview();			
+			mainAppGui.setProductList(ProductsQueries.ProductsList());
+			mainAppGui.refreshProductOverview();			
 		}
 
 	}

@@ -24,7 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.lang.Integer;
 
-public class MainAppGUI extends Application {
+public class MainAppGui extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -39,7 +39,7 @@ public class MainAppGUI extends Application {
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
 	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
 
-	public MainAppGUI() {
+	public MainAppGui() {
 		refreshProductOverview();
 		refreshOrderOverview();
 	}
@@ -81,7 +81,7 @@ public class MainAppGUI extends Application {
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGUI.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			Scene scene = new Scene(rootLayout);
@@ -99,7 +99,7 @@ public class MainAppGUI extends Application {
 	public void showLoginPane() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGUI.class.getResource("view/LoginPanel.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/LoginPanel.fxml"));
 			AnchorPane loginPanel = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(loginPanel);
@@ -111,7 +111,7 @@ public class MainAppGUI extends Application {
 	public void showProductsOverview() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGUI.class.getResource("view/ProductsOverview.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/ProductsOverview.fxml"));
 			AnchorPane productsOverview = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(productsOverview);
@@ -127,7 +127,7 @@ public class MainAppGUI extends Application {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGUI.class.getResource("view/ProductEditDialog.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/ProductEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -156,7 +156,7 @@ public class MainAppGUI extends Application {
 		System.out.println("Tu pojawi się okno z zamówieniami!");
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGUI.class.getResource("view/OrdersOverview.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/OrdersOverview.fxml"));
 			AnchorPane ordersOverview = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(ordersOverview);
@@ -174,7 +174,7 @@ public class MainAppGUI extends Application {
 
 			// UWAGA !!!!!!!!! PLIK PONIŻEJ NIE ISTNIEJE !!!!!!!
 
-			loader.setLocation(MainAppGUI.class.getResource("view/ProductEdialog.fxml"));
+			loader.setLocation(MainAppGui.class.getResource("view/ProductEdialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			return true;
 		} catch (IOException e) {

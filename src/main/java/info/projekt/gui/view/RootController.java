@@ -1,11 +1,11 @@
 package info.projekt.gui.view;
 
-import info.projekt.gui.MainAppGUI;
+import info.projekt.gui.MainAppGui;
 import javafx.fxml.FXML;
 
 
 public class RootController {
-	private MainAppGUI mainAppGUI;
+	private MainAppGui mainAppGui;
 	
 	public RootController() {
 	}
@@ -15,23 +15,23 @@ public class RootController {
 		System.out.println("Witaj w programie!");
 	}
 	
-	public void setMainAppGUI(MainAppGUI mainAppGUI) {
-		this.mainAppGUI = mainAppGUI;
+	public void setMainAppGUI(MainAppGui mainAppGUI) {
+		this.mainAppGui = mainAppGUI;
 	}
 	//
-	public MainAppGUI getMainAppGUI() {
-		return mainAppGUI;
+	public MainAppGui getMainAppGUI() {
+		return mainAppGui;
 	}
 	
 	@FXML
 	private void handleProductsClicked() {
-		mainAppGUI.showProductsOverview();
+		mainAppGui.showProductsOverview();
 
 	}
 	
 	@FXML
 	private void handleOrdersClicked() {
-		mainAppGUI.showOrdersOverview();
+		mainAppGui.showOrdersOverview();
 	}
 	
 }

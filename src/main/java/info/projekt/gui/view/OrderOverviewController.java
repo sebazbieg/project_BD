@@ -2,7 +2,7 @@ package info.projekt.gui.view;
 
 import info.projekt.dao.OrdersQueries;
 import info.projekt.database.Orders;
-import info.projekt.gui.MainAppGUI;
+import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.OrderModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 
 public class OrderOverviewController {
-	@FXML 
+	@FXML
 	private TableView<OrderModel> orderTable;
 	@FXML
 	private TableColumn<OrderModel, Integer> orderIdColumn;
@@ -71,24 +71,27 @@ public class OrderOverviewController {
 	private Label shipPostalCodeLabel;
 	@FXML
 	private Label shipCountryLabel;
-	
-	private MainAppGUI mainAppGUI;
-	
-	
-	
-	
-	public OrderOverviewController() {		
+
+	private MainAppGui mainAppGui;
+
+	public OrderOverviewController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
 		orderIdColumn.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty().asObject());
-//		customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customersProperty().asObject());
-//		employeeIdColumn.setCellValueFactory(cellData -> cellData.getValue().employeesIdProperty().asObject());
-//		shipperIdColumn.setCellValueFactory(cellData -> cellData.getValue().shippersProperty().asObject());
-//		orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty().asString().);
-//		requiredDateColumn.setCellValueFactory(cellData -> cellData.getValue().requiredDateProperty().asObject());
-//		shippedDateColumn.setCellValueFactory(cellData -> cellData.getValue().shipAddressProperty().asObject());
+		// customerIdColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().customersProperty().asObject());
+		// employeeIdColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().employeesIdProperty().asObject());
+		// shipperIdColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().shippersProperty().asObject());
+		// orderDateColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().orderDateProperty().asString().);
+		// requiredDateColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().requiredDateProperty().asObject());
+		// shippedDateColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().shipAddressProperty().asObject());
 		freightColumn.setCellValueFactory(cellData -> cellData.getValue().freightProperty().asObject());
 		shipNameColumn.setCellValueFactory(cellData -> cellData.getValue().shipNameProperty());
 		shipAddressColumn.setCellValueFactory(cellData -> cellData.getValue().shipAddressProperty());
@@ -97,25 +100,25 @@ public class OrderOverviewController {
 		shipPostalCodeColumn.setCellValueFactory(cellData -> cellData.getValue().shipPostalCodeProperty());
 		shipCountryColumn.setCellValueFactory(cellData -> cellData.getValue().shipCountryProperty());
 	}
-	
-	public void setMainAppGUI(MainAppGUI mainAppGUI){
-		this.mainAppGUI = mainAppGUI;
-		orderTable.setItems(mainAppGUI.getOrderData());
+
+	public void setMainAppGUI(MainAppGui mainAppGui) {
+		this.mainAppGui = mainAppGui;
+		orderTable.setItems(mainAppGui.getOrderData());
 	}
-	
+
 	@FXML
 	private void handleDeleteOrder() {
 		int selectedIndex = orderTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			OrderModel selectedItem = orderTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getOrderId();
-//			OrdersQueries.deleteProducts(id);
+			// OrdersQueries.deleteProducts(id);
 			orderTable.getItems().remove(selectedIndex);
 
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainAppGUI.getPrimaryStage());
+			alert.initOwner(mainAppGui.getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Person Selected");
 			alert.setContentText("Please select a person in the table.");
@@ -123,17 +126,17 @@ public class OrderOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	private void handleNewOrder() {
 		Orders tempOrder = new Orders();
-		
-		boolean okClicked = mainAppGUI.showOrderEditDialog(tempOrder);
+
+		boolean okClicked = mainAppGui.showOrderEditDialog(tempOrder);
 		if (okClicked) {
-			mainAppGUI.getOrderData().removeAll(mainAppGUI.getOrderData());
-//			ProductsQueries.addOrder(OrderEditDialogController.getOrder());
-//			mainAppGUI.setOrderList(OrdersQueries.OrdersList());
-			mainAppGUI.refreshOrderOverview();			
+			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
+			// ProductsQueries.addOrder(OrderEditDialogController.getOrder());
+			// mainAppGUI.setOrderList(OrdersQueries.OrdersList());
+			mainAppGui.refreshOrderOverview();
 		}
 
 	}
