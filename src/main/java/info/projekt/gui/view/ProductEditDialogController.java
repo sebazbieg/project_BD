@@ -135,7 +135,7 @@ public class ProductEditDialogController {
 	            try {
 	                Double.parseDouble(unitPriceField.getText());
 	            } catch (NumberFormatException e) {
-	                errorMessage += "Podaj cenę w formacje zł.gr!\n"; 
+	                errorMessage += "Podaj cenę w formacie zł.gr!\n"; 
 	            }
 	        }
 	        if (unitsInStockField.getText() == null || unitsInStockField.getText().length() == 0) {
