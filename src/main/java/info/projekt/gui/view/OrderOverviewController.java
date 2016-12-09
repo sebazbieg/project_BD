@@ -86,9 +86,9 @@ public class OrderOverviewController {
 //		customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customersProperty().asObject());
 //		employeeIdColumn.setCellValueFactory(cellData -> cellData.getValue().employeesIdProperty().asObject());
 //		shipperIdColumn.setCellValueFactory(cellData -> cellData.getValue().shippersProperty().asObject());
-//		orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty().asString().);
+//		orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty().asString());
 //		requiredDateColumn.setCellValueFactory(cellData -> cellData.getValue().requiredDateProperty().asObject());
-//		shippedDateColumn.setCellValueFactory(cellData -> cellData.getValue().shipAddressProperty().asObject());
+//		shippedDateColumn.setCellValueFactory(cellData -> cellData.getValue().shippedDateProperty());
 		freightColumn.setCellValueFactory(cellData -> cellData.getValue().freightProperty().asObject());
 		shipNameColumn.setCellValueFactory(cellData -> cellData.getValue().shipNameProperty());
 		shipAddressColumn.setCellValueFactory(cellData -> cellData.getValue().shipAddressProperty());
