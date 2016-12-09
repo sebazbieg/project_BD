@@ -1,5 +1,6 @@
 package info.projekt.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -22,13 +23,13 @@ public class CustomersQueries {
 		session.close();
 	}
 
-	public static List<Customers> customersList() {
+	public static ArrayList<Customers> customersList() {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "FROM Customers";
 		Query query = session.createQuery(hql);
-		List<Customers> results = query.list();
+		ArrayList<Customers> results = (ArrayList<Customers>) query.list();
 		session.getTransaction().commit();
 		session.close();
 		System.out.println("Rozmiar listy to: " + results.size());
@@ -43,7 +44,7 @@ public class CustomersQueries {
 				.createQuery("update Customers set companyName = :stockName" + " where companyName = :stockName2");
 		query.setParameter("stockName", newCompanyName);
 		query.setParameter("stockName2", companyName);
-		int result = query.executeUpdate();
+	//	int result = query.executeUpdate();
 		session.getTransaction().commit();
 		session.close();
 	}

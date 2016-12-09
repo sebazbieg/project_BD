@@ -26,7 +26,7 @@ public class OrdersQueries {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "DELETE FROM Orders " + "WHERE ordersId = :ordersId";
-		Query<Products> query = session.createQuery(hql);
+		Query query = session.createQuery(hql);
 		query.setParameter("ordersId", ordersId);
 		int result = query.executeUpdate();
 		// System.out.println("Rows affected: " + result);
