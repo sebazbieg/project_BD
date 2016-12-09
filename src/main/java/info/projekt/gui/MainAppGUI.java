@@ -3,6 +3,7 @@ package info.projekt.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
@@ -27,7 +28,7 @@ public class MainAppGUI extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+
 	public BorderPane getRootLayout() {
 		return rootLayout;
 	}
@@ -36,11 +37,7 @@ public class MainAppGUI extends Application {
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
-	// private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
-
-	public MainAppGUI() {
-		refreshProductOverview();
-	}
+	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
 
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
@@ -57,13 +54,28 @@ public class MainAppGUI extends Application {
 	public ObservableList<OrderModel> getOrderData() {
 		return orderData;
 	}
-	// public ArrayList<Orders> getOrderList() {
-	// return orderList;
-	// }
-	// public void setOrderList(ArrayList<Orders> orderList) {
-	// this.orderList = orderList;
-	// }
 
+	public ArrayList<Orders> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(ArrayList<Orders> orderList) {
+		this.orderList = orderList;
+	}
+
+	
+	
+	
+	
+	public MainAppGUI() {
+		refreshProductOverview();
+		refreshOrderOverview();
+	}
+
+	
+	
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -71,7 +83,7 @@ public class MainAppGUI extends Application {
 
 		initRootLayout();
 		// showLoginPane();
-		 showProductsOverview();
+		// showProductsOverview();
 	}
 
 	public void initRootLayout() {
@@ -83,7 +95,7 @@ public class MainAppGUI extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 			RootController controller = loader.getController();
 			controller.setMainAppGUI(this);
 		} catch (IOException e) {
@@ -147,9 +159,7 @@ public class MainAppGUI extends Application {
 			return false;
 		}
 	}
-	
-	
-	
+
 	public void showOrdersOverview() {
 		System.out.println("Tu pojawi się okno z zamówieniami!");
 		try {
@@ -165,17 +175,17 @@ public class MainAppGUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean showOrderEditDialog(Orders order) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			
+
 			// UWAGA !!!!!!!!! PLIK PONIŻEJ NIE ISTNIEJE !!!!!!!
-			
+
 			loader.setLocation(MainAppGUI.class.getResource("view/ProductEdialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			return true;
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -192,13 +202,13 @@ public class MainAppGUI extends Application {
 	}
 
 	public void refreshOrderOverview() {
-//		for (int i = 0; i < orderList.size(); i++) {
-//			Orders tempOrder = orderList.get(i);
-//			orderData.add(
-//					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
-//							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
-//							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
-//		}
+		for (int i = 0; i < orderList.size(); i++) {
+			Orders tempOrder = orderList.get(i);
+			orderData.add(
+					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
+							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
+							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
+		}
 	}
 
 	public Stage getPrimaryStage() {
