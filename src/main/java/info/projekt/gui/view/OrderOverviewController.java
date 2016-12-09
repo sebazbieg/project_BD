@@ -1,12 +1,9 @@
 package info.projekt.gui.view;
 
 import info.projekt.dao.OrdersQueries;
-import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
-import info.projekt.database.Products;
 import info.projekt.gui.MainAppGUI;
 import info.projekt.gui.model.OrderModel;
-import info.projekt.gui.model.ProductModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

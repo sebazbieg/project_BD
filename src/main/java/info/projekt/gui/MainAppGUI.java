@@ -28,7 +28,7 @@ public class MainAppGUI extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+
 	public BorderPane getRootLayout() {
 		return rootLayout;
 	}
@@ -59,12 +59,14 @@ public class MainAppGUI extends Application {
 	public ObservableList<OrderModel> getOrderData() {
 		return orderData;
 	}
-	// public ArrayList<Orders> getOrderList() {
-	// return orderList;
-	// }
-	// public void setOrderList(ArrayList<Orders> orderList) {
-	// this.orderList = orderList;
-	// }
+
+	public ArrayList<Orders> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(ArrayList<Orders> orderList) {
+		this.orderList = orderList;
+	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -73,7 +75,7 @@ public class MainAppGUI extends Application {
 
 		initRootLayout();
 		// showLoginPane();
-		showProductsOverview();
+		// showProductsOverview();
 	}
 
 	public void initRootLayout() {
@@ -85,7 +87,7 @@ public class MainAppGUI extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 			RootController controller = loader.getController();
 			controller.setMainAppGUI(this);
 		} catch (IOException e) {
@@ -149,9 +151,7 @@ public class MainAppGUI extends Application {
 			return false;
 		}
 	}
-	
-	
-	
+
 	public void showOrdersOverview() {
 		System.out.println("Tu pojawi się okno z zamówieniami!");
 		try {
@@ -167,17 +167,17 @@ public class MainAppGUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean showOrderEditDialog(Orders order) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			
+
 			// UWAGA !!!!!!!!! PLIK PONIŻEJ NIE ISTNIEJE !!!!!!!
-			
+
 			loader.setLocation(MainAppGUI.class.getResource("view/ProductEdialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			return true;
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
 		}
