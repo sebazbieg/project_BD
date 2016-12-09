@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.model.OrderModel;
@@ -184,7 +185,6 @@ public class MainAppGui extends Application {
 	}
 
 	public void showOrdersOverview() {
-		System.out.println("Tu pojawi się okno z zamówieniami!");
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainAppGui.class.getResource("view/OrdersOverview.fxml"));
@@ -199,34 +199,7 @@ public class MainAppGui extends Application {
 		}
 	}
 
-	public void/*boolean*/ showAddProductToOrderDialogController(/*Products product*/){
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAppGui.class.getResource("view/AddProductToOrderDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Add Product to Order");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
 
-			// Set the person into the controller.
-			AddProductToOrderDialogController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setProduct(product);
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-
-//			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-//			return false;
-		}
-	}
 	
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {

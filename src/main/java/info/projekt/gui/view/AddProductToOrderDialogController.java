@@ -1,5 +1,6 @@
 package info.projekt.gui.view;
 
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Products;
 import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.ProductModel;
@@ -31,7 +32,7 @@ public class AddProductToOrderDialogController {
 	}
 	
     private Stage dialogStage;
-    private static Products productToOrder;
+    private static OrderDetails orderDetails;
     private boolean okClicked = false;
 	
 	@FXML
@@ -45,21 +46,17 @@ public class AddProductToOrderDialogController {
         this.dialogStage = dialogStage;
     }
     
-    public static Products getProductToOrder() {
-		return productToOrder;
+    public static OrderDetails getOrderDetails() {
+		return orderDetails;
 	}
-//    
-//    public void setProduct(Products productToOrder) {
-//        ProductEditDialogController.productToOrder = productToOrder;
-//
-//        quantityField.setText(productToOrder.getQuantityPerUnit());
-//        unitPriceField.setText(String.valueOf(productToOrder.getUnitPrice()));
-//        unitsInStockField.setText(Integer.toString(productToOrder.getUnitsInStock()));
-//        unitsOnOrderField.setText(Integer.toString(productToOrder.getUnitsOnOrder()));
-//        reorderLevelField.setText(Integer.toString(productToOrder.getReorderLevel()));
-//        discontinuedField.setText(productToOrder.getDiscontinued());
-//    }
-//	
+    
+    public void setOrderDetails(OrderDetails orderDetails) {
+    	AddProductToOrderDialogController.orderDetails = orderDetails;
+    	
+    	quantityField.setText(Short.toString(orderDetails.getQuantity()));
+    	discountField.setText(Float.toString(orderDetails.getDiscount()));
+    }
+	
 	public void setMainAppGUI(MainAppGui mainAppGui) {
 		this.mainAppGui = mainAppGui;
 		addProductToOrderTable.setItems(mainAppGui.getProductData());
@@ -67,12 +64,16 @@ public class AddProductToOrderDialogController {
 	
 	@FXML
 	private void handleAdd() {
-		
+		System.out.println("cos");
 	}
 	
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
+	}
+
+	public boolean isOkClicked() {
+		return okClicked;
 	}
 	
 	

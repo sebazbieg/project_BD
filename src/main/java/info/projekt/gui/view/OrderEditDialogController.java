@@ -1,5 +1,6 @@
 package info.projekt.gui.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import info.projekt.dao.CustomersQueries;
@@ -7,12 +8,17 @@ import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.OrdersQueries;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.gui.MainAppGui;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class OrderEditDialogController {
@@ -83,6 +89,37 @@ public class OrderEditDialogController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
+	
+	public boolean showAddProductToOrderDialog(OrderDetails orderDetails){
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/AddProductToOrderDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Product to Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+	//		dialogStage.initOwner(mainAppGui.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			AddProductToOrderDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setOrderDetails(orderDetails);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			System.out.println("1");
+			e.printStackTrace();
+			System.out.println("2");
+			return false;
+		}
+	}
 
 	/**
 	 * Called when the user clicks ok.
@@ -119,9 +156,8 @@ public class OrderEditDialogController {
 	
 	@FXML
 	private void handleAddProduct(){
-//		Orders tempOrder = new Orders();
-
-	/*	boolean okClicked =*/ mainAppGui.showAddProductToOrderDialogController(/*tempOrder*/);
+		OrderDetails tempOrderDetails = new OrderDetails();
+		boolean okClicked = showAddProductToOrderDialog(tempOrderDetails);
 		if (okClicked) {
 //			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
 //			OrdersQueries.addOrder(OrderEditDialogController.getOrder());
