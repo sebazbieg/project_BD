@@ -92,7 +92,7 @@ public class ProductOverviewController {
 		this.mainAppGui = mainAppGui;
 
 		// Add observable list data to the table
-		productTable.setItems(mainAppGUI.getProductData());
+		productTable.setItems(mainAppGui.getProductData());
 	}
 
 	@FXML
