@@ -39,6 +39,11 @@ public class MainAppGUI extends Application {
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
 	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
 
+	public MainAppGUI() {
+		refreshProductOverview();
+		refreshOrderOverview();
+	}
+
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
@@ -63,19 +68,6 @@ public class MainAppGUI extends Application {
 		this.orderList = orderList;
 	}
 
-	
-	
-	
-	
-	public MainAppGUI() {
-		refreshProductOverview();
-		refreshOrderOverview();
-	}
-
-	
-	
-	
-	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
