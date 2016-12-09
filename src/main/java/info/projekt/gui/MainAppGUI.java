@@ -8,8 +8,10 @@ import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
+import info.projekt.gui.view.OrderOverviewController;
 import info.projekt.gui.view.ProductEditDialogController;
 import info.projekt.gui.view.ProductOverviewController;
+import info.projekt.gui.view.RootController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,7 +71,7 @@ public class MainAppGUI extends Application {
 
 		initRootLayout();
 		// showLoginPane();
-		// showProductsOverview();
+		 showProductsOverview();
 	}
 
 	public void initRootLayout() {
@@ -81,6 +83,9 @@ public class MainAppGUI extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			RootController controller = loader.getController();
+			controller.setMainAppGUI(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -154,7 +159,7 @@ public class MainAppGUI extends Application {
 
 			rootLayout.setCenter(ordersOverview);
 
-			ProductOverviewController controller = loader.getController();
+			OrderOverviewController controller = loader.getController();
 			controller.setMainAppGUI(this);
 		} catch (IOException e) {
 			e.printStackTrace();
