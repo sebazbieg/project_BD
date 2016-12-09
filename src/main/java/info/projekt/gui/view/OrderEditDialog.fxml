@@ -56,6 +56,6 @@
           <TableColumn fx:id="addedProductNameColumn" minWidth="50.0" prefWidth="500.0" text="Nazwa produktu" />
           <TableColumn fx:id="addedProductQuantityColumn" prefWidth="100.0" text="Ilość" />
         </columns>
-      </TableView>
+      </TableView> 
    </children>
 </AnchorPane>
