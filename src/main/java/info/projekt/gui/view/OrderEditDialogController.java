@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
+import info.projekt.dao.OrdersQueries;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
 import info.projekt.database.Orders;
+import info.projekt.gui.MainAppGui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -32,6 +34,7 @@ public class OrderEditDialogController {
 	private Stage dialogStage;
 	private static Orders order;
 	private boolean okClicked = false;
+	private MainAppGui mainAppGui;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -60,7 +63,7 @@ public class OrderEditDialogController {
 		return order;
 	}
 
-	public void setProduct(Orders order) {
+	public void setOrder(Orders order) {
 		OrderEditDialogController.order = order;
 
 		freightField.setText(Double.toString(order.getFreight()));
@@ -112,6 +115,19 @@ public class OrderEditDialogController {
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
+	}
+	
+	@FXML
+	private void handleAddProduct(){
+//		Orders tempOrder = new Orders();
+
+	/*	boolean okClicked =*/ mainAppGui.showAddProductToOrderDialogController(/*tempOrder*/);
+		if (okClicked) {
+//			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
+//			OrdersQueries.addOrder(OrderEditDialogController.getOrder());
+//			mainAppGui.setOrderList(OrdersQueries.OrdersList());
+//			mainAppGui.refreshOrderOverview();
+		}
 	}
 	/**
 	 * Validates the user input in the text fields.

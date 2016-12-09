@@ -1,7 +1,9 @@
 package info.projekt.gui.view;
 
 import info.projekt.dao.OrdersQueries;
+import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
+import info.projekt.database.Products;
 import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.OrderModel;
 import javafx.fxml.FXML;
@@ -125,13 +127,13 @@ public class OrderOverviewController {
 	@FXML
 	private void handleNewOrder() {
 		Orders tempOrder = new Orders();
-
+		
 		boolean okClicked = mainAppGui.showOrderEditDialog(tempOrder);
 		if (okClicked) {
 			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
-	//		OrdersQueries.addOrder(OrderEditDialogController.getOrder());
+			OrdersQueries.addOrders(OrderEditDialogController.getOrder());
 			mainAppGui.setOrderList(OrdersQueries.OrdersList());
-			mainAppGui.refreshOrderOverview();
+			mainAppGui.refreshOrderOverview();			
 		}
 
 	}
