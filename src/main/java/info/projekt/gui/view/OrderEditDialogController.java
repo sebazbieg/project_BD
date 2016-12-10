@@ -6,11 +6,16 @@ import java.util.Date;
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.OrdersQueries;
+import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
+import info.projekt.database.Products;
 import info.projekt.gui.MainAppGui;
+import info.projekt.gui.model.ProductModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,7 +46,16 @@ public class OrderEditDialogController {
 	private static Orders order;
 	private boolean okClicked = false;
 	private MainAppGui mainAppGui;
+	private OrderEditDialogController orderEditDialogController;
+	
 
+	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
+	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	
+	public OrderEditDialogController(){
+		refreshProductOverview();
+	}
+	
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
@@ -80,6 +94,23 @@ public class OrderEditDialogController {
 		shipPostalCodeField.setText(order.getShipPostalCode());
 		shipCountryField.setText(order.getShipCountry());
 	}
+	
+	public ObservableList<ProductModel> getProductData() {
+		return productData;
+	}
+
+	
+	
+	
+	public void refreshProductOverview() {
+		for (int i = 0; i < productList.size(); i++) {
+			Products tempProduct = productList.get(i);
+			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
+					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
+					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
+					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+		}
+	}
 
 	/**
 	 * Returns true if the user clicked OK, false otherwise.
@@ -108,6 +139,7 @@ public class OrderEditDialogController {
 			AddProductToOrderDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setOrderDetails(orderDetails);
+			controller.setOrderEditDialogController(this);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -120,7 +152,6 @@ public class OrderEditDialogController {
 			return false;
 		}
 	}
-
 	/**
 	 * Called when the user clicks ok.
 	 */

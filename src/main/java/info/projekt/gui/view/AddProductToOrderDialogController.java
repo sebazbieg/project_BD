@@ -1,9 +1,17 @@
 package info.projekt.gui.view;
 
+import java.util.ArrayList;
+
+import info.projekt.dao.OrdersQueries;
+import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
+import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.MainAppGui;
+import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,7 +34,7 @@ public class AddProductToOrderDialogController {
 	@FXML 
 	private TextField discountField;
 	
-	private MainAppGui mainAppGui;
+	private OrderEditDialogController orderEditDialogController;
 	
 	public AddProductToOrderDialogController() {
 	}
@@ -50,6 +58,11 @@ public class AddProductToOrderDialogController {
 		return orderDetails;
 	}
     
+	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
+		this.orderEditDialogController = orderEditDialogController;
+		addProductToOrderTable.setItems(orderEditDialogController.getProductData());
+	}
+    
     public void setOrderDetails(OrderDetails orderDetails) {
     	AddProductToOrderDialogController.orderDetails = orderDetails;
     	
@@ -57,11 +70,7 @@ public class AddProductToOrderDialogController {
     	discountField.setText(Float.toString(orderDetails.getDiscount()));
     }
 	
-	public void setMainAppGUI(MainAppGui mainAppGui) {
-		this.mainAppGui = mainAppGui;
-		addProductToOrderTable.setItems(mainAppGui.getProductData());
-	}
-	
+
 	@FXML
 	private void handleAdd() {
 		System.out.println("cos");
@@ -75,11 +84,5 @@ public class AddProductToOrderDialogController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-	
-	
-	
-	
-	
-
 
 }
