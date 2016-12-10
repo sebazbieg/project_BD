@@ -39,6 +39,19 @@ public class ProductsQueries {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public static Products getProducts(Integer productId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Products " + "WHERE productId = :productId";
+		Query<Products> query = session.createQuery(hql);
+		query.setParameter("productId", productId);
+		Products result = (Products) query.getSingleResult();
+//		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
 
 	public static void addProducts(Products products) {
 		Session session = HibernateUtil.getSessionFactory().openSession();

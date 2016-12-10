@@ -5,12 +5,10 @@ import java.util.ArrayList;
 
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
-import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
-import info.projekt.gui.view.AddProductToOrderDialogController;
 import info.projekt.gui.view.OrderEditDialogController;
 import info.projekt.gui.view.OrderOverviewController;
 import info.projekt.gui.view.ProductEditDialogController;

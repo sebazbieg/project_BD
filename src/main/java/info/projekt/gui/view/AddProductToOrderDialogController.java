@@ -1,21 +1,19 @@
 package info.projekt.gui.view;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
-import info.projekt.gui.MainAppGui;
-import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class AddProductToOrderDialogController {
@@ -42,6 +40,8 @@ public class AddProductToOrderDialogController {
     private Stage dialogStage;
     private static OrderDetails orderDetails;
     private boolean okClicked = false;
+    private Orders order;
+	private Set<OrderDetails> orderDetailses = new HashSet<OrderDetails>(0);
 	
 	@FXML
 	private void initialize() {
@@ -70,11 +70,39 @@ public class AddProductToOrderDialogController {
     	discountField.setText(Float.toString(orderDetails.getDiscount()));
     }
 	
+    @FXML
+    private void handleAdd() {
+		int selectedIndex = addProductToOrderTable.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >= 0) {
+			ProductModel selectedItem = addProductToOrderTable.getSelectionModel().getSelectedItem();
+			Integer id = selectedItem.getProductId();
+			Products tempProduct = ProductsQueries.getProducts(id);
+			getOrderDetails().setProducts(tempProduct);
+			getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
+			getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
+			getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
+			order = OrderEditDialogController.getOrder();
+			orderDetailses = order.getOrderDetailses();
+			orderDetailses.add(getOrderDetails());
+			orderEditDialogController.setOrder2(order);
+			System.out.println("");
+			dialogStage.close();
+		} else {
+			// Nothing selected.
+			Alert alert = new Alert(AlertType.WARNING);
+//			alert.initOwner(addProductToOrderTable.getPrimaryStage());
+			alert.setTitle("No Selection");
+			alert.setHeaderText("No Person Selected");
+			alert.setContentText("Please select a person in the table.");
 
-	@FXML
-	private void handleAdd() {
-		System.out.println("cos");
+			alert.showAndWait();
+		}
 	}
+
+//	@FXML
+//	private void handleAdd() {
+//		System.out.println("cos");
+//	}
 	
 	@FXML
 	private void handleCancel() {

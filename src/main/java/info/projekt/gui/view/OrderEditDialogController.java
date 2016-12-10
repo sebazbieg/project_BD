@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
-import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
@@ -45,10 +44,6 @@ public class OrderEditDialogController {
 	private Stage dialogStage;
 	private static Orders order;
 	private boolean okClicked = false;
-	private MainAppGui mainAppGui;
-	private OrderEditDialogController orderEditDialogController;
-	
-
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 	
@@ -93,6 +88,10 @@ public class OrderEditDialogController {
 		shipRegionField.setText(order.getShipRegion());
 		shipPostalCodeField.setText(order.getShipPostalCode());
 		shipCountryField.setText(order.getShipCountry());
+	}
+	
+	public void setOrder2(Orders order) {
+		OrderEditDialogController.order = order;
 	}
 	
 	public ObservableList<ProductModel> getProductData() {
