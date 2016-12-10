@@ -97,10 +97,11 @@ public class ProductEditDialogController {
 	        	getProduct().setReorderLevel(Short.parseShort(reorderLevelField.getText()));
 	        	getProduct().setDiscontinued(discontinuedField.getText());
 	    		Suppliers suppliers = SuppliersQueries.getSupplier();
+	    		getProduct().setSuppliers(suppliers);
 	    		//Categories categories = CategoriesQueries.getCustomer();
 	    		ArrayList list = (ArrayList) CategoriesQueries.categoriesList();
 	    		getProduct().setCategories((Categories) list.get(1));
-	    		getProduct().setSuppliers(suppliers);
+	    		
 
 	            okClicked = true;
 	            dialogStage.close();

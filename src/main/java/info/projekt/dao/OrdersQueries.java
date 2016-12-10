@@ -37,8 +37,8 @@ public class OrdersQueries {
 	public static void addOrders(Orders orders) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Orders newOrders = new Orders(orders.getCustomers(), orders.getEmployees(), orders.getShippers(),
-				orders.getOrderDate(), orders.getFreight(), orders.getShipName(), orders.getShipAddress(),
-				orders.getShipCity(), orders.getShipRegion(), orders.getShipPostalCode(), orders.getShipCountry());
+				orders.getOrderDate(), null, null, orders.getFreight(), orders.getShipName(), orders.getShipAddress(),
+				orders.getShipCity(), orders.getShipRegion(), orders.getShipPostalCode(), orders.getShipCountry(), orders.getOrderDetailses());
 		session.beginTransaction();
 		session.save(newOrders);
 		session.getTransaction().commit();

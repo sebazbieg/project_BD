@@ -6,11 +6,13 @@ import java.util.Date;
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.ProductsQueries;
+import info.projekt.dao.ShippersQueries;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
+import info.projekt.database.Shippers;
 import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.ProductModel;
 import javafx.collections.FXCollections;
@@ -46,11 +48,11 @@ public class OrderEditDialogController {
 	private boolean okClicked = false;
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
-	
-	public OrderEditDialogController(){
+
+	public OrderEditDialogController() {
 		refreshProductOverview();
 	}
-	
+
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
@@ -88,19 +90,17 @@ public class OrderEditDialogController {
 		shipRegionField.setText(order.getShipRegion());
 		shipPostalCodeField.setText(order.getShipPostalCode());
 		shipCountryField.setText(order.getShipCountry());
+
 	}
-	
+
 	public void setOrder2(Orders order) {
 		OrderEditDialogController.order = order;
 	}
-	
+
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
 
-	
-	
-	
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -119,8 +119,8 @@ public class OrderEditDialogController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-	
-	public boolean showAddProductToOrderDialog(OrderDetails orderDetails){
+
+	public boolean showAddProductToOrderDialog(OrderDetails orderDetails) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -130,7 +130,7 @@ public class OrderEditDialogController {
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Add Product to Order");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
-	//		dialogStage.initOwner(mainAppGui.getPrimaryStage());
+			// dialogStage.initOwner(mainAppGui.getPrimaryStage());
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -151,6 +151,7 @@ public class OrderEditDialogController {
 			return false;
 		}
 	}
+
 	/**
 	 * Called when the user clicks ok.
 	 */
@@ -166,6 +167,8 @@ public class OrderEditDialogController {
 			getOrder().setShipCountry(shipCountryField.getText());
 			ArrayList<Customers> list = CustomersQueries.customersList();
 			ArrayList<Employees> list2 = EmployeesQueries.employeesList();
+			ArrayList<Shippers> list3 = ShippersQueries.shippersList();
+			getOrder().setShippers((Shippers) list3.get(1));
 			getOrder().setCustomers((Customers) list.get(1));
 			getOrder().setEmployees((Employees) list2.get(1));
 			Date date = new Date();
@@ -175,7 +178,7 @@ public class OrderEditDialogController {
 			dialogStage.close();
 		}
 	}
-	
+
 	/**
 	 * Called when the user clicks cancel.
 	 */
@@ -183,18 +186,19 @@ public class OrderEditDialogController {
 	private void handleCancel() {
 		dialogStage.close();
 	}
-	
+
 	@FXML
-	private void handleAddProduct(){
+	private void handleAddProduct() {
 		OrderDetails tempOrderDetails = new OrderDetails();
 		boolean okClicked = showAddProductToOrderDialog(tempOrderDetails);
 		if (okClicked) {
-//			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
-//			OrdersQueries.addOrder(OrderEditDialogController.getOrder());
-//			mainAppGui.setOrderList(OrdersQueries.OrdersList());
-//			mainAppGui.refreshOrderOverview();
+			// mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
+			// OrdersQueries.addOrder(OrderEditDialogController.getOrder());
+			// mainAppGui.setOrderList(OrdersQueries.OrdersList());
+			// mainAppGui.refreshOrderOverview();
 		}
 	}
+
 	/**
 	 * Validates the user input in the text fields.
 	 * 
@@ -211,31 +215,31 @@ public class OrderEditDialogController {
 				errorMessage += "Podaj cenę w formacie zł.gr!\n";
 			}
 		}
-		
+
 		if (shipNameField.getText() == null || shipNameField.getText().length() == 0) {
 			errorMessage += "Podaj nazwę odbiorcy!\n";
 		}
-		
+
 		if (shipAddressField.getText() == null || shipAddressField.getText().length() == 0) {
-				errorMessage += "Podaj adres nadawcy!\n";
+			errorMessage += "Podaj adres nadawcy!\n";
 		}
-		
+
 		if (shipCityField.getText() == null || shipCityField.getText().length() == 0) {
-					errorMessage += "Podaj miasto nadawcy!\n";
+			errorMessage += "Podaj miasto nadawcy!\n";
 		}
-		
+
 		if (shipRegionField.getText() == null || shipRegionField.getText().length() == 0) {
-						errorMessage += "Podaj region nadawcy!\n";
+			errorMessage += "Podaj region nadawcy!\n";
 		}
-		
+
 		if (shipPostalCodeField.getText() == null || shipPostalCodeField.getText().length() == 0) {
-							errorMessage += "Podaj kod pocztowy nadawcy!\n";
+			errorMessage += "Podaj kod pocztowy nadawcy!\n";
 		}
-		
+
 		if (shipCountryField.getText() == null || shipCountryField.getText().length() == 0) {
-								errorMessage += "Podaj kraj nadawcy!\n";
+			errorMessage += "Podaj kraj nadawcy!\n";
 		}
-		
+
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {

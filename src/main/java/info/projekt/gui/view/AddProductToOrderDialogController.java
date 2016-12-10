@@ -3,6 +3,7 @@ package info.projekt.gui.view;
 import java.util.HashSet;
 import java.util.Set;
 
+import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
@@ -77,15 +78,17 @@ public class AddProductToOrderDialogController {
 			ProductModel selectedItem = addProductToOrderTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getProductId();
 			Products tempProduct = ProductsQueries.getProducts(id);
+			order = OrderEditDialogController.getOrder();
+			getOrderDetails().setOrders(order);
 			getOrderDetails().setProducts(tempProduct);
 			getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
 			getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
 			getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
-			order = OrderEditDialogController.getOrder();
+//			OrderDetailsQueries.addOrderDetails(getOrderDetails());
 			orderDetailses = order.getOrderDetailses();
 			orderDetailses.add(getOrderDetails());
+			order.setOrderDetailses(orderDetailses);
 			orderEditDialogController.setOrder2(order);
-			System.out.println("");
 			dialogStage.close();
 		} else {
 			// Nothing selected.
