@@ -7,6 +7,7 @@ import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
+import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
 import info.projekt.gui.view.OrderEditDialogController;
@@ -30,16 +31,14 @@ public class MainAppGui extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	public BorderPane getRootLayout() {
-		return rootLayout;
-	}
-
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
 	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
-
+	
+	private ObservableList<OrderDetailsModel> orderDetailsData = FXCollections.observableArrayList();
+	
 	public MainAppGui() {
 		refreshProductOverview();
 		refreshOrderOverview();
@@ -60,13 +59,17 @@ public class MainAppGui extends Application {
 	public ObservableList<OrderModel> getOrderData() {
 		return orderData;
 	}
-
+	
 	public ArrayList<Orders> getOrderList() {
 		return orderList;
 	}
 
 	public void setOrderList(ArrayList<Orders> orderList) {
 		this.orderList = orderList;
+	}
+	
+	public ObservableList<OrderDetailsModel> getOrderDetailsData() {
+		return orderDetailsData;
 	}
 
 	@Override
@@ -171,6 +174,7 @@ public class MainAppGui extends Application {
 			OrderEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setOrder(order);
+			controller.setMainAppGui2(this);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

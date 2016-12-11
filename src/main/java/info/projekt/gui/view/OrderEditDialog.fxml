@@ -51,10 +51,12 @@
             <Button layoutX="3.0" mnemonicParsing="false" onAction="#handleCancel" text="Anuluj" />
         </buttons>
       </ButtonBar>
-      <TableView fx:id="addedProductTable" layoutX="14.0" layoutY="300.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="300.0">
+      <TableView fx:id="orderDetailsTable" layoutX="14.0" layoutY="300.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="300.0">
         <columns>
-          <TableColumn fx:id="addedProductNameColumn" minWidth="50.0" prefWidth="500.0" text="Nazwa produktu" />
-          <TableColumn fx:id="addedProductQuantityColumn" prefWidth="100.0" text="Ilość" />
+          <!--TableColumn fx:id="addedProductNameColumn" minWidth="50.0" prefWidth="500.0" text="Nazwa produktu" /-->
+          <TableColumn fx:id="quantityColumn" prefWidth="100.0" text="Ilość" />
+          <TableColumn fx:id="unitPriceColumn" prefWidth="100.0" text="Cena jednostkowa" />
+          <TableColumn fx:id="discountColumn" prefWidth="100.0" text="zniżka" />
         </columns>
       </TableView> 
    </children>

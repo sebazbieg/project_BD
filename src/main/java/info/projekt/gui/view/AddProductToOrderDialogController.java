@@ -3,7 +3,6 @@ package info.projekt.gui.view;
 import java.util.HashSet;
 import java.util.Set;
 
-import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
@@ -42,8 +41,10 @@ public class AddProductToOrderDialogController {
     private static OrderDetails orderDetails;
     private boolean okClicked = false;
     private Orders order;
-	private Set<OrderDetails> orderDetailses = new HashSet<OrderDetails>(0);
+	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>(0);
 	
+
+
 	@FXML
 	private void initialize() {
 		addProductToOrderIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
@@ -70,6 +71,14 @@ public class AddProductToOrderDialogController {
     	quantityField.setText(Short.toString(orderDetails.getQuantity()));
     	discountField.setText(Float.toString(orderDetails.getDiscount()));
     }
+    
+	public Set<OrderDetails> getOrderDetailses() {
+		return orderDetailsSet;
+	}
+
+	public void setOrderDetailses(Set<OrderDetails> orderDetailses) {
+		this.orderDetailsSet = orderDetailses;
+	}
 	
     @FXML
     private void handleAdd() {
@@ -84,10 +93,9 @@ public class AddProductToOrderDialogController {
 			getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
 			getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
 			getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
-//			OrderDetailsQueries.addOrderDetails(getOrderDetails());
-			orderDetailses = order.getOrderDetailses();
-			orderDetailses.add(getOrderDetails());
-			order.setOrderDetailses(orderDetailses);
+			orderDetailsSet = order.getOrderDetailses();
+			orderDetailsSet.add(getOrderDetails());
+			order.setOrderDetailses(orderDetailsSet);
 			orderEditDialogController.setOrder2(order);
 			dialogStage.close();
 		} else {

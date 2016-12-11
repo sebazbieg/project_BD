@@ -3,6 +3,7 @@ package info.projekt.gui.view;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.ProductsQueries;
@@ -14,6 +15,7 @@ import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.database.Shippers;
 import info.projekt.gui.MainAppGui;
+import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.ProductModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +23,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
@@ -42,12 +47,44 @@ public class OrderEditDialogController {
 	private TextField shipPostalCodeField;
 	@FXML
 	private TextField shipCountryField;
+	
+	@FXML
+	private TableView<OrderDetailsModel> orderDetailsTable;
+	@FXML
+	private TableColumn<OrderDetailsModel, Integer> orderDetailsIdColumn;
+	@FXML
+	private TableColumn<OrderDetailsModel, Object> OrdersIdColumn;
+	@FXML
+	private TableColumn<OrderDetailsModel, Object> ProcuctIdColumn;
+	@FXML
+	private TableColumn<OrderDetailsModel, Double> unitPriceColumn;
+	@FXML
+	private TableColumn<OrderDetailsModel, Integer> quantityColumn;
+	@FXML
+	private TableColumn<OrderDetailsModel, Float> discountColumn;
+
+	@FXML
+	private Label orderDetailsIdLabel;
+	@FXML
+	private Label ordersIdLabel;
+	@FXML
+	private Label productIdLabel;
+	@FXML
+	private Label unitPriceLabel;
+	@FXML
+	private Label quantityLabel;
+	@FXML
+	private Label discountLabel;
+
 
 	private Stage dialogStage;
 	private static Orders order;
 	private boolean okClicked = false;
-	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	private ArrayList<OrderDetails> orderDetailsList;
+	private MainAppGui mainAppGui;
+	
+	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 
 	public OrderEditDialogController() {
 		refreshProductOverview();
@@ -59,6 +96,9 @@ public class OrderEditDialogController {
 	 */
 	@FXML
 	private void initialize() {
+		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+		unitPriceColumn.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
+		discountColumn.setCellValueFactory(cellData -> cellData.getValue().discountProperty().asObject());
 	}
 
 	/**
@@ -92,6 +132,11 @@ public class OrderEditDialogController {
 		shipCountryField.setText(order.getShipCountry());
 
 	}
+	
+	public void setMainAppGui2(MainAppGui mainAppGui) {
+		this.mainAppGui = mainAppGui;
+		orderDetailsTable.setItems(mainAppGui.getOrderDetailsData());
+	}
 
 	public void setOrder2(Orders order) {
 		OrderEditDialogController.order = order;
@@ -100,7 +145,7 @@ public class OrderEditDialogController {
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
-
+	
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -108,6 +153,15 @@ public class OrderEditDialogController {
 					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
 					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
 					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+		}
+	}
+	
+	public void refreshOrderDetailsOverView() {
+		orderDetailsList.addAll(order.getOrderDetailses());
+		for (int i = 0; i < orderDetailsList.size(); i++) {
+			OrderDetails tempOrderDetails = orderDetailsList.get(i);
+			mainAppGui.getOrderDetailsData().add(new OrderDetailsModel(null, null, null, tempOrderDetails.getUnitPrice(), tempOrderDetails.getQuantity(),
+					tempOrderDetails.getDiscount()));
 		}
 	}
 
