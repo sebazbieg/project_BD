@@ -32,7 +32,7 @@ public class CustomersQueries {
 		ArrayList<Customers> results = (ArrayList<Customers>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		System.out.println("Rozmiar listy to: " + results.size());
+//		System.out.println("Rozmiar listy to: " + results.size());
 		return results;
 
 	}

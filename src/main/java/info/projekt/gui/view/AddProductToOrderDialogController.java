@@ -1,12 +1,11 @@
 package info.projekt.gui.view;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
+import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.ProductModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,8 +31,6 @@ public class AddProductToOrderDialogController {
 	@FXML 
 	private TextField discountField;
 	
-	private OrderEditDialogController orderEditDialogController;
-	
 	public AddProductToOrderDialogController() {
 	}
 	
@@ -41,7 +38,9 @@ public class AddProductToOrderDialogController {
     private static OrderDetails orderDetails;
     private boolean okClicked = false;
     private Orders order;
-	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>(0);
+//	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>(0);
+	private static ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+	MainAppGui mainAppGui;
 	
 
 
@@ -56,12 +55,19 @@ public class AddProductToOrderDialogController {
         this.dialogStage = dialogStage;
     }
     
-    public static OrderDetails getOrderDetails() {
+    public static ArrayList<OrderDetails> getOrderDetailsList() {
+		return orderDetailsList;
+	}
+    
+    public static void orderDetailsListClear() {
+    	orderDetailsList.clear();
+    }
+    
+	public static OrderDetails getOrderDetails() {
 		return orderDetails;
 	}
     
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
-		this.orderEditDialogController = orderEditDialogController;
 		addProductToOrderTable.setItems(orderEditDialogController.getProductData());
 	}
     
@@ -72,13 +78,13 @@ public class AddProductToOrderDialogController {
     	discountField.setText(Float.toString(orderDetails.getDiscount()));
     }
     
-	public Set<OrderDetails> getOrderDetailses() {
-		return orderDetailsSet;
-	}
-
-	public void setOrderDetailses(Set<OrderDetails> orderDetailses) {
-		this.orderDetailsSet = orderDetailses;
-	}
+//	public Set<OrderDetails> getOrderDetailses() {
+//		return orderDetailsSet;
+//	}
+//
+//	public void setOrderDetailses(Set<OrderDetails> orderDetailses) {
+//		this.orderDetailsSet = orderDetailses;
+//	}
 	
     @FXML
     private void handleAdd() {
@@ -93,10 +99,15 @@ public class AddProductToOrderDialogController {
 			getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
 			getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
 			getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
-			orderDetailsSet = order.getOrderDetailses();
-			orderDetailsSet.add(getOrderDetails());
-			order.setOrderDetailses(orderDetailsSet);
-			orderEditDialogController.setOrder2(order);
+			orderDetailsList.add(getOrderDetails());	
+//			orderDetailsSet = order.getOrderDetailses();
+//			orderDetailsSet.add(getOrderDetails());
+//			order.setOrderDetailses(orderDetailsSet);
+//			orderEditDialogController.setOrder2(order);
+//			orderDetailsList = mainAppGui.getOrderDetailsList();
+//			orderDetailsList.add(getOrderDetails());
+//			mainAppGui.setOrderDetailsList(orderDetailsList);
+			okClicked = true;
 			dialogStage.close();
 		} else {
 			// Nothing selected.

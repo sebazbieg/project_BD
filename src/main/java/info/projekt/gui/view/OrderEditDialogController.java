@@ -23,12 +23,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -47,7 +47,7 @@ public class OrderEditDialogController {
 	private TextField shipPostalCodeField;
 	@FXML
 	private TextField shipCountryField;
-	
+
 	@FXML
 	private TableView<OrderDetailsModel> orderDetailsTable;
 	@FXML
@@ -76,15 +76,13 @@ public class OrderEditDialogController {
 	@FXML
 	private Label discountLabel;
 
-
 	private Stage dialogStage;
 	private static Orders order;
 	private boolean okClicked = false;
-	private ArrayList<Products> productList = ProductsQueries.ProductsList();
-	private ArrayList<OrderDetails> orderDetailsList;
 	private MainAppGui mainAppGui;
-	
+
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
+	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
 	public OrderEditDialogController() {
 		refreshProductOverview();
@@ -132,8 +130,8 @@ public class OrderEditDialogController {
 		shipCountryField.setText(order.getShipCountry());
 
 	}
-	
-	public void setMainAppGui2(MainAppGui mainAppGui) {
+
+	public void setMainAppGui(MainAppGui mainAppGui) {
 		this.mainAppGui = mainAppGui;
 		orderDetailsTable.setItems(mainAppGui.getOrderDetailsData());
 	}
@@ -145,7 +143,7 @@ public class OrderEditDialogController {
 	public ObservableList<ProductModel> getProductData() {
 		return productData;
 	}
-	
+
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -153,15 +151,6 @@ public class OrderEditDialogController {
 					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
 					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
 					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
-		}
-	}
-	
-	public void refreshOrderDetailsOverView() {
-		orderDetailsList.addAll(order.getOrderDetailses());
-		for (int i = 0; i < orderDetailsList.size(); i++) {
-			OrderDetails tempOrderDetails = orderDetailsList.get(i);
-			mainAppGui.getOrderDetailsData().add(new OrderDetailsModel(null, null, null, tempOrderDetails.getUnitPrice(), tempOrderDetails.getQuantity(),
-					tempOrderDetails.getDiscount()));
 		}
 	}
 
@@ -246,10 +235,9 @@ public class OrderEditDialogController {
 		OrderDetails tempOrderDetails = new OrderDetails();
 		boolean okClicked = showAddProductToOrderDialog(tempOrderDetails);
 		if (okClicked) {
-			// mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
-			// OrdersQueries.addOrder(OrderEditDialogController.getOrder());
-			// mainAppGui.setOrderList(OrdersQueries.OrdersList());
-			// mainAppGui.refreshOrderOverview();
+			 mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
+			 mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
+			 mainAppGui.refreshOrderDetails();
 		}
 	}
 

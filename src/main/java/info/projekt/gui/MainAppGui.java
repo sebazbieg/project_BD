@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.gui.model.OrderDetailsModel;
@@ -30,18 +31,20 @@ public class MainAppGui extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
 	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
-	
+
 	private ObservableList<OrderDetailsModel> orderDetailsData = FXCollections.observableArrayList();
-	
+	private ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+
+
 	public MainAppGui() {
 		refreshProductOverview();
 		refreshOrderOverview();
+		refreshOrderDetails();
 	}
 
 	public ObservableList<ProductModel> getProductData() {
@@ -59,7 +62,7 @@ public class MainAppGui extends Application {
 	public ObservableList<OrderModel> getOrderData() {
 		return orderData;
 	}
-	
+
 	public ArrayList<Orders> getOrderList() {
 		return orderList;
 	}
@@ -67,10 +70,23 @@ public class MainAppGui extends Application {
 	public void setOrderList(ArrayList<Orders> orderList) {
 		this.orderList = orderList;
 	}
-	
+
 	public ObservableList<OrderDetailsModel> getOrderDetailsData() {
 		return orderDetailsData;
 	}
+
+	public ArrayList<OrderDetails> getOrderDetailsList() {
+		return orderDetailsList;
+	}
+
+	public void setOrderDetailsList(ArrayList<OrderDetails> orderDetailsList) {
+		this.orderDetailsList = orderDetailsList;
+	}
+	
+	public void getOrderDetailsDataClear() {
+		orderDetailsData.clear();
+	}
+	
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -155,7 +171,7 @@ public class MainAppGui extends Application {
 			return false;
 		}
 	}
-	
+
 	public boolean showOrderEditDialog(Orders order) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -174,7 +190,7 @@ public class MainAppGui extends Application {
 			OrderEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setOrder(order);
-			controller.setMainAppGui2(this);
+			controller.setMainAppGui(this);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -201,8 +217,6 @@ public class MainAppGui extends Application {
 		}
 	}
 
-
-	
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -220,6 +234,14 @@ public class MainAppGui extends Application {
 					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
 							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
 							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
+		}
+	}
+	
+	public void refreshOrderDetails() {
+		for (int i = 0; i < orderDetailsList.size(); i++) {
+			OrderDetails tempProduct = orderDetailsList.get(i);
+			orderDetailsData.add(new OrderDetailsModel(++i, null, null, tempProduct.getUnitPrice(),
+					tempProduct.getQuantity(), tempProduct.getDiscount()));
 		}
 	}
 

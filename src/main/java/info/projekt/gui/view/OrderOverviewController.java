@@ -1,6 +1,10 @@
 package info.projekt.gui.view;
 
+import java.util.ArrayList;
+
+import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.OrdersQueries;
+import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.gui.MainAppGui;
 import info.projekt.gui.model.OrderModel;
@@ -125,13 +129,35 @@ public class OrderOverviewController {
 	@FXML
 	private void handleNewOrder() {
 		Orders tempOrder = new Orders();
+		ArrayList<OrderDetails> tempList = new ArrayList<OrderDetails>();
 		
 		boolean okClicked = mainAppGui.showOrderEditDialog(tempOrder);
 		if (okClicked) {
 			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
-			OrdersQueries.addOrders(OrderEditDialogController.getOrder());
+			tempOrder = OrderEditDialogController.getOrder();
+			Integer orderId = OrdersQueries.addOrders(tempOrder);
 			mainAppGui.setOrderList(OrdersQueries.OrdersList());
-			mainAppGui.refreshOrderOverview();			
+			mainAppGui.refreshOrderOverview();
+			System.out.println(tempOrder.getOrderDate());
+			tempOrder.setOrderId(orderId);
+			tempList = mainAppGui.getOrderDetailsList();
+			for (int i = 0; i < tempList.size(); i++) {
+				OrderDetails temp = tempList.get(i);
+				temp.setOrders(tempOrder);
+				OrderDetailsQueries.addOrderDetails(temp);
+			}
+//			tempList.clear();
+//			mainAppGui.setOrderDetailsList(tempList);
+//			tempList = AddProductToOrderDialogController.getOrderDetailsList();
+//			tempList.clear();
+			AddProductToOrderDialogController.orderDetailsListClear();
+//			mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
+//			mainAppGui.refreshOrderDetails();
+			mainAppGui.getOrderDetailsDataClear();
+			
+			
+			
+			
 		}
 
 	}

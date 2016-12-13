@@ -1,17 +1,10 @@
 package info.projekt.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import info.projekt.database.Categories;
-import info.projekt.database.Customers;
-import info.projekt.database.OrderDetails;
 import info.projekt.database.Products;
-import info.projekt.database.Suppliers;
 
 public class ProductsQueries {
 

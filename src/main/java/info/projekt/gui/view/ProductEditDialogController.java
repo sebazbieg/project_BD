@@ -99,7 +99,7 @@ public class ProductEditDialogController {
 	    		Suppliers suppliers = SuppliersQueries.getSupplier();
 	    		getProduct().setSuppliers(suppliers);
 	    		//Categories categories = CategoriesQueries.getCustomer();
-	    		ArrayList list = (ArrayList) CategoriesQueries.categoriesList();
+	    		ArrayList<Categories> list = (ArrayList<Categories>) CategoriesQueries.categoriesList();
 	    		getProduct().setCategories((Categories) list.get(1));
 	    		
 
