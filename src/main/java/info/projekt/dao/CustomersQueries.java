@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import info.projekt.database.Customers;
+import info.projekt.database.Shippers;
 import info.projekt.dao.HibernateUtil;
 
 public class CustomersQueries {
@@ -59,5 +60,31 @@ public class CustomersQueries {
 		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
+	}
+	
+	public static Customers getCustomer (String companyName) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Customers " + "WHERE companyName = :companyName";
+		Query<Customers> query = session.createQuery(hql);
+		query.setParameter("companyName", companyName);
+		Customers result = (Customers) query.getSingleResult();
+//		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
+	
+	public static Customers getCustomerById (String customerId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Customers " + "WHERE customerId = :customerId";
+		Query<Customers> query = session.createQuery(hql);
+		query.setParameter("customerId", customerId);
+		Customers result = (Customers) query.getSingleResult();
+//		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return result;
 	}
 }

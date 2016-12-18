@@ -15,8 +15,11 @@ import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.database.Shippers;
 import info.projekt.gui.MainAppGui;
+import info.projekt.gui.model.CustomerModel;
+import info.projekt.gui.model.EmployeeModel;
 import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.ProductModel;
+import info.projekt.gui.model.ShipperModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,11 +54,7 @@ public class OrderEditDialogController {
 	@FXML
 	private TableView<OrderDetailsModel> orderDetailsTable;
 	@FXML
-	private TableColumn<OrderDetailsModel, Integer> orderDetailsIdColumn;
-	@FXML
-	private TableColumn<OrderDetailsModel, Object> OrdersIdColumn;
-	@FXML
-	private TableColumn<OrderDetailsModel, Object> ProcuctIdColumn;
+	private TableColumn<OrderDetailsModel, String> productNameColumn;
 	@FXML
 	private TableColumn<OrderDetailsModel, Double> unitPriceColumn;
 	@FXML
@@ -83,9 +82,18 @@ public class OrderEditDialogController {
 
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	private ObservableList<ShipperModel> shipperData = FXCollections.observableArrayList();
+	private ArrayList<Shippers> shipperList = ShippersQueries.shippersList();
+	private ObservableList<CustomerModel> customersData = FXCollections.observableArrayList();
+	private ArrayList<Customers> customersList = CustomersQueries.customersList();
+	private ObservableList<EmployeeModel> employeesData = FXCollections.observableArrayList();
+	private ArrayList<Employees> employeesList = EmployeesQueries.employeesList();
 
 	public OrderEditDialogController() {
 		refreshProductOverview();
+		refreshShippersOverview();
+		refreshCustomerOverview();
+		refreshEmployeeOverview();
 	}
 
 	/**
@@ -94,6 +102,8 @@ public class OrderEditDialogController {
 	 */
 	@FXML
 	private void initialize() {
+		
+		productNameColumn.setCellValueFactory(cellData -> cellData.getValue().productsNameProperty());
 		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		unitPriceColumn.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
 		discountColumn.setCellValueFactory(cellData -> cellData.getValue().discountProperty().asObject());
@@ -107,12 +117,6 @@ public class OrderEditDialogController {
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-
-	/**
-	 * Sets the person to be edited in the dialog.
-	 * 
-	 * @param person
-	 */
 
 	public static Orders getOrder() {
 		return order;
@@ -144,6 +148,18 @@ public class OrderEditDialogController {
 		return productData;
 	}
 
+	public ObservableList<ShipperModel> getShipperData() {
+		return shipperData;
+	}
+
+	public ObservableList<CustomerModel> getCustomersData() {
+		return customersData;
+	}
+
+	public ObservableList<EmployeeModel> getEmployeeData() {
+		return employeesData;
+	}
+
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
@@ -151,6 +167,29 @@ public class OrderEditDialogController {
 					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
 					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
 					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+		}
+	}
+
+	public void refreshShippersOverview() {
+		for (int i = 0; i < shipperList.size(); i++) {
+			Shippers tempShipper = shipperList.get(i);
+			shipperData.add(new ShipperModel(tempShipper.getCompanyName()));
+		}
+	}
+
+	public void refreshEmployeeOverview() {
+		for (int i = 0; i < employeesList.size(); i++) {
+			Employees tempEmployee = employeesList.get(i);
+			employeesData.add(new EmployeeModel(tempEmployee.getFirstName(), tempEmployee.getLastName(),
+					tempEmployee.getTitle()));
+			System.out.println(employeesData.get(i).getEmployeeFirstName());
+		}
+	}
+
+	public void refreshCustomerOverview() {
+		for (int i = 0; i < customersList.size(); i++) {
+			Customers tempCustomer = customersList.get(i);
+			customersData.add(new CustomerModel(tempCustomer.getCompanyName()));
 		}
 	}
 
@@ -188,11 +227,111 @@ public class OrderEditDialogController {
 
 			return controller.isOkClicked();
 		} catch (IOException e) {
-			System.out.println("1");
 			e.printStackTrace();
-			System.out.println("2");
 			return false;
 		}
+	}
+
+	public boolean showAddCustomerToOrderDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/CustomerOverview.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Customer to Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			// dialogStage.initOwner(mainAppGui.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			CustomerOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setOrderEditDialogController(this);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showAddEmployeeToOrderDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/EmployeeOverview.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Employee to Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			// dialogStage.initOwner(mainAppGui.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			EmployeeOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setOrderEditDialogController(this);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showAddShipperToOrderDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/ShipperOverview.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Shipper to Order");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			// dialogStage.initOwner(mainAppGui.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			ShipperOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setOrderEditDialogController(this);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@FXML
+	private void handleAddCustomer() {
+		showAddCustomerToOrderDialog();
+	}
+
+	@FXML
+	private void handleAddEmployee() {
+		showAddEmployeeToOrderDialog();
+	}
+
+	@FXML
+	private void handleAddShipper() {
+		showAddShipperToOrderDialog();
 	}
 
 	/**
@@ -208,12 +347,6 @@ public class OrderEditDialogController {
 			getOrder().setShipRegion(shipRegionField.getText());
 			getOrder().setShipPostalCode(shipPostalCodeField.getText());
 			getOrder().setShipCountry(shipCountryField.getText());
-			ArrayList<Customers> list = CustomersQueries.customersList();
-			ArrayList<Employees> list2 = EmployeesQueries.employeesList();
-			ArrayList<Shippers> list3 = ShippersQueries.shippersList();
-			getOrder().setShippers((Shippers) list3.get(1));
-			getOrder().setCustomers((Customers) list.get(1));
-			getOrder().setEmployees((Employees) list2.get(1));
 			Date date = new Date();
 			getOrder().setOrderDate(date);
 
@@ -235,9 +368,9 @@ public class OrderEditDialogController {
 		OrderDetails tempOrderDetails = new OrderDetails();
 		boolean okClicked = showAddProductToOrderDialog(tempOrderDetails);
 		if (okClicked) {
-			 mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
-			 mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
-			 mainAppGui.refreshOrderDetails();
+			mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
+			mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
+			mainAppGui.refreshOrderDetails();
 		}
 	}
 

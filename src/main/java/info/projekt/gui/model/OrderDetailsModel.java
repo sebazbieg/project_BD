@@ -1,7 +1,6 @@
 package info.projekt.gui.model;
 
 import info.projekt.database.Orders;
-import info.projekt.database.Products;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -10,21 +9,23 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class OrderDetailsModel {
 
 	private final IntegerProperty orderDetailsId;
 	private final ObjectProperty<Orders> orders;
-	private final ObjectProperty<Products> products;
+	private final SimpleStringProperty productName;
 	private final DoubleProperty unitPrice;
 	private final IntegerProperty quantity;
 	private final FloatProperty discount;
 
-	public OrderDetailsModel(Integer orderDetailsId, Orders orders, Products products,
+	public OrderDetailsModel(Integer orderDetailsId, Orders orders, String productName,
 			Double unitPrice, Short quantity, Float discount) {
 		this.orderDetailsId = new SimpleIntegerProperty(orderDetailsId);
 		this.orders = new SimpleObjectProperty<Orders>(orders);
-		this.products = new SimpleObjectProperty<Products>(products);
+		this.productName = new SimpleStringProperty(productName);
 		this.unitPrice = new SimpleDoubleProperty(unitPrice);
 		this.quantity = new SimpleIntegerProperty(quantity);
 		this.discount = new SimpleFloatProperty(discount);
@@ -54,16 +55,16 @@ public class OrderDetailsModel {
 		return orders;
 	}
 	
-	public Products getProducts() {
-		return products.get();
+	public String getProducts() {
+		return productName.get();
 	}
 
-	public void setProducts(Products products) {
-		this.products.set(products);
+	public void setProductsName(String productName) {
+		this.productName.set(productName);
 	}
 
-	public ObjectProperty<Products> productsProperty() {
-		return products;
+	public StringProperty productsNameProperty() {
+		return productName;
 	}
 	
 	public Double getUnitPrice() {

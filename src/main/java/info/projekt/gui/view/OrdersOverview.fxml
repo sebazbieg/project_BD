@@ -18,12 +18,12 @@
       <TableView fx:id="orderTable" layoutX="7.0" prefHeight="350.0" prefWidth="850.0">
         <columns>
           <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="customerIdColumn" prefWidth="75.0" text="CustomerID" />
-            <TableColumn fx:id="employeeIdColumn" prefWidth="75.0" text="EmployeeID" />
-            <TableColumn fx:id="orderDateColumn" prefWidth="75.0" text="OrderDate" />
-            <TableColumn fx:id="requiredDateColumn" prefWidth="75.0" text="RequiredDate" />
-            <TableColumn fx:id="shippedDateColumn" prefWidth="75.0" text="ShippedDate" />
-            <TableColumn fx:id="shipperIdColumn" prefWidth="75.0" text="ShipVia" />
+          <TableColumn fx:id="customerIdColumn" prefWidth="200.0" text="Customer" />
+            <TableColumn fx:id="employeeIdColumn" prefWidth="150.0" text="Employee" />
+            <TableColumn fx:id="orderDateColumn" prefWidth="100.0" text="OrderDate" />
+            <TableColumn fx:id="requiredDateColumn" prefWidth="100.0" text="RequiredDate" />
+            <TableColumn fx:id="shippedDateColumn" prefWidth="100.0" text="ShippedDate" />
+            <TableColumn fx:id="shipperIdColumn" prefWidth="100.0" text="ShipVia" />
             <TableColumn fx:id="freightColumn" prefWidth="75.0" text="Freight" />
             <TableColumn fx:id="shipNameColumn" prefWidth="75.0" text="ShipName" />
             <TableColumn fx:id="shipAddressColumn" prefWidth="75.0" text="ShipAddress" />

@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="info.projekt.gui.view.AddProductToOrderDialogController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.AddProductToOrderDialogController">
    <children>
       <ButtonBar layoutX="378.0" layoutY="338.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <buttons>
@@ -40,7 +39,7 @@
         <columns>
           <TableColumn fx:id="addProductToOrderIdColumn" prefWidth="50.0" text="ID" />
           <TableColumn fx:id="addProductToOrderNameColumn" prefWidth="300.0" text="Nazwa produktu" />
-            <TableColumn fx:id="addProductToOrderPriceColumn" prefWidth="100.0" text="Aktualna cena" />
+            <TableColumn fx:id="addProductToOrderPriceColumn" prefWidth="139.0" text="Aktualna cena" />
         </columns>
       </TableView>
    </children>

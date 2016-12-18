@@ -1,6 +1,7 @@
 package info.projekt.gui.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.OrdersQueries;
@@ -21,17 +22,17 @@ public class OrderOverviewController {
 	@FXML
 	private TableColumn<OrderModel, Integer> orderIdColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> customerIdColumn;
+	private TableColumn<OrderModel, String> customerIdColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> employeeIdColumn;
+	private TableColumn<OrderModel, String> employeeIdColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> shipperIdColumn;
+	private TableColumn<OrderModel, String> shipperIdColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> orderDateColumn;
+	private TableColumn<OrderModel, Date> orderDateColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> requiredDateColumn;
+	private TableColumn<OrderModel, Date> requiredDateColumn;
 	@FXML
-	private TableColumn<OrderModel, Object> shippedDateColumn;
+	private TableColumn<OrderModel, Date> shippedDateColumn;
 	@FXML
 	private TableColumn<OrderModel, Double> freightColumn;
 	@FXML
@@ -84,13 +85,12 @@ public class OrderOverviewController {
 	@FXML
 	private void initialize() {
 		orderIdColumn.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty().asObject());
-//		customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customersProperty().asObject());
-//		employeeIdColumn.setCellValueFactory(cellData -> cellData.getValue().employeesIdProperty().asObject());
-//		shipperIdColumn.setCellValueFactory(cellData -> cellData.getValue().shippersProperty().asObject());
-//		orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty().asString());
-//		requiredDateColumn.setCellValueFactory(cellData -> cellData.getValue().requiredDateProperty().asObject());
-//		shippedDateColumn.setCellValueFactory(cellData -> cellData.getValue().shippedDateProperty());
-
+		customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customersNameProperty());
+		employeeIdColumn.setCellValueFactory(cellData -> cellData.getValue().employeesNameProperty());
+		shipperIdColumn.setCellValueFactory(cellData -> cellData.getValue().shippersNameProperty());
+		orderDateColumn.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty());
+		requiredDateColumn.setCellValueFactory(cellData -> cellData.getValue().requiredDateProperty());
+		shippedDateColumn.setCellValueFactory(cellData -> cellData.getValue().shippedDateProperty());
 		freightColumn.setCellValueFactory(cellData -> cellData.getValue().freightProperty().asObject());
 		shipNameColumn.setCellValueFactory(cellData -> cellData.getValue().shipNameProperty());
 		shipAddressColumn.setCellValueFactory(cellData -> cellData.getValue().shipAddressProperty());
@@ -138,7 +138,6 @@ public class OrderOverviewController {
 			Integer orderId = OrdersQueries.addOrders(tempOrder);
 			mainAppGui.setOrderList(OrdersQueries.OrdersList());
 			mainAppGui.refreshOrderOverview();
-			System.out.println(tempOrder.getOrderDate());
 			tempOrder.setOrderId(orderId);
 			tempList = mainAppGui.getOrderDetailsList();
 			for (int i = 0; i < tempList.size(); i++) {

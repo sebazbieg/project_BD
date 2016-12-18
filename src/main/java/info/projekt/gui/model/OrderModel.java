@@ -1,9 +1,6 @@
 package info.projekt.gui.model;
 
 import java.util.Date;
-import info.projekt.database.Customers;
-import info.projekt.database.Employees;
-import info.projekt.database.Shippers;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -16,9 +13,9 @@ import javafx.beans.property.StringProperty;
 public class OrderModel {
 
 	private final IntegerProperty orderId;
-	private final ObjectProperty<Customers> customers;
-	private final ObjectProperty<Employees> employees;
-	private final ObjectProperty<Shippers> shippers;
+	private final StringProperty customersName;
+	private final StringProperty employeesName;
+	private final StringProperty shippersName;
 	private final ObjectProperty<Date> orderDate;
 	private final ObjectProperty<Date> requiredDate;
 	private final ObjectProperty<Date> shippedDate;
@@ -30,13 +27,13 @@ public class OrderModel {
 	private final StringProperty shipPostalCode;
 	private final StringProperty shipCountry;
 
-	public OrderModel(Integer orderId, Customers customers, Employees employees, Shippers shippers, Date orderDate,
+	public OrderModel(Integer orderId, String customersName, String employeesName, String shippersName, Date orderDate,
 			Date requiredDate, Date shippedDate, Double freight, String shipName, String shipAddress, String shipCity,
 			String shipRegion, String shipPostalCode, String shipCountry) {
 		this.orderId = new SimpleIntegerProperty(orderId);
-		this.customers = new SimpleObjectProperty<Customers>(customers);
-		this.employees = new SimpleObjectProperty<Employees>(employees);
-		this.shippers = new SimpleObjectProperty<Shippers>(shippers);
+		this.customersName = new SimpleStringProperty(customersName);
+		this.employeesName = new SimpleStringProperty(employeesName);
+		this.shippersName = new SimpleStringProperty(shippersName);
 		this.orderDate = new SimpleObjectProperty<Date>(orderDate);
 		this.requiredDate = new SimpleObjectProperty<Date>(requiredDate);
 		this.shippedDate = new SimpleObjectProperty<Date>(shippedDate);
@@ -61,40 +58,40 @@ public class OrderModel {
 		return orderId;
 	}
 
-	public Customers getCustomers() {
-		return customers.get();
+	public String getCustomersName() {
+		return customersName.get();
 	}
 
-	public void setCustomers(Customers customers) {
-		this.customers.set(customers);
+	public void setCustomersName(String customersName) {
+		this.customersName.set(customersName);
 	}
 
-	public ObjectProperty<Customers> customersProperty() {
-		return customers;
+	public StringProperty customersNameProperty() {
+		return customersName;
 	}
 
-	public Employees getEmployees() {
-		return employees.get();
+	public String getEmployeesName() {
+		return employeesName.get();
 	}
 
-	public void setEmployees(Employees employees) {
-		this.employees.set(employees);
+	public void setEmployeesName(String employeesName) {
+		this.employeesName.set(employeesName);
 	}
 
-	public ObjectProperty<Employees> employeesIdProperty() {
-		return employees;
+	public StringProperty employeesNameProperty() {
+		return employeesName;
 	}
 
-	public Shippers getShippers() {
-		return shippers.get();
+	public String getShippersName() {
+		return shippersName.get();
 	}
 
-	public void setShippers(Shippers shippers) {
-		this.shippers.set(shippers);
+	public void setShippersName(String shippersName) {
+		this.shippersName.set(shippersName);
 	}
 
-	public ObjectProperty<Shippers> shippersProperty() {
-		return shippers;
+	public StringProperty shippersNameProperty() {
+		return shippersName;
 	}
 
 	public Date getOrderDate() {

@@ -3,11 +3,17 @@ package info.projekt.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info.projekt.dao.CustomersQueries;
+import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
+import info.projekt.dao.ShippersQueries;
+import info.projekt.database.Customers;
+import info.projekt.database.Employees;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
+import info.projekt.database.Shippers;
 import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
@@ -39,7 +45,6 @@ public class MainAppGui extends Application {
 
 	private ObservableList<OrderDetailsModel> orderDetailsData = FXCollections.observableArrayList();
 	private ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
-
 
 	public MainAppGui() {
 		refreshProductOverview();
@@ -82,11 +87,10 @@ public class MainAppGui extends Application {
 	public void setOrderDetailsList(ArrayList<OrderDetails> orderDetailsList) {
 		this.orderDetailsList = orderDetailsList;
 	}
-	
+
 	public void getOrderDetailsDataClear() {
 		orderDetailsData.clear();
 	}
-	
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -230,18 +234,24 @@ public class MainAppGui extends Application {
 	public void refreshOrderOverview() {
 		for (int i = 0; i < orderList.size(); i++) {
 			Orders tempOrder = orderList.get(i);
+			Customers tempCustomer = tempOrder.getCustomers();
+			tempCustomer = CustomersQueries.getCustomerById(tempCustomer.getCustomerId());
+			Employees tempEmployee = tempOrder.getEmployees();
+			tempEmployee = EmployeesQueries.getEmployee(tempEmployee.getEmployeeId());
+			Shippers tempShipper = tempOrder.getShippers();
+			tempShipper = ShippersQueries.getShipper(tempShipper.getShipperId());
 			orderData.add(
-					new OrderModel(tempOrder.getOrderId(), null, null, null, null, null, null, tempOrder.getFreight(),
+					new OrderModel(tempOrder.getOrderId(), tempCustomer.getCompanyName(), tempEmployee.getLastName(), tempShipper.getCompanyName(), tempOrder.getOrderDate(), tempOrder.getRequiredDate(), tempOrder.getShippedDate(), tempOrder.getFreight(),
 							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
 							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
 		}
 	}
-	
+
 	public void refreshOrderDetails() {
 		for (int i = 0; i < orderDetailsList.size(); i++) {
-			OrderDetails tempProduct = orderDetailsList.get(i);
-			orderDetailsData.add(new OrderDetailsModel(++i, null, null, tempProduct.getUnitPrice(),
-					tempProduct.getQuantity(), tempProduct.getDiscount()));
+			OrderDetails tempOrderDetails = orderDetailsList.get(i);
+			orderDetailsData.add(new OrderDetailsModel(++i, null, tempOrderDetails.getProducts().getProductName(), tempOrderDetails.getUnitPrice(),
+					tempOrderDetails.getQuantity(), tempOrderDetails.getDiscount()));
 		}
 	}
 

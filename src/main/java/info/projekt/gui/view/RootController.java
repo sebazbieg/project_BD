@@ -12,7 +12,7 @@ public class RootController {
 	
 	@FXML
 	private void initialize() {
-		System.out.println("Witaj w programie!");
+//		System.out.println("Witaj w programie!");
 	}
 	
 	public void setMainAppGUI(MainAppGui mainAppGUI) {
