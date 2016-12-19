@@ -7,22 +7,9 @@ import org.hibernate.query.Query;
 
 import info.projekt.database.Categories;
 import info.projekt.database.Customers;
+import info.projekt.database.Suppliers;
 
 public class CategoriesQueries {
-
-	public static Categories getCustomer() {
-		int id = 1;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		String hql = "from Categories where categoryId = :id";
-		Query query = session.createQuery(hql);
-		query.setParameter("id", id);
-		Categories results = (Categories) query.getSingleResult();
-		System.out.println("bum10");
-		session.getTransaction().commit();
-		session.close();
-		return results;
-	}
 
 	public static List<Categories> categoriesList() {
 
@@ -35,6 +22,18 @@ public class CategoriesQueries {
 		session.close();
 		System.out.println("Rozmiar listy to: " + results.size());
 		return results;
+	}
 
+	public static Categories getCategory(Byte categoryId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Categories " + "WHERE categoryId = :categoryId";
+		Query<Categories> query = session.createQuery(hql);
+		query.setParameter("categoryId", categoryId);
+		Categories result = (Categories) query.getSingleResult();
+		// System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return result;
 	}
 }

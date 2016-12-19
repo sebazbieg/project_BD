@@ -19,9 +19,9 @@ public class ProductOverviewController {
 	@FXML
 	private TableColumn<ProductModel, String> productNameColumn;
 	@FXML
-	private TableColumn<ProductModel, Object> supplierIdColumn;
+	private TableColumn<ProductModel, String> supplierColumn;
 	@FXML
-	private TableColumn<ProductModel, Object> categoryIdColumn;
+	private TableColumn<ProductModel, String> categoryColumn;
 	@FXML
 	private TableColumn<ProductModel, String> quantityPerUnitColumn;
 	@FXML
@@ -75,6 +75,8 @@ public class ProductOverviewController {
 		// Initialize the person table with the two columns.
 		productIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
 		productNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
+		supplierColumn.setCellValueFactory(cellData -> cellData.getValue().supplierNameProperty());
+		categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryNameProperty());
 		quantityPerUnitColumn.setCellValueFactory(cellData -> cellData.getValue().quantityPerUnitProperty());
 		unitPriceColumn.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
 		unitsInStockColumn.setCellValueFactory(cellData -> cellData.getValue().unitsInStockProperty().asObject());

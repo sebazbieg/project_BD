@@ -3,17 +3,21 @@ package info.projekt.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info.projekt.dao.CategoriesQueries;
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.dao.ShippersQueries;
+import info.projekt.dao.SuppliersQueries;
+import info.projekt.database.Categories;
 import info.projekt.database.Customers;
 import info.projekt.database.Employees;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.database.Shippers;
+import info.projekt.database.Suppliers;
 import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
@@ -224,7 +228,11 @@ public class MainAppGui extends Application {
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
-			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), null, null,
+			Suppliers tempSupplier = tempProduct.getSuppliers();
+			tempSupplier = SuppliersQueries.getSuppliers(tempSupplier.getSupplierId());
+			Categories tempCategory = tempProduct.getCategories();
+			tempCategory = CategoriesQueries.getCategory(tempCategory.getCategoryId());
+			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), tempSupplier.getCompanyName(), tempCategory.getCategoryName(),
 					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
 					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
 					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));

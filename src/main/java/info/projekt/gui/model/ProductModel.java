@@ -1,13 +1,9 @@
 package info.projekt.gui.model;
 
-import info.projekt.database.Categories;
-import info.projekt.database.Suppliers;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -20,8 +16,8 @@ public class ProductModel {
 
 	private final IntegerProperty productId;
 	private final StringProperty productName;
-	private final ObjectProperty<Suppliers> supplierId;
-	private final ObjectProperty<Categories> categoryId;
+	private final StringProperty supplierName;
+	private final StringProperty categoryName;
 	private final StringProperty quantityPerUnit;
 	private final DoubleProperty unitPrice;
 	private final IntegerProperty unitsInStock;
@@ -43,14 +39,14 @@ public class ProductModel {
 	 * @param firstName
 	 * @param lastName
 	 */
-	public ProductModel(Integer productId, String productName, Suppliers supplierId, Categories categoryId,
+	public ProductModel(Integer productId, String productName, String supplierName, String categoryName,
 			String quantityPerUnit, Double unitPrice, Integer unitsInStock, Integer unitsOnOrder, Integer reorderLevel,
 			String discontinued) {
 
 		this.productId = new SimpleIntegerProperty(productId);
 		this.productName = new SimpleStringProperty(productName);
-		this.supplierId = new SimpleObjectProperty<Suppliers>(supplierId);
-		this.categoryId = new SimpleObjectProperty<Categories>(categoryId);
+		this.supplierName = new SimpleStringProperty(supplierName);
+		this.categoryName = new SimpleStringProperty(categoryName);
 		this.quantityPerUnit = new SimpleStringProperty(quantityPerUnit);
 		this.unitPrice = new SimpleDoubleProperty(unitPrice);
 		this.unitsInStock = new SimpleIntegerProperty(unitsInStock);
@@ -83,28 +79,28 @@ public class ProductModel {
 		return productName;
 	}
 
-	public Suppliers getSupplierId() {
-		return supplierId.get();
+	public String getSupplierName() {
+		return supplierName.get();
 	}
 
-	public void setSupplierId(Suppliers supplierId) {
-		this.supplierId.set(supplierId);
+	public void setSupplierName(String supplierName) {
+		this.supplierName.set(supplierName);
 	}
 
-	public ObjectProperty<Suppliers> supplierIdProperty() {
-		return supplierId;
+	public StringProperty supplierNameProperty() {
+		return supplierName;
 	}
 
-	public Categories getCategoryId() {
-		return categoryId.get();
+	public String getCategoryName() {
+		return categoryName.get();
 	}
 
-	public void setCategoryId(Categories categoryId) {
-		this.categoryId.set(categoryId);
+	public void setCategoryName(String categoryName) {
+		this.categoryName.set(categoryName);
 	}
 
-	public ObjectProperty<Categories> categoryIdProperty() {
-		return categoryId;
+	public StringProperty categoryNameProperty() {
+		return categoryName;
 	}
 
 	public String getQuantityPerUnit() {

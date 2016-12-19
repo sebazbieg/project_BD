@@ -19,4 +19,17 @@ public class SuppliersQueries {
 		session.close();
 		return results;
 	}
+	
+	public static Suppliers getSuppliers(Integer supplierId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Suppliers " + "WHERE supplierId = :supplierId";
+		Query<Suppliers> query = session.createQuery(hql);
+		query.setParameter("supplierId", supplierId);
+		Suppliers result = (Suppliers) query.getSingleResult();
+//		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
 }
