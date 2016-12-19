@@ -25,6 +25,7 @@ public class ShipperOverviewController {
 	private Stage dialogStage;
 	private boolean okClicked = false;
 	Orders order;
+	String shipperName;
 
 	public ShipperOverviewController() {
 	}
@@ -41,6 +42,10 @@ public class ShipperOverviewController {
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		shipperTable.setItems(orderEditDialogController.getShipperData());
 	}
+	
+	public String getShipperName() {
+		return shipperName;
+	}
    	
     @FXML
     private void handleAdd() {
@@ -51,6 +56,7 @@ public class ShipperOverviewController {
 			Shippers tempShipper = ShippersQueries.getShipper(name);
 			order = OrderEditDialogController.getOrder();
 			order.setShippers(tempShipper);
+			shipperName = tempShipper.getCompanyName();
 			okClicked = true;
 			dialogStage.close();
 		} else {
@@ -58,8 +64,8 @@ public class ShipperOverviewController {
 			Alert alert = new Alert(AlertType.WARNING);
 //			alert.initOwner(addProductToOrderTable.getPrimaryStage());
 			alert.setTitle("No Selection");
-			alert.setHeaderText("No Customer Selected");
-			alert.setContentText("Please select a customer in the table.");
+			alert.setHeaderText("No Shipper Selected");
+			alert.setContentText("Please select a shipper in the table.");
 
 			alert.showAndWait();
 		}

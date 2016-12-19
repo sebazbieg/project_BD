@@ -89,9 +89,10 @@ public class AddProductToOrderDialogController {
 				getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
 				getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
 				if (isInputValid()) {
-				orderDetailsList.add(getOrderDetails());
+				orderDetailsList.add(getOrderDetails());				
 				okClicked = true;
 				dialogStage.close();
+				}
 			} else {
 				// Nothing selected.
 				Alert alert = new Alert(AlertType.WARNING);
@@ -102,15 +103,29 @@ public class AddProductToOrderDialogController {
 				alert.showAndWait();
 			}
 		}
-	}
+	//}
 	
 	private boolean isInputValid() {
 		String errorMessage = "";
 		if (quantityField.getText() == null || quantityField.getText().length() == 0) {
 			errorMessage += "Podaj ilość!\n";
 		}
+		
+		if (Short.parseShort(quantityField.getText()) == 0) {
+			errorMessage += "Podaj ilość!\n";
+		}
+		
+		if (Short.parseShort(quantityField.getText()) < 0) {
+			errorMessage += "Podaj poprawną ilość!\n";
+		}
+				
 		if(orderDetails.getProducts().getUnitsInStock() < Short.parseShort(quantityField.getText())) {
-			errorMessage += "Nie ma dostępnej takiej ilośc produktu!\n";
+			errorMessage += "Taka ilość produktu jest niedostępna!\n";
+		}
+		
+		if(!(0 <= orderDetails.getDiscount() && orderDetails.getDiscount() <= 1 )) {
+			errorMessage += "Wprowadź poprawnie zniżkę (0.0-1)!\n";
+			
 		}
 
 		if (errorMessage.length() == 0) {
@@ -122,7 +137,6 @@ public class AddProductToOrderDialogController {
 			alert.setTitle("Invalid Fields");
 			alert.setHeaderText("Please correct invalid fields");
 			alert.setContentText(errorMessage);
-
 			alert.showAndWait();
 
 			return false;

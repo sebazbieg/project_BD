@@ -49,7 +49,7 @@ public class OrderEditDialogController {
 	@FXML
 	private TextField shipPostalCodeField;
 	@FXML
-	private TextField shipCountryField;
+	private TextField shipCountryField;	
 
 	@FXML
 	private TableView<OrderDetailsModel> orderDetailsTable;
@@ -74,6 +74,12 @@ public class OrderEditDialogController {
 	private Label quantityLabel;
 	@FXML
 	private Label discountLabel;
+	@FXML
+	private Label customerLabel;
+	@FXML
+	private Label employeeLabel;
+	@FXML
+	private Label shipperLabel;
 
 	private Stage dialogStage;
 	private static Orders order;
@@ -232,7 +238,7 @@ public class OrderEditDialogController {
 		}
 	}
 
-	public boolean showAddCustomerToOrderDialog() {
+	public String showAddCustomerToOrderDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -254,14 +260,14 @@ public class OrderEditDialogController {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 
-			return controller.isOkClicked();
+			return controller.getCustomerName();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return "";
 		}
 	}
 
-	public boolean showAddEmployeeToOrderDialog() {
+	public String showAddEmployeeToOrderDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -282,15 +288,15 @@ public class OrderEditDialogController {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
+			
+			return controller.getEmployeeFirstName()+" "+controller.getEmployeeLastName();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return "";
 		}
 	}
 
-	public boolean showAddShipperToOrderDialog() {
+	public String showAddShipperToOrderDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -312,26 +318,29 @@ public class OrderEditDialogController {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 
-			return controller.isOkClicked();
+			return controller.getShipperName();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return "";
 		}
 	}
 
 	@FXML
 	private void handleAddCustomer() {
-		showAddCustomerToOrderDialog();
+//		showAddCustomerToOrderDialog();
+		customerLabel.setText(showAddCustomerToOrderDialog());
 	}
 
 	@FXML
 	private void handleAddEmployee() {
-		showAddEmployeeToOrderDialog();
+//		showAddEmployeeToOrderDialog();
+		employeeLabel.setText(showAddEmployeeToOrderDialog());
 	}
 
 	@FXML
 	private void handleAddShipper() {
-		showAddShipperToOrderDialog();
+//		showAddShipperToOrderDialog();
+		shipperLabel.setText(showAddShipperToOrderDialog());
 	}
 
 	/**
@@ -413,6 +422,18 @@ public class OrderEditDialogController {
 
 		if (shipCountryField.getText() == null || shipCountryField.getText().length() == 0) {
 			errorMessage += "Podaj kraj nadawcy!\n";
+		}
+		
+		if (getOrder().getCustomers() == null) {
+			errorMessage += "Wybierz Klienta!\n";
+		}
+		
+		if (getOrder().getEmployees() == null) {
+			errorMessage += "Wybierz Pracownika!\n";
+		}
+		
+		if (getOrder().getShippers() == null) {
+			errorMessage += "Wybierz Spedytora!\n";
 		}
 
 		if (errorMessage.length() == 0) {

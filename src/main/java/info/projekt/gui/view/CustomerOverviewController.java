@@ -21,6 +21,7 @@ public class CustomerOverviewController {
 	private Stage dialogStage;
 	private boolean okClicked = false;
 	Orders order;
+	String customerName;
 
 	public CustomerOverviewController() {
 	}
@@ -37,6 +38,10 @@ public class CustomerOverviewController {
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		customerTable.setItems(orderEditDialogController.getCustomersData());
 	}
+	
+	public String getCustomerName() {
+		return customerName;
+	}
 
 	@FXML
 	private void handleAdd() {
@@ -47,6 +52,7 @@ public class CustomerOverviewController {
 			Customers tempCustomer = CustomersQueries.getCustomer(name);
 			order = OrderEditDialogController.getOrder();
 			order.setCustomers(tempCustomer);
+			customerName = tempCustomer.getCompanyName();
 			okClicked = true;
 			dialogStage.close();
 		} else {

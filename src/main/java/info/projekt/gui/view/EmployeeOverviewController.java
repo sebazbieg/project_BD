@@ -25,6 +25,8 @@ public class EmployeeOverviewController {
 	private Stage dialogStage;
 	private boolean okClicked = false;
 	Orders order;
+	String employeeFirstName;
+	String employeeLastName;
 
 	public EmployeeOverviewController() {
 	}
@@ -43,6 +45,14 @@ public class EmployeeOverviewController {
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		employeeTable.setItems(orderEditDialogController.getEmployeeData());
 	}
+	
+	public String getEmployeeFirstName() {
+		return employeeFirstName;
+	}
+	
+	public String getEmployeeLastName() {
+		return employeeLastName;
+	}
 
 	@FXML
 	private void handleAdd() {
@@ -55,6 +65,8 @@ public class EmployeeOverviewController {
 			Employees tempEmployee = EmployeesQueries.getEmployee(firstName, lastName, title);
 			order = OrderEditDialogController.getOrder();
 			order.setEmployees(tempEmployee);
+			employeeFirstName = tempEmployee.getFirstName();
+			employeeLastName = tempEmployee.getLastName();
 			okClicked = true;
 			dialogStage.close();
 		} else {
