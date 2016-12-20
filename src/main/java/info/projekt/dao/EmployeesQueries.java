@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import info.projekt.database.Customers;
 import info.projekt.database.Employees;
 
 public class EmployeesQueries {

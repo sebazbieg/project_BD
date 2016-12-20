@@ -13,7 +13,7 @@ import info.projekt.database.Suppliers;
 public class Main {
 
 	public static void main(String[] args) {
-		Suppliers suppliers = SuppliersQueries.getSupplier();
+		//Suppliers suppliers = SuppliersQueries.getSupplier();
 		//Categories categories = CategoriesQueries.getCustomer();
 //		ArrayList list = (ArrayList) CategoriesQueries.categoriesList();
 //		Products products = new Products((Categories) list.get(1), suppliers,"1","1.0",1.0,(short) 1,(short) 1,(short) 1,"y");

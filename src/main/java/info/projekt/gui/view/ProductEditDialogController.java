@@ -1,5 +1,6 @@
 package info.projekt.gui.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import info.projekt.dao.CategoriesQueries;
@@ -7,10 +8,20 @@ import info.projekt.dao.SuppliersQueries;
 import info.projekt.database.Categories;
 import info.projekt.database.Products;
 import info.projekt.database.Suppliers;
+import info.projekt.gui.MainAppGui;
+import info.projekt.gui.model.CategoryModel;
+import info.projekt.gui.model.SupplierModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ProductEditDialogController {
@@ -29,34 +40,43 @@ public class ProductEditDialogController {
 	    private TextField reorderLevelField;
 	    @FXML
 	    private TextField discontinuedField;
+	    
+	    @FXML
+	    private Label categoryLabel;
+	    @FXML
+	    private Label supplierLabel;
 
-
+		private ObservableList<CategoryModel> categoryData = FXCollections.observableArrayList();
+		private ArrayList<Categories> categoryList = CategoriesQueries.categoriesList();
+		
+		private ObservableList<SupplierModel> supplierData = FXCollections.observableArrayList();
+		private ArrayList<Suppliers> supplierList = SuppliersQueries.suppliersList();
+	    
 	    private Stage dialogStage;
 	    private static Products product;
 	    private boolean okClicked = false;
+	//    private MainAppGui mainAppGui;
 
 		/**
 	     * Initializes the controller class. This method is automatically called
 	     * after the fxml file has been loaded.
+	     * 
 	     */
-	    @FXML
+	    
+	    public ProductEditDialogController() {
+	    	refreshCategoryOverview();
+	    	refreshSupplierOverview();
+		}
+	   
+
+		@FXML
 	    private void initialize() {
 	    }
-
-	    /**
-	     * Sets the stage of this dialog.
-	     * 
-	     * @param dialogStage
-	     */
-	    public void setDialogStage(Stage dialogStage) {
+		
+		public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
 	    }
 
-	    /**
-	     * Sets the person to be edited in the dialog.
-	     * 
-	     * @param person
-	     */
 
 	    public static Products getProduct() {
 			return product;
@@ -73,19 +93,110 @@ public class ProductEditDialogController {
 	        reorderLevelField.setText(Integer.toString(product.getReorderLevel()));
 	        discontinuedField.setText(product.getDiscontinued());
 	    }
+	    
+//		public void setMainAppGui(MainAppGui mainAppGui) {
+//			this.mainAppGui = mainAppGui;
+//		}
+		
+		public void setProduct2(Products product) {
+			ProductEditDialogController.product = product;
+		}
+		
+		public ObservableList<CategoryModel> getCategoryData() {
+			return categoryData;
+		}
+		
+		public ObservableList<SupplierModel> getSupplierData() {
+			return supplierData;
+		}
+			    
+	    private void refreshCategoryOverview() {
+			for (int i = 0; i < categoryList.size(); i++) {
+				Categories tempCategory = categoryList.get(i);
+				categoryData.add(new CategoryModel(tempCategory.getCategoryName()));
+			}	// TODO Auto-generated method stub
+			
+		}
+	    private void refreshSupplierOverview() {
+			for (int i = 0; i < supplierList.size(); i++) {
+				Suppliers tempSupplier = supplierList.get(i);
+				supplierData.add(new SupplierModel(tempSupplier.getCompanyName()));
+			}	// TODO Auto-generated method stub
+			
+		}
 
-	    /**
-	     * Returns true if the user clicked OK, false otherwise.
-	     * 
-	     * @return
-	     */
 	    public boolean isOkClicked() {
 	        return okClicked;
 	    }
+	    
+	    public String showAddCategoryToProductDialog() {
+			try {
+				// Load the fxml file and create a new stage for the popup dialog.
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainAppGui.class.getResource("view/CategoryOverview.fxml"));
+				AnchorPane page = (AnchorPane) loader.load();
+				// Create the dialog Stage.
+				Stage dialogStage = new Stage();
+				dialogStage.setTitle("Add Category to Product");
+				dialogStage.initModality(Modality.WINDOW_MODAL);
+				// dialogStage.initOwner(mainAppGui.getPrimaryStage());
+				Scene scene = new Scene(page);
+				dialogStage.setScene(scene);
 
-	    /**
-	     * Called when the user clicks ok.
-	     */
+				// Set the person into the controller.
+				CategoryOverviewController controller = loader.getController();
+				controller.setDialogStage(dialogStage);
+				controller.setProductEditDialogController(this);
+
+				// Show the dialog and wait until the user closes it
+				dialogStage.showAndWait();
+
+				return controller.getCategoryName();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}
+	    
+	    public String showAddSupplierToProductDialog() {
+			try {
+				// Load the fxml file and create a new stage for the popup dialog.
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainAppGui.class.getResource("view/SupplierOverview.fxml"));
+				AnchorPane page = (AnchorPane) loader.load();
+				// Create the dialog Stage.
+				Stage dialogStage = new Stage();
+				dialogStage.setTitle("Add Supplier to Product");
+				dialogStage.initModality(Modality.WINDOW_MODAL);
+				// dialogStage.initOwner(mainAppGui.getPrimaryStage());
+				Scene scene = new Scene(page);
+				dialogStage.setScene(scene);
+
+				// Set the person into the controller.
+				SupplierOverviewController controller = loader.getController();
+				controller.setDialogStage(dialogStage);
+				controller.setProductEditDialogController(this);
+
+				// Show the dialog and wait until the user closes it
+				dialogStage.showAndWait();
+
+				return controller.getSupplierName();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}
+	    
+		@FXML
+		private void handleAddCategory() {
+			categoryLabel.setText(showAddCategoryToProductDialog());
+		}
+		
+		@FXML
+		private void handleAddSupplier() {
+			supplierLabel.setText(showAddSupplierToProductDialog());
+		}
+
 	    @FXML
 	    private void handleOk() {
 	        if (isInputValid()) {
@@ -95,32 +206,19 @@ public class ProductEditDialogController {
 	        	getProduct().setUnitsInStock(Short.parseShort(unitsInStockField.getText()));
 	        	getProduct().setUnitsOnOrder(Short.parseShort(unitsOnOrderField.getText()));
 	        	getProduct().setReorderLevel(Short.parseShort(reorderLevelField.getText()));
-	        	getProduct().setDiscontinued(discontinuedField.getText());
-	    		Suppliers suppliers = SuppliersQueries.getSupplier();
-	    		getProduct().setSuppliers(suppliers);
-	    		//Categories categories = CategoriesQueries.getCustomer();
-	    		ArrayList<Categories> list = (ArrayList<Categories>) CategoriesQueries.categoriesList();
-	    		getProduct().setCategories((Categories) list.get(1));
-	    		
+	        	getProduct().setDiscontinued(discontinuedField.getText());		
 
 	            okClicked = true;
 	            dialogStage.close();
 	        }
 	    }
 
-	    /**
-	     * Called when the user clicks cancel.
-	     */
+
 	    @FXML
 	    private void handleCancel() {
 	        dialogStage.close();
 	    }
 
-	    /**
-	     * Validates the user input in the text fields.
-	     * 
-	     * @return true if the input is valid
-	     */
 	    private boolean isInputValid() {
 	        String errorMessage = "";
 
