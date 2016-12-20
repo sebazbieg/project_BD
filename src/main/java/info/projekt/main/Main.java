@@ -28,7 +28,7 @@ public class Main {
 		// OrdersQueries.OrdersList();
 		// }
 		Customers customer = CustomersQueries.getCustomer("Around the Horn");
-		
+
 		ArrayList<Object[]> result = Main.customersList2(customer);
 		for (Object[] objects : result) {
 			for (Object object : objects) {
@@ -38,7 +38,7 @@ public class Main {
 		}
 
 	}
-	
+
 	public static ArrayList<Object[]> customersList(Customers cust) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -51,7 +51,7 @@ public class Main {
 		session.close();
 		return results;
 	}
-	
+
 	public static ArrayList<Object[]> customersList2(Customers cust2) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -64,5 +64,5 @@ public class Main {
 		session.close();
 		return results;
 	}
-	
+
 }

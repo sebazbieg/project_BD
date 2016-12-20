@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Products;
 import info.projekt.gui.MainAppGui;
@@ -103,9 +104,19 @@ public class ProductOverviewController {
 		if (selectedIndex >= 0) {
 			ProductModel selectedItem = productTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getProductId();
+			
+			if ((OrderDetailsQueries.getOrderDetailsListWithProducts(id)).isEmpty()) {
 			ProductsQueries.deleteProducts(id);
 			productTable.getItems().remove(selectedIndex);
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.initOwner(mainAppGui.getPrimaryStage());
+				alert.setTitle("Nie można usunąć produktu!");
+				alert.setHeaderText("Wybrany produkt jest używany w zamówieniach");
+				alert.setContentText("Najpierw usuń zamówienia zawierające ten produkt!");
 
+				alert.showAndWait();
+			}
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);

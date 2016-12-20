@@ -44,4 +44,17 @@ public class OrderDetailsQueries {
 		session.close();
 		return result;
 	}
+	
+	public static ArrayList<OrderDetails> getOrderDetailsListWithProducts (Integer productId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM OrderDetails " + "WHERE productId = :productId";
+		Query<OrderDetails> query = session.createQuery(hql);
+		query.setParameter("productId", productId);
+		ArrayList<OrderDetails> results = (ArrayList<OrderDetails>) query.list();
+//		System.out.println("Rows affected: " + result);
+		session.getTransaction().commit();
+		session.close();
+		return results;
+	}
 }

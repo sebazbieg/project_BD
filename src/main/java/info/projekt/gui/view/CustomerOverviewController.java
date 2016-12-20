@@ -20,8 +20,8 @@ public class CustomerOverviewController {
 
 	private Stage dialogStage;
 	private boolean okClicked = false;
-	Orders order;
-	String customerName;
+	private Orders order;
+	private String customerName;
 
 	public CustomerOverviewController() {
 	}
