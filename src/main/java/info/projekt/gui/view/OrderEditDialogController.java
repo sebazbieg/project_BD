@@ -85,7 +85,8 @@ public class OrderEditDialogController {
 	private static Orders order;
 	private boolean okClicked = false;
 	private MainAppGui mainAppGui;
-
+	
+	private static ArrayList<String> tempPN = new ArrayList<String>();
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 	private ObservableList<ShipperModel> shipperData = FXCollections.observableArrayList();
@@ -165,6 +166,10 @@ public class OrderEditDialogController {
 	public ObservableList<EmployeeModel> getEmployeeData() {
 		return employeesData;
 	}
+	
+	public static ArrayList<String> getTempPN() {
+		return tempPN;
+	}
 
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
@@ -188,7 +193,6 @@ public class OrderEditDialogController {
 			Employees tempEmployee = employeesList.get(i);
 			employeesData.add(new EmployeeModel(tempEmployee.getFirstName(), tempEmployee.getLastName(),
 					tempEmployee.getTitle()));
-			System.out.println(employeesData.get(i).getEmployeeFirstName());
 		}
 	}
 
@@ -380,6 +384,7 @@ public class OrderEditDialogController {
 			mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
 			mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
 			mainAppGui.refreshOrderDetails();
+			tempPN.clear();
 		}
 	}
 

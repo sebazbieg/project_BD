@@ -27,7 +27,7 @@ public class ProductsQueries {
 		String hql = "DELETE FROM Products " + "WHERE productId = :productId";
 		Query<Products> query = session.createQuery(hql);
 		query.setParameter("productId", productId);
-		int result = query.executeUpdate();
+//		int result = query.executeUpdate();
 //		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
@@ -45,7 +45,7 @@ public class ProductsQueries {
 		session.close();
 		return result;
 	}
-
+	
 	public static void addProducts(Products products) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Products newProducts = new Products(products.getCategories(), products.getSuppliers(),
@@ -57,5 +57,31 @@ public class ProductsQueries {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public static void updateProducts(Integer productId, short quantity) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Products " + "WHERE productId = :productId";
+		Query<Products> query = session.createQuery(hql);
+		query.setParameter("productId", productId);
+		Products result = (Products) query.getSingleResult();
+		short tempQuantity = (short) (result.getUnitsInStock() - quantity);
+		short tempQuantity2 = (short) (result.getUnitsOnOrder() + quantity);
+		String hql2 = "update Products set unitsInStock = :tempQuantity where productId = :productId";
+		Query<Products> query2 = session.createQuery(hql2);
+		query2.setParameter("tempQuantity", tempQuantity);
+		query2.setParameter("productId", productId);
+		String hql3 = "update Products set unitsOnOrder = :tempQuantity2 where productId = :productId";
+		Query<Products> query3 = session.createQuery(hql3);
+		query3.setParameter("tempQuantity2", tempQuantity2);
+		query3.setParameter("productId", productId);
+//		int result2 = query2.executeUpdate();
+//		System.out.println("Rows affected: " + result2);
+//		int result3 = query3.executeUpdate();
+//		System.out.println("Rows affected: " + result3);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
 
 }

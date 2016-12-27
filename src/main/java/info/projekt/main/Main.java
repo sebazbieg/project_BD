@@ -29,12 +29,20 @@ public class Main {
 		// }
 		Customers customer = CustomersQueries.getCustomer("Around the Horn");
 
-		ArrayList<Object[]> result = Main.customersList2(customer);
-		for (Object[] objects : result) {
-			for (Object object : objects) {
-				int i = 0;
-				System.out.println(objects[i]);
-			}
+//		ArrayList<Object[]> result = Main.customersList2(customer);
+//		for (Object[] objects : result) {
+//			for (Object object : objects) {
+//				int i = 0;
+//				System.out.println(objects[i]);
+//			}
+//		}
+		
+		ArrayList<Object[]> result = Main.customersList(customer);
+		for (Object[] results : result) {
+//		    User user = (User) results[0];
+//		    Group group = (Group) results[1];
+			System.out.println(results[0]);
+			System.out.println(results[1]);
 		}
 
 	}

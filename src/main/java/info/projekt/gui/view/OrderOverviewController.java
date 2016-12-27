@@ -5,6 +5,7 @@ import java.util.Date;
 
 import info.projekt.dao.OrderDetailsQueries;
 import info.projekt.dao.OrdersQueries;
+import info.projekt.dao.ProductsQueries;
 import info.projekt.database.OrderDetails;
 import info.projekt.database.Orders;
 import info.projekt.gui.MainAppGui;
@@ -144,6 +145,7 @@ public class OrderOverviewController {
 				OrderDetails temp = tempList.get(i);
 				temp.setOrders(tempOrder);
 				OrderDetailsQueries.addOrderDetails(temp);
+				ProductsQueries.updateProducts(temp.getProducts().getProductId(), temp.getQuantity());
 			}
 //			tempList.clear();
 //			mainAppGui.setOrderDetailsList(tempList);

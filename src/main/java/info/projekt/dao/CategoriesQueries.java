@@ -22,7 +22,7 @@ public class CategoriesQueries {
 		ArrayList<Categories> results = (ArrayList<Categories>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		System.out.println("Rozmiar listy to: " + results.size());
+//		System.out.println("Rozmiar listy to: " + results.size());
 		return results;
 	}
 	

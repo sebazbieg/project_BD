@@ -38,6 +38,7 @@ public class AddProductToOrderDialogController {
 	private boolean okClicked = false;
 	private Orders order;
 	Products tempProduct;
+	ArrayList<String> tempPN = new ArrayList<String>();
 	private static ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
 
 	@FXML
@@ -88,8 +89,10 @@ public class AddProductToOrderDialogController {
 				getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
 				getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
 				getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
+				tempPN = OrderEditDialogController.getTempPN();
 				if (isInputValid()) {
-				orderDetailsList.add(getOrderDetails());				
+				orderDetailsList.add(getOrderDetails());
+				tempPN.add(tempProduct.getProductName());
 				okClicked = true;
 				dialogStage.close();
 				}
@@ -107,6 +110,21 @@ public class AddProductToOrderDialogController {
 	
 	private boolean isInputValid() {
 		String errorMessage = "";
+	
+		for(int i = 0; i < tempPN.size(); i++){
+			boolean isInSet = tempPN.get(i).equals(tempProduct.getProductName());
+			if(isInSet){
+				errorMessage += "Dodałeś już ten product do zamówienia!\n";
+			}
+		}
+		
+//		if(!(orderDetatils.isEmpty())){
+//			for(int i = 0; i < orderDetatils.size(); i++){
+//				//OrderDetails tempOrderDetails = orderDetails.
+//				boolean isInSet = orderDetatils.equals(tempProduct);
+//			}
+//		}
+		
 		if (quantityField.getText() == null || quantityField.getText().length() == 0) {
 			errorMessage += "Podaj ilość!\n";
 		}
