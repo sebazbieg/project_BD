@@ -13,12 +13,12 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class SupplierOverviewController {
-	
+
 	@FXML
 	private TableView<SupplierModel> supplierTable;
 	@FXML
 	private TableColumn<SupplierModel, String> supplierNameColumn;
-	
+
 	@FXML
 	private Label supplierNameLabel;
 
@@ -34,21 +34,21 @@ public class SupplierOverviewController {
 	private void initialize() {
 		supplierNameColumn.setCellValueFactory(cellData -> cellData.getValue().supplierNameProperty());
 	}
-	
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-    
+
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
 	public void setProductEditDialogController(ProductEditDialogController productEditDialogController) {
 		supplierTable.setItems(productEditDialogController.getSupplierData());
 	}
-	
+
 	public String getSupplierName() {
 		return supplierName;
 	}
-   	
-    @FXML
-    private void handleAdd() {
+
+	@FXML
+	private void handleAdd() {
 		int selectedIndex = supplierTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			SupplierModel selectedItem = supplierTable.getSelectionModel().getSelectedItem();
@@ -62,7 +62,7 @@ public class SupplierOverviewController {
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-//			alert.initOwner(addProductToOrderTable.getPrimaryStage());
+			// alert.initOwner(addProductToOrderTable.getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Supplier Selected");
 			alert.setContentText("Please select a supplier in the table.");
@@ -70,7 +70,7 @@ public class SupplierOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
@@ -79,6 +79,5 @@ public class SupplierOverviewController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-
 
 }

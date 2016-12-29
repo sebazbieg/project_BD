@@ -45,11 +45,11 @@ public class EmployeeOverviewController {
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		employeeTable.setItems(orderEditDialogController.getEmployeeData());
 	}
-	
+
 	public String getEmployeeFirstName() {
 		return employeeFirstName;
 	}
-	
+
 	public String getEmployeeLastName() {
 		return employeeLastName;
 	}

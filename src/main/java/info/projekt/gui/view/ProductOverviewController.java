@@ -104,10 +104,10 @@ public class ProductOverviewController {
 		if (selectedIndex >= 0) {
 			ProductModel selectedItem = productTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getProductId();
-			
+
 			if ((OrderDetailsQueries.getOrderDetailsListWithProducts(id)).isEmpty()) {
-			ProductsQueries.deleteProducts(id);
-			productTable.getItems().remove(selectedIndex);
+				ProductsQueries.deleteProducts(id);
+				productTable.getItems().remove(selectedIndex);
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.initOwner(mainAppGui.getPrimaryStage());
@@ -132,13 +132,13 @@ public class ProductOverviewController {
 	@FXML
 	private void handleNewProduct() {
 		Products tempProduct = new Products();
-		
+
 		boolean okClicked = mainAppGui.showProductEditDialog(tempProduct);
 		if (okClicked) {
 			mainAppGui.getProductData().removeAll(mainAppGui.getProductData());
 			ProductsQueries.addProducts(ProductEditDialogController.getProduct());
 			mainAppGui.setProductList(ProductsQueries.ProductsList());
-			mainAppGui.refreshProductOverview();			
+			mainAppGui.refreshProductOverview();
 		}
 
 	}

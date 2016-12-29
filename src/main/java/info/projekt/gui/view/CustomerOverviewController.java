@@ -38,7 +38,7 @@ public class CustomerOverviewController {
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		customerTable.setItems(orderEditDialogController.getCustomersData());
 	}
-	
+
 	public String getCustomerName() {
 		return customerName;
 	}

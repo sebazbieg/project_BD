@@ -5,25 +5,25 @@ import javafx.beans.property.StringProperty;
 
 public class CategoryModel {
 
-		private final StringProperty categoryName;
+	private final StringProperty categoryName;
 
-		public CategoryModel() {
-			this(null);
-		}
+	public CategoryModel() {
+		this(null);
+	}
 
-		public CategoryModel(String categoryName) {
-			this.categoryName = new SimpleStringProperty(categoryName);
-		}
+	public CategoryModel(String categoryName) {
+		this.categoryName = new SimpleStringProperty(categoryName);
+	}
 
-		public String getCategoryName() {
-			return categoryName.get();
-		}
+	public String getCategoryName() {
+		return categoryName.get();
+	}
 
-		public void setCategoryName(String categoryName) {
-			this.categoryName.set(categoryName);
-		}
+	public void setCategoryName(String categoryName) {
+		this.categoryName.set(categoryName);
+	}
 
-		public StringProperty categoryNameProperty() {
-			return categoryName;
-		}
+	public StringProperty categoryNameProperty() {
+		return categoryName;
+	}
 }

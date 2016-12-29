@@ -49,7 +49,7 @@ public class OrderEditDialogController {
 	@FXML
 	private TextField shipPostalCodeField;
 	@FXML
-	private TextField shipCountryField;	
+	private TextField shipCountryField;
 
 	@FXML
 	private TableView<OrderDetailsModel> orderDetailsTable;
@@ -85,7 +85,7 @@ public class OrderEditDialogController {
 	private static Orders order;
 	private boolean okClicked = false;
 	private MainAppGui mainAppGui;
-	
+
 	private static ArrayList<String> tempPN = new ArrayList<String>();
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
@@ -109,7 +109,7 @@ public class OrderEditDialogController {
 	 */
 	@FXML
 	private void initialize() {
-		
+
 		productNameColumn.setCellValueFactory(cellData -> cellData.getValue().productsNameProperty());
 		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		unitPriceColumn.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
@@ -166,7 +166,7 @@ public class OrderEditDialogController {
 	public ObservableList<EmployeeModel> getEmployeeData() {
 		return employeesData;
 	}
-	
+
 	public static ArrayList<String> getTempPN() {
 		return tempPN;
 	}
@@ -292,8 +292,8 @@ public class OrderEditDialogController {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			
-			return controller.getEmployeeFirstName()+" "+controller.getEmployeeLastName();
+
+			return controller.getEmployeeFirstName() + " " + controller.getEmployeeLastName();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "";
@@ -331,19 +331,19 @@ public class OrderEditDialogController {
 
 	@FXML
 	private void handleAddCustomer() {
-//		showAddCustomerToOrderDialog();
+		// showAddCustomerToOrderDialog();
 		customerLabel.setText(showAddCustomerToOrderDialog());
 	}
 
 	@FXML
 	private void handleAddEmployee() {
-//		showAddEmployeeToOrderDialog();
+		// showAddEmployeeToOrderDialog();
 		employeeLabel.setText(showAddEmployeeToOrderDialog());
 	}
 
 	@FXML
 	private void handleAddShipper() {
-//		showAddShipperToOrderDialog();
+		// showAddShipperToOrderDialog();
 		shipperLabel.setText(showAddShipperToOrderDialog());
 	}
 
@@ -428,15 +428,15 @@ public class OrderEditDialogController {
 		if (shipCountryField.getText() == null || shipCountryField.getText().length() == 0) {
 			errorMessage += "Podaj kraj nadawcy!\n";
 		}
-		
+
 		if (getOrder().getCustomers() == null) {
 			errorMessage += "Wybierz Klienta!\n";
 		}
-		
+
 		if (getOrder().getEmployees() == null) {
 			errorMessage += "Wybierz Pracownika!\n";
 		}
-		
+
 		if (getOrder().getShippers() == null) {
 			errorMessage += "Wybierz Spedytora!\n";
 		}

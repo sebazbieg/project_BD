@@ -78,72 +78,72 @@ public class AddProductToOrderDialogController {
 
 	@FXML
 	private void handleAdd() {
-			int selectedIndex = addProductToOrderTable.getSelectionModel().getSelectedIndex();
-			if (selectedIndex >= 0) {
-				ProductModel selectedItem = addProductToOrderTable.getSelectionModel().getSelectedItem();
-				Integer id = selectedItem.getProductId();
-				tempProduct = ProductsQueries.getProducts(id);
-				order = OrderEditDialogController.getOrder();
-				getOrderDetails().setOrders(order);
-				getOrderDetails().setProducts(tempProduct);
-				getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
-				getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
-				getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
-				tempPN = OrderEditDialogController.getTempPN();
-				if (isInputValid()) {
+		int selectedIndex = addProductToOrderTable.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >= 0) {
+			ProductModel selectedItem = addProductToOrderTable.getSelectionModel().getSelectedItem();
+			Integer id = selectedItem.getProductId();
+			tempProduct = ProductsQueries.getProducts(id);
+			order = OrderEditDialogController.getOrder();
+			getOrderDetails().setOrders(order);
+			getOrderDetails().setProducts(tempProduct);
+			getOrderDetails().setUnitPrice(tempProduct.getUnitPrice());
+			getOrderDetails().setQuantity(Short.parseShort(quantityField.getText()));
+			getOrderDetails().setDiscount(Float.parseFloat(discountField.getText()));
+			tempPN = OrderEditDialogController.getTempPN();
+			if (isInputValid()) {
 				orderDetailsList.add(getOrderDetails());
 				tempPN.add(tempProduct.getProductName());
 				okClicked = true;
 				dialogStage.close();
-				}
-			} else {
-				// Nothing selected.
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.initOwner(dialogStage);
-				alert.setTitle("No Selection");
-				alert.setHeaderText("No Person Selected");
-				alert.setContentText("Please select a person in the table.");
-				alert.showAndWait();
 			}
+		} else {
+			// Nothing selected.
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(dialogStage);
+			alert.setTitle("No Selection");
+			alert.setHeaderText("No Person Selected");
+			alert.setContentText("Please select a person in the table.");
+			alert.showAndWait();
 		}
-	//}
-	
+	}
+	// }
+
 	private boolean isInputValid() {
 		String errorMessage = "";
-	
-		for(int i = 0; i < tempPN.size(); i++){
+
+		for (int i = 0; i < tempPN.size(); i++) {
 			boolean isInSet = tempPN.get(i).equals(tempProduct.getProductName());
-			if(isInSet){
+			if (isInSet) {
 				errorMessage += "Dodałeś już ten product do zamówienia!\n";
 			}
 		}
-		
-//		if(!(orderDetatils.isEmpty())){
-//			for(int i = 0; i < orderDetatils.size(); i++){
-//				//OrderDetails tempOrderDetails = orderDetails.
-//				boolean isInSet = orderDetatils.equals(tempProduct);
-//			}
-//		}
-		
+
+		// if(!(orderDetatils.isEmpty())){
+		// for(int i = 0; i < orderDetatils.size(); i++){
+		// //OrderDetails tempOrderDetails = orderDetails.
+		// boolean isInSet = orderDetatils.equals(tempProduct);
+		// }
+		// }
+
 		if (quantityField.getText() == null || quantityField.getText().length() == 0) {
 			errorMessage += "Podaj ilość!\n";
 		}
-		
+
 		if (Short.parseShort(quantityField.getText()) == 0) {
 			errorMessage += "Podaj ilość!\n";
 		}
-		
+
 		if (Short.parseShort(quantityField.getText()) < 0) {
 			errorMessage += "Podaj poprawną ilość!\n";
 		}
-				
-		if(orderDetails.getProducts().getUnitsInStock() < Short.parseShort(quantityField.getText())) {
+
+		if (orderDetails.getProducts().getUnitsInStock() < Short.parseShort(quantityField.getText())) {
 			errorMessage += "Taka ilość produktu jest niedostępna!\n";
 		}
-		
-		if(!(0 <= orderDetails.getDiscount() && orderDetails.getDiscount() <= 1 )) {
+
+		if (!(0 <= orderDetails.getDiscount() && orderDetails.getDiscount() <= 1)) {
 			errorMessage += "Wprowadź poprawnie zniżkę (0.0-1)!\n";
-			
+
 		}
 
 		if (errorMessage.length() == 0) {

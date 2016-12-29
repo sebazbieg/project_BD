@@ -5,25 +5,25 @@ import javafx.beans.property.StringProperty;
 
 public class CustomerModel {
 
-		private final StringProperty customerName;
-	
-		public CustomerModel() {
-			this(null);
-		}
+	private final StringProperty customerName;
 
-		public CustomerModel(String customerName) {
-			this.customerName = new SimpleStringProperty(customerName);
-		}
+	public CustomerModel() {
+		this(null);
+	}
 
-		public String getCustomerName() {
-			return customerName.get();
-		}
+	public CustomerModel(String customerName) {
+		this.customerName = new SimpleStringProperty(customerName);
+	}
 
-		public void setCustomerName(String customerName) {
-			this.customerName.set(customerName);
-		}
+	public String getCustomerName() {
+		return customerName.get();
+	}
 
-		public StringProperty customerNameProperty() {
-			return customerName;
-		}
+	public void setCustomerName(String customerName) {
+		this.customerName.set(customerName);
+	}
+
+	public StringProperty customerNameProperty() {
+		return customerName;
+	}
 }

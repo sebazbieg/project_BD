@@ -13,12 +13,12 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class ShipperOverviewController {
-	
+
 	@FXML
 	private TableView<ShipperModel> shipperTable;
 	@FXML
 	private TableColumn<ShipperModel, String> shipperNameColumn;
-	
+
 	@FXML
 	private Label shipperNameLabel;
 
@@ -34,21 +34,21 @@ public class ShipperOverviewController {
 	private void initialize() {
 		shipperNameColumn.setCellValueFactory(cellData -> cellData.getValue().shipperNameProperty());
 	}
-	
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-    
+
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
 	public void setOrderEditDialogController(OrderEditDialogController orderEditDialogController) {
 		shipperTable.setItems(orderEditDialogController.getShipperData());
 	}
-	
+
 	public String getShipperName() {
 		return shipperName;
 	}
-   	
-    @FXML
-    private void handleAdd() {
+
+	@FXML
+	private void handleAdd() {
 		int selectedIndex = shipperTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			ShipperModel selectedItem = shipperTable.getSelectionModel().getSelectedItem();
@@ -62,7 +62,7 @@ public class ShipperOverviewController {
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-//			alert.initOwner(addProductToOrderTable.getPrimaryStage());
+			// alert.initOwner(addProductToOrderTable.getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Shipper Selected");
 			alert.setContentText("Please select a shipper in the table.");
@@ -70,7 +70,7 @@ public class ShipperOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
@@ -79,6 +79,5 @@ public class ShipperOverviewController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-
 
 }

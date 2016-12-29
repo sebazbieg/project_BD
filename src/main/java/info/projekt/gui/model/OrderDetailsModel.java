@@ -21,8 +21,8 @@ public class OrderDetailsModel {
 	private final IntegerProperty quantity;
 	private final FloatProperty discount;
 
-	public OrderDetailsModel(Integer orderDetailsId, Orders orders, String productName,
-			Double unitPrice, Short quantity, Float discount) {
+	public OrderDetailsModel(Integer orderDetailsId, Orders orders, String productName, Double unitPrice,
+			Short quantity, Float discount) {
 		this.orderDetailsId = new SimpleIntegerProperty(orderDetailsId);
 		this.orders = new SimpleObjectProperty<Orders>(orders);
 		this.productName = new SimpleStringProperty(productName);
@@ -30,7 +30,7 @@ public class OrderDetailsModel {
 		this.quantity = new SimpleIntegerProperty(quantity);
 		this.discount = new SimpleFloatProperty(discount);
 	}
-	
+
 	public Integer getOrderDetailsId() {
 		return orderDetailsId.get();
 	}
@@ -42,7 +42,7 @@ public class OrderDetailsModel {
 	public IntegerProperty orderDetailsIdProperty() {
 		return orderDetailsId;
 	}
-	
+
 	public Orders getOrders() {
 		return orders.get();
 	}
@@ -54,7 +54,7 @@ public class OrderDetailsModel {
 	public ObjectProperty<Orders> ordersProperty() {
 		return orders;
 	}
-	
+
 	public String getProducts() {
 		return productName.get();
 	}
@@ -66,7 +66,7 @@ public class OrderDetailsModel {
 	public StringProperty productsNameProperty() {
 		return productName;
 	}
-	
+
 	public Double getUnitPrice() {
 		return unitPrice.get();
 	}
@@ -78,7 +78,7 @@ public class OrderDetailsModel {
 	public DoubleProperty unitPriceProperty() {
 		return unitPrice;
 	}
-	
+
 	public Integer getQuantity() {
 		return quantity.get();
 	}
@@ -90,7 +90,7 @@ public class OrderDetailsModel {
 	public IntegerProperty quantityProperty() {
 		return quantity;
 	}
-	
+
 	public Float getDiscount() {
 		return discount.get();
 	}

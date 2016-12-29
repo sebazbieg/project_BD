@@ -2,15 +2,11 @@ package info.projekt.main;
 
 import java.util.ArrayList;
 
-import javax.persistence.EntityManager;
-
 import org.hibernate.Session;
-import org.hibernate.mapping.List;
 import org.hibernate.query.Query;
 
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.HibernateUtil;
-import info.projekt.database.Categories;
 import info.projekt.database.Customers;
 
 public class Main {
@@ -47,12 +43,13 @@ public class Main {
 
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static ArrayList<Object[]> customersList(Customers cust) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "SELECT o.orderId, SUM(od.unitPrice * od.quantity * (1-od.discount)) FROM Orders o JOIN o.orderDetailses od WHERE o.customers = :customer GROUP BY o ORDER BY SUM(od.unitPrice * od.quantity * (1-od.discount)) desc ";
-		Query query = session.createQuery(hql);
+		Query<Object[]> query = session.createQuery(hql);
 		query.setParameter("customer", cust);
 		ArrayList<Object[]> results = (ArrayList<Object[]>) query.list();
 		session.getTransaction().commit();
@@ -60,12 +57,13 @@ public class Main {
 		return results;
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static ArrayList<Object[]> customersList2(Customers cust2) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "SELECT p.productName, sum(od.quantity) FROM Orders o JOIN o.orderDetailses od JOIN od.products p WHERE o.customers= :customer GROUP BY p ORDER BY sum(od.quantity) desc";
-		Query query = session.createQuery(hql);
+		Query<Object[]> query = session.createQuery(hql);
 		query.setParameter("customer", cust2);
 		ArrayList<Object[]> results = (ArrayList<Object[]>) query.list();
 		session.getTransaction().commit();

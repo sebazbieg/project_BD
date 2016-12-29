@@ -38,11 +38,10 @@ public class CategoryOverviewController {
 	public void setProductEditDialogController(ProductEditDialogController productEditDialogController) {
 		categoryTable.setItems(productEditDialogController.getCategoryData());
 	}
-	
+
 	public String getCategoryName() {
 		return categoryName;
 	}
-	
 
 	@FXML
 	private void handleAdd() {

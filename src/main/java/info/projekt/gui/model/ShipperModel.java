@@ -5,25 +5,25 @@ import javafx.beans.property.StringProperty;
 
 public class ShipperModel {
 
-		private final StringProperty shipperName;
-	
-		public ShipperModel() {
-			this(null);
-		}
+	private final StringProperty shipperName;
 
-		public ShipperModel(String shipperName) {
-			this.shipperName = new SimpleStringProperty(shipperName);
-		}
+	public ShipperModel() {
+		this(null);
+	}
 
-		public String getShippperName() {
-			return shipperName.get();
-		}
+	public ShipperModel(String shipperName) {
+		this.shipperName = new SimpleStringProperty(shipperName);
+	}
 
-		public void setShipperName(String shipperName) {
-			this.shipperName.set(shipperName);
-		}
+	public String getShippperName() {
+		return shipperName.get();
+	}
 
-		public StringProperty shipperNameProperty() {
-			return shipperName;
-		}
+	public void setShipperName(String shipperName) {
+		this.shipperName.set(shipperName);
+	}
+
+	public StringProperty shipperNameProperty() {
+		return shipperName;
+	}
 }

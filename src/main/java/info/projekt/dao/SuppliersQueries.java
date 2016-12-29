@@ -5,22 +5,23 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import info.projekt.database.Categories;
 import info.projekt.database.Suppliers;
 
 public class SuppliersQueries {
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static ArrayList<Suppliers> suppliersList() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "FROM Suppliers";
-		Query query = session.createQuery(hql);
+		Query<Suppliers> query = session.createQuery(hql);
 		ArrayList<Suppliers> results = (ArrayList<Suppliers>) query.list();
 		session.getTransaction().commit();
 		session.close();
 		return results;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Suppliers getSuppliers(String companyName) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -34,6 +35,7 @@ public class SuppliersQueries {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Suppliers getSuppliers(Integer supplierId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -41,7 +43,7 @@ public class SuppliersQueries {
 		Query<Suppliers> query = session.createQuery(hql);
 		query.setParameter("supplierId", supplierId);
 		Suppliers result = (Suppliers) query.getSingleResult();
-//		System.out.println("Rows affected: " + result);
+		// System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 		return result;

@@ -131,7 +131,7 @@ public class OrderOverviewController {
 	private void handleNewOrder() {
 		Orders tempOrder = new Orders();
 		ArrayList<OrderDetails> tempList = new ArrayList<OrderDetails>();
-		
+
 		boolean okClicked = mainAppGui.showOrderEditDialog(tempOrder);
 		if (okClicked) {
 			mainAppGui.getOrderData().removeAll(mainAppGui.getOrderData());
@@ -147,18 +147,16 @@ public class OrderOverviewController {
 				OrderDetailsQueries.addOrderDetails(temp);
 				ProductsQueries.updateProducts(temp.getProducts().getProductId(), temp.getQuantity());
 			}
-//			tempList.clear();
-//			mainAppGui.setOrderDetailsList(tempList);
-//			tempList = AddProductToOrderDialogController.getOrderDetailsList();
-//			tempList.clear();
+			// tempList.clear();
+			// mainAppGui.setOrderDetailsList(tempList);
+			// tempList =
+			// AddProductToOrderDialogController.getOrderDetailsList();
+			// tempList.clear();
 			AddProductToOrderDialogController.orderDetailsListClear();
-//			mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
-//			mainAppGui.refreshOrderDetails();
+			// mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
+			// mainAppGui.refreshOrderDetails();
 			mainAppGui.getOrderDetailsDataClear();
-			
-			
-			
-			
+
 		}
 
 	}

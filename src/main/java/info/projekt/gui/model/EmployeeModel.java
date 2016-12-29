@@ -13,7 +13,7 @@ public class EmployeeModel {
 			this(null, null, null);
 		}
 
-		public EmployeeModel(String employeeFirstName, String employeeLastName, String employeeTitle) {
+	public EmployeeModel(String employeeFirstName, String employeeLastName, String employeeTitle) {
 			this.employeeFirstName = new SimpleStringProperty(employeeFirstName);
 			this.employeeLastName = new SimpleStringProperty(employeeLastName);
 			this.employeeTitle = new SimpleStringProperty(employeeTitle);

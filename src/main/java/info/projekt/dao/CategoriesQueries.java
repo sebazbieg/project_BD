@@ -1,31 +1,28 @@
 package info.projekt.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import info.projekt.database.Categories;
-import info.projekt.database.Customers;
-import info.projekt.database.Employees;
-import info.projekt.database.Suppliers;
 
 public class CategoriesQueries {
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static ArrayList<Categories> categoriesList() {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "FROM Categories";
-		Query query = session.createQuery(hql);
+		Query<Categories> query = session.createQuery(hql);
 		ArrayList<Categories> results = (ArrayList<Categories>) query.list();
 		session.getTransaction().commit();
 		session.close();
-//		System.out.println("Rozmiar listy to: " + results.size());
+		// System.out.println("Rozmiar listy to: " + results.size());
 		return results;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public static Categories getCategory(String categoryName) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -33,12 +30,13 @@ public class CategoriesQueries {
 		Query<Categories> query = session.createQuery(hql);
 		query.setParameter("categoryName", categoryName);
 		Categories result = (Categories) query.getSingleResult();
-//		System.out.println("Rows affected: " + result);
+		// System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 		return result;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public static Categories getCategory(Byte categoryId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

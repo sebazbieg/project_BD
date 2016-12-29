@@ -232,10 +232,11 @@ public class MainAppGui extends Application {
 			tempSupplier = SuppliersQueries.getSuppliers(tempSupplier.getSupplierId());
 			Categories tempCategory = tempProduct.getCategories();
 			tempCategory = CategoriesQueries.getCategory(tempCategory.getCategoryId());
-			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(), tempSupplier.getCompanyName(), tempCategory.getCategoryName(),
-					tempProduct.getQuantityPerUnit(), tempProduct.getUnitPrice(),
-					Integer.valueOf(tempProduct.getUnitsInStock()), Integer.valueOf(tempProduct.getUnitsOnOrder()),
-					Integer.valueOf(tempProduct.getReorderLevel()), tempProduct.getDiscontinued()));
+			productData.add(new ProductModel(tempProduct.getProductId(), tempProduct.getProductName(),
+					tempSupplier.getCompanyName(), tempCategory.getCategoryName(), tempProduct.getQuantityPerUnit(),
+					tempProduct.getUnitPrice(), Integer.valueOf(tempProduct.getUnitsInStock()),
+					Integer.valueOf(tempProduct.getUnitsOnOrder()), Integer.valueOf(tempProduct.getReorderLevel()),
+					tempProduct.getDiscontinued()));
 		}
 	}
 
@@ -248,18 +249,19 @@ public class MainAppGui extends Application {
 			tempEmployee = EmployeesQueries.getEmployee(tempEmployee.getEmployeeId());
 			Shippers tempShipper = tempOrder.getShippers();
 			tempShipper = ShippersQueries.getShipper(tempShipper.getShipperId());
-			orderData.add(
-					new OrderModel(tempOrder.getOrderId(), tempCustomer.getCompanyName(), tempEmployee.getLastName(), tempShipper.getCompanyName(), tempOrder.getOrderDate(), tempOrder.getRequiredDate(), tempOrder.getShippedDate(), tempOrder.getFreight(),
-							tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
-							tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
+			orderData.add(new OrderModel(tempOrder.getOrderId(), tempCustomer.getCompanyName(),
+					tempEmployee.getLastName(), tempShipper.getCompanyName(), tempOrder.getOrderDate(),
+					tempOrder.getRequiredDate(), tempOrder.getShippedDate(), tempOrder.getFreight(),
+					tempOrder.getShipName(), tempOrder.getShipAddress(), tempOrder.getShipCity(),
+					tempOrder.getShipRegion(), tempOrder.getShipPostalCode(), tempOrder.getShipCountry()));
 		}
 	}
 
 	public void refreshOrderDetails() {
 		for (int i = 0; i < orderDetailsList.size(); i++) {
 			OrderDetails tempOrderDetails = orderDetailsList.get(i);
-			orderDetailsData.add(new OrderDetailsModel(++i, null, tempOrderDetails.getProducts().getProductName(), tempOrderDetails.getUnitPrice(),
-					tempOrderDetails.getQuantity(), tempOrderDetails.getDiscount()));
+			orderDetailsData.add(new OrderDetailsModel(++i, null, tempOrderDetails.getProducts().getProductName(),
+					tempOrderDetails.getUnitPrice(), tempOrderDetails.getQuantity(), tempOrderDetails.getDiscount()));
 		}
 	}
 
