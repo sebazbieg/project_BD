@@ -8,6 +8,7 @@ import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.EmployeesQueries;
 import info.projekt.dao.OrdersQueries;
 import info.projekt.dao.ProductsQueries;
+import info.projekt.dao.RaportsQueries;
 import info.projekt.dao.ShippersQueries;
 import info.projekt.dao.SuppliersQueries;
 import info.projekt.database.Categories;
@@ -21,10 +22,13 @@ import info.projekt.database.Suppliers;
 import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
+import info.projekt.gui.model.ProductsRaportModel;
+import info.projekt.gui.view.AddProductToProductsRaportController;
 import info.projekt.gui.view.OrderEditDialogController;
 import info.projekt.gui.view.OrderOverviewController;
 import info.projekt.gui.view.ProductEditDialogController;
 import info.projekt.gui.view.ProductOverviewController;
+import info.projekt.gui.view.ProductsRaportController;
 import info.projekt.gui.view.RootController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -41,6 +45,8 @@ public class MainAppGui extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	Products tempProduct;
+	
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
@@ -49,6 +55,9 @@ public class MainAppGui extends Application {
 
 	private ObservableList<OrderDetailsModel> orderDetailsData = FXCollections.observableArrayList();
 	private ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+
+	private ObservableList<ProductsRaportModel> productRaportData = FXCollections.observableArrayList();
+	private ArrayList<Object[]> productRaportList;
 
 	public MainAppGui() {
 		refreshProductOverview();
@@ -95,7 +104,24 @@ public class MainAppGui extends Application {
 	public void getOrderDetailsDataClear() {
 		orderDetailsData.clear();
 	}
-
+	
+	public ArrayList<Object[]> getProductRaportList() {
+		return productRaportList;
+	}
+	
+	public ObservableList<ProductsRaportModel> getProductRaportData() {
+		return productRaportData;
+	}
+	
+	
+	public Products getTempProduct() {
+		return tempProduct;
+	}
+	
+	public void setTempProduct(Products tempProduct) {
+		this.tempProduct = tempProduct;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -224,6 +250,22 @@ public class MainAppGui extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showProductsRaports() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAppGui.class.getResource("view/ProductsRaport.fxml"));
+			AnchorPane productsRaport = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(productsRaport);
+
+			ProductsRaportController controller = loader.getController();
+			controller.setMainAppGUI(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
@@ -263,6 +305,14 @@ public class MainAppGui extends Application {
 			orderDetailsData.add(new OrderDetailsModel(++i, null, tempOrderDetails.getProducts().getProductName(),
 					tempOrderDetails.getUnitPrice(), tempOrderDetails.getQuantity(), tempOrderDetails.getDiscount()));
 		}
+	}
+	
+	public void refreshProductRaport() {
+				productRaportList = RaportsQueries.customersList(AddProductToProductsRaportController.tempProduct);
+				productRaportData.clear();				
+				for (Object[] results : productRaportList) {
+					productRaportData.add(new ProductsRaportModel((String) results[0], (Long) results[1]));
+				}
 	}
 
 	public Stage getPrimaryStage() {

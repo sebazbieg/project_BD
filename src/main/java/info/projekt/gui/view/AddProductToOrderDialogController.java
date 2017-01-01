@@ -24,6 +24,10 @@ public class AddProductToOrderDialogController {
 	private TableColumn<ProductModel, String> addProductToOrderNameColumn;
 	@FXML
 	private TableColumn<ProductModel, Double> addProductToOrderPriceColumn;
+	@FXML
+	private TableColumn<ProductModel, Integer> addProductToOrderUnitsInStockColumn;
+	@FXML
+	private TableColumn<ProductModel, Integer> addProductToOrderUnitsOnOrdersColumn;
 
 	@FXML
 	private TextField quantityField;
@@ -45,8 +49,9 @@ public class AddProductToOrderDialogController {
 	private void initialize() {
 		addProductToOrderIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
 		addProductToOrderNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
-		addProductToOrderPriceColumn
-				.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
+		addProductToOrderPriceColumn.setCellValueFactory(cellData -> cellData.getValue().unitPriceProperty().asObject());
+		addProductToOrderUnitsInStockColumn.setCellValueFactory(cellData -> cellData.getValue().unitsInStockProperty().asObject());
+		addProductToOrderUnitsOnOrdersColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOnOrderProperty().asObject());
 	}
 
 	public void setDialogStage(Stage dialogStage) {
@@ -137,7 +142,7 @@ public class AddProductToOrderDialogController {
 			errorMessage += "Podaj poprawną ilość!\n";
 		}
 
-		if (orderDetails.getProducts().getUnitsInStock() < Short.parseShort(quantityField.getText())) {
+		if ((orderDetails.getProducts().getUnitsInStock() - orderDetails.getProducts().getUnitsOnOrder()) < Short.parseShort(quantityField.getText())) {
 			errorMessage += "Taka ilość produktu jest niedostępna!\n";
 		}
 

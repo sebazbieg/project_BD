@@ -7,7 +7,10 @@ import org.hibernate.query.Query;
 
 import info.projekt.dao.CustomersQueries;
 import info.projekt.dao.HibernateUtil;
+import info.projekt.dao.ProductsQueries;
 import info.projekt.database.Customers;
+import info.projekt.database.Products;
+import javassist.expr.Instanceof;
 
 public class Main {
 
@@ -24,6 +27,7 @@ public class Main {
 		// OrdersQueries.OrdersList();
 		// }
 		Customers customer = CustomersQueries.getCustomer("Around the Horn");
+		Products product = ProductsQueries.getProducts(1);
 
 //		ArrayList<Object[]> result = Main.customersList2(customer);
 //		for (Object[] objects : result) {
@@ -33,12 +37,12 @@ public class Main {
 //			}
 //		}
 		
-		ArrayList<Object[]> result = Main.customersList(customer);
+		ArrayList<Object[]> result = Main.customersList3(product);
 		for (Object[] results : result) {
 //		    User user = (User) results[0];
 //		    Group group = (Group) results[1];
-			System.out.println(results[0]);
-			System.out.println(results[1]);
+			System.out.println(results[0].getClass());
+			System.out.println(results[1].getClass());
 		}
 
 	}
@@ -65,6 +69,20 @@ public class Main {
 		String hql = "SELECT p.productName, sum(od.quantity) FROM Orders o JOIN o.orderDetailses od JOIN od.products p WHERE o.customers= :customer GROUP BY p ORDER BY sum(od.quantity) desc";
 		Query<Object[]> query = session.createQuery(hql);
 		query.setParameter("customer", cust2);
+		ArrayList<Object[]> results = (ArrayList<Object[]>) query.list();
+		session.getTransaction().commit();
+		session.close();
+		return results;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public static ArrayList<Object[]> customersList3(Products products) {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "SELECT c.companyName, sum(od.quantity) FROM Orders o JOIN o.orderDetailses od JOIN o.customers c WHERE od.products= :products GROUP BY c ORDER BY sum(od.quantity) desc";
+		Query<Object[]> query = session.createQuery(hql);
+		query.setParameter("products", products);
 		ArrayList<Object[]> results = (ArrayList<Object[]>) query.list();
 		session.getTransaction().commit();
 		session.close();

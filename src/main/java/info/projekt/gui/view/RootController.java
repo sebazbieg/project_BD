@@ -33,5 +33,10 @@ public class RootController {
 	private void handleOrdersClicked() {
 		mainAppGui.showOrdersOverview();
 	}
+	@FXML
+	private void handleRaportsClicked() {
+		mainAppGui.showProductsRaports();
+	}
+
 
 }

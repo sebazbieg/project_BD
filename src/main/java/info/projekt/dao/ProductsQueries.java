@@ -31,7 +31,7 @@ public class ProductsQueries {
 		query.setParameter("productId", productId);
 		Integer result = null;
 		result = query.executeUpdate();
-		System.out.println("Rows affected: " + result);
+//		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 		return result;
@@ -45,7 +45,7 @@ public class ProductsQueries {
 		Query<Products> query = session.createQuery(hql);
 		query.setParameter("productId", productId);
 		Products result = (Products) query.getSingleResult();
-		System.out.println("Rows affected: " + result);
+//		System.out.println("Rows affected: " + result);
 		session.getTransaction().commit();
 		session.close();
 		return result;

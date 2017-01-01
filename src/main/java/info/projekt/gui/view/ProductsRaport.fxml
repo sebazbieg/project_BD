@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.ProductsRaportController">
+   <children>
+      <TableView fx:id="productsRaportTable" layoutX="171.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <columns>
+          <TableColumn fx:id="customerNameColumn" prefWidth="489.0" text="Nazwa firmy" />
+          <TableColumn fx:id="quantityColumn" prefWidth="150.0" text="zamówiona ilość" />
+        </columns>
+      </TableView>
+      <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddProduct" text="Wybierz produkt" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Label fx:id="productLabel" layoutX="15.0" layoutY="67.0" prefHeight="35.0" prefWidth="185.0" textOverrun="CLIP" AnchorPane.leftAnchor="10.0">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font></Label>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</AnchorPane>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.AddProductToProductsRaportController">
+   <children>
+      <ButtonBar layoutX="136.0" layoutY="345.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <buttons>
+            <Button mnemonicParsing="false" onAction="#handleAdd" text="Wybierz" />
+          <Button mnemonicParsing="false" onAction="#handleCancel" text="Anuluj" />
+         </buttons>
+      </ButtonBar>
+      <TableView fx:id="productsTable" layoutX="65.0" layoutY="49.0" prefHeight="335.0" prefWidth="335.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <columns>
+          <TableColumn fx:id="productNameColumn" prefWidth="389.0" text="Nazwa Produktu" />
+        </columns>
+        <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TableView>
+   </children>
+</AnchorPane>
