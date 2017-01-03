@@ -27,13 +27,10 @@ public class ProductUnitTest {
 	public void updateProductTest() {
 		testProduct = ProductsQueries.getProducts(1);
 		testProduct.setUnitsInStock((short) 10);
-		testProduct.setUnitsOnOrder((short) 0);
 		result = ProductsQueries.addProducts(testProduct);
 		ProductsQueries.updateProducts(result, (short) 3);
 		testProduct = ProductsQueries.getProducts(result);
-		System.out.println(testProduct.getUnitsInStock());
 		Assert.assertEquals(7, testProduct.getUnitsInStock());
-		Assert.assertEquals(3, testProduct.getUnitsOnOrder());
 		ProductsQueries.deleteProducts(result);
 	}
 
