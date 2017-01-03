@@ -25,18 +25,24 @@ public class RootController {
 
 	@FXML
 	private void handleProductsClicked() {
-		mainAppGui.showProductsOverview();
 		mainAppGui.refreshProductOverview();
-
+		mainAppGui.showProductsOverview();
 	}
 
 	@FXML
 	private void handleOrdersClicked() {
+		mainAppGui.refreshOrderOverview();
 		mainAppGui.showOrdersOverview();
 	}
+	
 	@FXML
 	private void handleRaportsClicked() {
 		mainAppGui.showProductsRaports();
+	}
+	
+	@FXML
+	private void handleExit(){
+		mainAppGui.getPrimaryStage().close();
 	}
 
 

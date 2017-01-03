@@ -156,11 +156,6 @@ public class AddProductToOrderDialogController {
 		}
 	}
 
-	// @FXML
-	// private void handleAdd() {
-	// System.out.println("cos");
-	// }
-
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();

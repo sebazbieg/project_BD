@@ -112,9 +112,16 @@ public class OrderOverviewController {
 		if (selectedIndex >= 0) {
 			OrderModel selectedItem = orderTable.getSelectionModel().getSelectedItem();
 			Integer id = selectedItem.getOrderId();
-			OrdersQueries.deleteOrders(id);
-			orderTable.getItems().remove(selectedIndex);
-
+			if (isInputValid()) {
+				ArrayList<OrderDetails> tempList = OrderDetailsQueries.orderDetailsListByOrderId(id);
+				for (int i = 0; i < tempList.size(); i++) {
+					OrderDetails temp = tempList.get(i);
+					ProductsQueries.updateProducts2(temp.getProducts().getProductId(), temp.getQuantity());
+				}
+				OrderDetailsQueries.deleteOrdersDetails(id);
+				OrdersQueries.deleteOrders(id);
+				orderTable.getItems().remove(selectedIndex);
+			}
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
@@ -159,5 +166,29 @@ public class OrderOverviewController {
 
 		}
 
+	}
+
+	private boolean isInputValid() {
+		String errorMessage = "";
+
+		Date tempDate = orderTable.getSelectionModel().getSelectedItem().getShippedDate();
+
+		if (!(tempDate == null)) {
+			errorMessage += "Zamówienie zostało już wysłane!\n";
+		}
+
+		if (errorMessage.length() == 0) {
+			return true;
+		} else {
+			// Show the error message.
+			Alert alert = new Alert(AlertType.ERROR);
+			// alert.initOwner(dialogStage);
+			alert.setTitle("Błąd");
+			alert.setHeaderText("Nie można usunąć zamówenia");
+			alert.setContentText(errorMessage);
+			alert.showAndWait();
+
+			return false;
+		}
 	}
 }

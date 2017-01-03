@@ -82,5 +82,24 @@ public class ProductsQueries {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static void updateProducts2(Integer productId, short quantity) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM Products " + "WHERE productId = :productId";
+		Query<Products> query = session.createQuery(hql);
+		query.setParameter("productId", productId);
+		Products result = (Products) query.getSingleResult();
+		short tempQuantity = (short) (result.getUnitsInStock() + quantity);
+		String hql2 = "update Products set unitsInStock = :tempQuantity where productId = :productId";
+		Query<Products> query2 = session.createQuery(hql2);
+		query2.setParameter("tempQuantity", tempQuantity);
+		query2.setParameter("productId", productId);
+		query2.executeUpdate();
+		// System.out.println("Rows affected: " + result2);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 }

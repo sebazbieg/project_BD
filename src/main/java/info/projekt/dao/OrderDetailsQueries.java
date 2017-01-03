@@ -22,6 +22,21 @@ public class OrderDetailsQueries {
 		// System.out.println("Rozmiar listy to: " + results.size());
 		return results;
 	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public static ArrayList<OrderDetails> orderDetailsListByOrderId(Integer orderId) {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = " FROM OrderDetails " + "WHERE orderId = :orderId";
+		Query<OrderDetails> query = session.createQuery(hql);
+		query.setParameter("orderId", orderId);
+		ArrayList<OrderDetails> results = (ArrayList<OrderDetails>) query.list();
+		session.getTransaction().commit();
+		session.close();
+		// System.out.println("Rozmiar listy to: " + results.size());
+		return results;
+	}
 
 	public static void addOrderDetails(OrderDetails orderDetails) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -59,5 +74,17 @@ public class OrderDetailsQueries {
 		session.getTransaction().commit();
 		session.close();
 		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void deleteOrdersDetails(Integer orderId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "DELETE FROM OrderDetails " + "WHERE orderId = :orderId";
+		Query<OrderDetails> query = session.createQuery(hql);
+		query.setParameter("orderId", orderId);
+		query.executeUpdate();
+		session.getTransaction().commit();
+		session.close();
 	}
 }

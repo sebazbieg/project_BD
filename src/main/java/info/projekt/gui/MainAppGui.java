@@ -50,10 +50,10 @@ public class MainAppGui extends Application {
 //	Products tempProduct;
 
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
-	private ArrayList<Products> productList = ProductsQueries.ProductsList();
+	private ArrayList<Products> productList;
 
 	private ObservableList<OrderModel> orderData = FXCollections.observableArrayList();
-	private ArrayList<Orders> orderList = OrdersQueries.OrdersList();
+	private ArrayList<Orders> orderList;
 
 	private ObservableList<OrderDetailsModel> orderDetailsData = FXCollections.observableArrayList();
 	private ArrayList<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
@@ -279,6 +279,8 @@ public class MainAppGui extends Application {
 	}
 
 	public void refreshProductOverview() {
+		productData.clear();
+		productList = ProductsQueries.ProductsList();
 		for (int i = 0; i < productList.size(); i++) {
 			Products tempProduct = productList.get(i);
 			Suppliers tempSupplier = tempProduct.getSuppliers();
@@ -294,6 +296,8 @@ public class MainAppGui extends Application {
 	}
 
 	public void refreshOrderOverview() {
+		orderData.clear();
+		orderList = OrdersQueries.OrdersList();
 		for (int i = 0; i < orderList.size(); i++) {
 			Orders tempOrder = orderList.get(i);
 			Customers tempCustomer = tempOrder.getCustomers();

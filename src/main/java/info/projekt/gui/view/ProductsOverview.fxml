@@ -12,7 +12,6 @@
         <buttons>
             <Button mnemonicParsing="false" onAction="#handleNewProduct" text="Dodaj" />
             <Button mnemonicParsing="false" onAction="#handleDeleteProduct" text="Usuń" />
-            <Button mnemonicParsing="false" text="Wyszukaj" />
         </buttons>
       </ButtonBar>
       <TableView fx:id="productTable" layoutX="7.0" prefHeight="350.0" prefWidth="850.0">

@@ -22,12 +22,12 @@ public class OrdersQueries {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void deleteOrders(Integer ordersId) {
+	public static void deleteOrders(Integer orderId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "DELETE FROM Orders " + "WHERE ordersId = :ordersId";
+		String hql = "DELETE FROM Orders " + "WHERE orderId = :orderId";
 		Query<Orders> query = session.createQuery(hql);
-		query.setParameter("ordersId", ordersId);
+		query.setParameter("orderId", orderId);
 		query.executeUpdate();
 		session.getTransaction().commit();
 		session.close();
