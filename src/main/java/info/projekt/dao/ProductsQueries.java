@@ -73,19 +73,12 @@ public class ProductsQueries {
 		query.setParameter("productId", productId);
 		Products result = (Products) query.getSingleResult();
 		short tempQuantity = (short) (result.getUnitsInStock() - quantity);
-		short tempQuantity2 = (short) (result.getUnitsOnOrder() + quantity);
 		String hql2 = "update Products set unitsInStock = :tempQuantity where productId = :productId";
 		Query<Products> query2 = session.createQuery(hql2);
 		query2.setParameter("tempQuantity", tempQuantity);
 		query2.setParameter("productId", productId);
-		String hql3 = "update Products set unitsOnOrder = :tempQuantity2 where productId = :productId";
-		Query<Products> query3 = session.createQuery(hql3);
-		query3.setParameter("tempQuantity2", tempQuantity2);
-		query3.setParameter("productId", productId);
 		query2.executeUpdate();
 		// System.out.println("Rows affected: " + result2);
-		query3.executeUpdate();
-		// System.out.println("Rows affected: " + result3);
 		session.getTransaction().commit();
 		session.close();
 	}

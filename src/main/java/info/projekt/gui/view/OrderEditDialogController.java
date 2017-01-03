@@ -381,7 +381,8 @@ public class OrderEditDialogController {
 		OrderDetails tempOrderDetails = new OrderDetails();
 		boolean okClicked = showAddProductToOrderDialog(tempOrderDetails);
 		if (okClicked) {
-			mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
+//			mainAppGui.getOrderDetailsData().removeAll(mainAppGui.getOrderDetailsData());
+			mainAppGui.getOrderDetailsData().clear();
 			mainAppGui.setOrderDetailsList(AddProductToOrderDialogController.getOrderDetailsList());
 			mainAppGui.refreshOrderDetails();
 			tempPN.clear();
