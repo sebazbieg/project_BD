@@ -19,10 +19,12 @@ import info.projekt.database.Orders;
 import info.projekt.database.Products;
 import info.projekt.database.Shippers;
 import info.projekt.database.Suppliers;
+import info.projekt.gui.model.CustomersRaportModel;
 import info.projekt.gui.model.OrderDetailsModel;
 import info.projekt.gui.model.OrderModel;
 import info.projekt.gui.model.ProductModel;
 import info.projekt.gui.model.ProductsRaportModel;
+import info.projekt.gui.view.AddCustomerToProductsRaportController;
 import info.projekt.gui.view.AddProductToProductsRaportController;
 import info.projekt.gui.view.OrderEditDialogController;
 import info.projekt.gui.view.OrderOverviewController;
@@ -45,8 +47,8 @@ public class MainAppGui extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	Products tempProduct;
-	
+//	Products tempProduct;
+
 	private ObservableList<ProductModel> productData = FXCollections.observableArrayList();
 	private ArrayList<Products> productList = ProductsQueries.ProductsList();
 
@@ -58,6 +60,9 @@ public class MainAppGui extends Application {
 
 	private ObservableList<ProductsRaportModel> productRaportData = FXCollections.observableArrayList();
 	private ArrayList<Object[]> productRaportList;
+
+	private ObservableList<CustomersRaportModel> customerRaportData = FXCollections.observableArrayList();
+	private ArrayList<Object[]> customerRaportList;
 
 	public MainAppGui() {
 		refreshProductOverview();
@@ -104,7 +109,7 @@ public class MainAppGui extends Application {
 	public void getOrderDetailsDataClear() {
 		orderDetailsData.clear();
 	}
-	
+
 	public ArrayList<Object[]> getProductRaportList() {
 		return productRaportList;
 	}
@@ -113,19 +118,26 @@ public class MainAppGui extends Application {
 		return productRaportData;
 	}
 	
-	
-	public Products getTempProduct() {
-		return tempProduct;
+	public ArrayList<Object[]> getCustomerRaportList() {
+		return customerRaportList;
 	}
-	
-	public void setTempProduct(Products tempProduct) {
-		this.tempProduct = tempProduct;
+
+	public ObservableList<CustomersRaportModel> getCustomerRaportData() {
+		return customerRaportData;
 	}
-	
+
+//	public Products getTempProduct() {
+//		return tempProduct;
+//	}
+//
+//	public void setTempProduct(Products tempProduct) {
+//		this.tempProduct = tempProduct;
+//	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Northwind");
+		this.primaryStage.setTitle("Projekt_BD");
 
 		initRootLayout();
 		// showLoginPane();
@@ -250,7 +262,7 @@ public class MainAppGui extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showProductsRaports() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -265,7 +277,6 @@ public class MainAppGui extends Application {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void refreshProductOverview() {
 		for (int i = 0; i < productList.size(); i++) {
@@ -306,13 +317,21 @@ public class MainAppGui extends Application {
 					tempOrderDetails.getUnitPrice(), tempOrderDetails.getQuantity(), tempOrderDetails.getDiscount()));
 		}
 	}
-	
+
 	public void refreshProductRaport() {
-				productRaportList = RaportsQueries.customersList(AddProductToProductsRaportController.tempProduct);
-				productRaportData.clear();				
-				for (Object[] results : productRaportList) {
-					productRaportData.add(new ProductsRaportModel((String) results[0], (Long) results[1]));
-				}
+		productRaportList = RaportsQueries.customersList(AddProductToProductsRaportController.tempProduct);
+		productRaportData.clear();
+		for (Object[] results : productRaportList) {
+			productRaportData.add(new ProductsRaportModel((String) results[0], (Long) results[1]));
+		}
+	}
+
+	public void refreshCustomerRaport() {
+		customerRaportList = RaportsQueries.ordersList(AddCustomerToProductsRaportController.tempCustomer);
+		customerRaportData.clear();
+		for (Object[] results : customerRaportList) {
+			customerRaportData.add(new CustomersRaportModel((Integer) results[0], (Double) results[1]));
+		}
 	}
 
 	public Stage getPrimaryStage() {

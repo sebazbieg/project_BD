@@ -26,6 +26,7 @@ public class RootController {
 	@FXML
 	private void handleProductsClicked() {
 		mainAppGui.showProductsOverview();
+		mainAppGui.refreshProductOverview();
 
 	}
 

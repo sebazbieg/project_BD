@@ -10,17 +10,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.projekt.gui.view.ProductsRaportController">
    <children>
-      <TableView fx:id="productsRaportTable" layoutX="171.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <TableView fx:id="productsRaportTable" layoutX="10.0" layoutY="60.0" prefHeight="285.0" prefWidth="400.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="50.0">
         <columns>
-          <TableColumn fx:id="customerNameColumn" prefWidth="489.0" text="Nazwa firmy" />
+          <TableColumn fx:id="customerNameColumn" prefWidth="260.0" text="Nazwa firmy" />
           <TableColumn fx:id="quantityColumn" prefWidth="150.0" text="zamówiona ilość" />
         </columns>
       </TableView>
-      <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddProduct" text="Wybierz produkt" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Label fx:id="productLabel" layoutX="15.0" layoutY="67.0" prefHeight="35.0" prefWidth="185.0" textOverrun="CLIP" AnchorPane.leftAnchor="10.0">
+      <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="35.0" text="Wybierz produkt" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Label fx:id="productLabel" layoutX="160.0" layoutY="15.0" prefHeight="35.0" prefWidth="260.0" textOverrun="CLIP" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="System Bold Italic" size="17.0" />
          </font></Label>
+      <TableView fx:id="customerRaportTable" layoutX="409.0" layoutY="60.0" prefHeight="285.0" prefWidth="436.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
+        <columns>
+          <TableColumn fx:id="orderIdColumn" prefWidth="205.0" text="ID Zamówienia" />
+          <TableColumn fx:id="totalPriceColumn" prefWidth="205.0" text="Wartość zamównienia" />
+        </columns>
+      </TableView>
+      <Button layoutX="430.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleAddCustomer" prefHeight="35.0" text="Wybierz klienta" AnchorPane.topAnchor="5.0" />
+      <Label fx:id="customerLabel" layoutX="560.0" layoutY="10.0" prefHeight="35.0" prefWidth="280.0" textOverrun="CLIP" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

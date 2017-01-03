@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import info.projekt.database.Customers;
 import info.projekt.database.Products;
 
 public class RaportsQueries {
-	
+
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static ArrayList<Object[]> customersList(Products products) {
 
@@ -23,4 +24,17 @@ public class RaportsQueries {
 		return results;
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public static ArrayList<Object[]> ordersList(Customers customers) {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "SELECT o.orderId, SUM(od.unitPrice * od.quantity * (1-od.discount)) FROM Orders o JOIN o.orderDetailses od WHERE o.customers = :customers GROUP BY o ORDER BY SUM(od.unitPrice * od.quantity * (1-od.discount)) desc ";
+		Query<Object[]> query = session.createQuery(hql);
+		query.setParameter("customers", customers);
+		ArrayList<Object[]> results = (ArrayList<Object[]>) query.list();
+		session.getTransaction().commit();
+		session.close();
+		return results;
+	}
 }
