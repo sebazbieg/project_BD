@@ -51,7 +51,7 @@ public class OrdersQueries {
 		Orders newOrders = new Orders(orders.getCustomers(), orders.getEmployees(), orders.getShippers(),
 				orders.getOrderDate(), null, null, orders.getFreight(), orders.getShipName(), orders.getShipAddress(),
 				orders.getShipCity(), orders.getShipRegion(), orders.getShipPostalCode(), orders.getShipCountry(),
-				orders.getOrderDetailses());
+				orders.getOrderDetailses(), null);
 		session.beginTransaction();
 		Integer result = (Integer) session.save(newOrders);
 		session.getTransaction().commit();

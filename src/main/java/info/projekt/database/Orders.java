@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
+// Generated 2017-01-07 11:30:43 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,6 +26,7 @@ public class Orders implements java.io.Serializable {
 	private String shipPostalCode;
 	private String shipCountry;
 	private Set<OrderDetails> orderDetailses = new HashSet<OrderDetails>(0);
+	private Set<OrderDetails> orderDetailses_1 = new HashSet<OrderDetails>(0);
 
 	public Orders() {
 	}
@@ -48,7 +49,8 @@ public class Orders implements java.io.Serializable {
 
 	public Orders(Customers customers, Employees employees, Shippers shippers, Date orderDate, Date requiredDate,
 			Date shippedDate, double freight, String shipName, String shipAddress, String shipCity, String shipRegion,
-			String shipPostalCode, String shipCountry, Set<OrderDetails> orderDetailses) {
+			String shipPostalCode, String shipCountry, Set<OrderDetails> orderDetailses,
+			Set<OrderDetails> orderDetailses_1) {
 		this.customers = customers;
 		this.employees = employees;
 		this.shippers = shippers;
@@ -63,6 +65,7 @@ public class Orders implements java.io.Serializable {
 		this.shipPostalCode = shipPostalCode;
 		this.shipCountry = shipCountry;
 		this.orderDetailses = orderDetailses;
+		this.orderDetailses_1 = orderDetailses_1;
 	}
 
 	public Integer getOrderId() {
@@ -183,6 +186,14 @@ public class Orders implements java.io.Serializable {
 
 	public void setOrderDetailses(Set<OrderDetails> orderDetailses) {
 		this.orderDetailses = orderDetailses;
+	}
+
+	public Set<OrderDetails> getOrderDetailses_1() {
+		return this.orderDetailses_1;
+	}
+
+	public void setOrderDetailses_1(Set<OrderDetails> orderDetailses_1) {
+		this.orderDetailses_1 = orderDetailses_1;
 	}
 
 }

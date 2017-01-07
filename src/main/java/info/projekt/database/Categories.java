@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
+// Generated 2017-01-07 11:30:43 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +15,7 @@ public class Categories implements java.io.Serializable {
 	private String description;
 	private String picture;
 	private Set<Products> productses = new HashSet<Products>(0);
+	private Set<Products> productses_1 = new HashSet<Products>(0);
 
 	public Categories() {
 	}
@@ -25,11 +26,13 @@ public class Categories implements java.io.Serializable {
 		this.picture = picture;
 	}
 
-	public Categories(String categoryName, String description, String picture, Set<Products> productses) {
+	public Categories(String categoryName, String description, String picture, Set<Products> productses,
+			Set<Products> productses_1) {
 		this.categoryName = categoryName;
 		this.description = description;
 		this.picture = picture;
 		this.productses = productses;
+		this.productses_1 = productses_1;
 	}
 
 	public Byte getCategoryId() {
@@ -70,6 +73,14 @@ public class Categories implements java.io.Serializable {
 
 	public void setProductses(Set<Products> productses) {
 		this.productses = productses;
+	}
+
+	public Set<Products> getProductses_1() {
+		return this.productses_1;
+	}
+
+	public void setProductses_1(Set<Products> productses_1) {
+		this.productses_1 = productses_1;
 	}
 
 }

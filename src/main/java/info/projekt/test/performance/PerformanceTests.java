@@ -13,7 +13,7 @@ public class PerformanceTests {
 		tempOrder = new Orders(tempOrder.getCustomers(), tempOrder.getEmployees(), tempOrder.getShippers(),
 				tempOrder.getOrderDate(), null, null, 55.13, tempOrder.getShipName(), tempOrder.getShipAddress(),
 				tempOrder.getShipCity(), tempOrder.getShipRegion(), tempOrder.getShipPostalCode(),
-				tempOrder.getShipCountry(), tempOrder.getOrderDetailses());
+				tempOrder.getShipCountry(), tempOrder.getOrderDetailses(), null);
 
 		long start = System.currentTimeMillis();
 		for (int i = 1; i <= 1000; i++) {

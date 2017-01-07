@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
+// Generated 2017-01-07 11:30:43 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,7 @@ public class Shippers implements java.io.Serializable {
 	private String companyName;
 	private String phone;
 	private Set<Orders> orderses = new HashSet<Orders>(0);
+	private Set<Orders> orderses_1 = new HashSet<Orders>(0);
 
 	public Shippers() {
 	}
@@ -23,10 +24,11 @@ public class Shippers implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	public Shippers(String companyName, String phone, Set<Orders> orderses) {
+	public Shippers(String companyName, String phone, Set<Orders> orderses, Set<Orders> orderses_1) {
 		this.companyName = companyName;
 		this.phone = phone;
 		this.orderses = orderses;
+		this.orderses_1 = orderses_1;
 	}
 
 	public Integer getShipperId() {
@@ -59,6 +61,14 @@ public class Shippers implements java.io.Serializable {
 
 	public void setOrderses(Set<Orders> orderses) {
 		this.orderses = orderses;
+	}
+
+	public Set<Orders> getOrderses_1() {
+		return this.orderses_1;
+	}
+
+	public void setOrderses_1(Set<Orders> orderses_1) {
+		this.orderses_1 = orderses_1;
 	}
 
 }

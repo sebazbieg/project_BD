@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
+// Generated 2017-01-07 11:30:43 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +23,7 @@ public class Suppliers implements java.io.Serializable {
 	private String fax;
 	private String homePage;
 	private Set<Products> productses = new HashSet<Products>(0);
+	private Set<Products> productses_1 = new HashSet<Products>(0);
 
 	public Suppliers() {
 	}
@@ -44,7 +45,7 @@ public class Suppliers implements java.io.Serializable {
 
 	public Suppliers(String companyName, String contactName, String contactTitle, String address, String city,
 			String region, String postalCode, String country, String phone, String fax, String homePage,
-			Set<Products> productses) {
+			Set<Products> productses, Set<Products> productses_1) {
 		this.companyName = companyName;
 		this.contactName = contactName;
 		this.contactTitle = contactTitle;
@@ -57,6 +58,7 @@ public class Suppliers implements java.io.Serializable {
 		this.fax = fax;
 		this.homePage = homePage;
 		this.productses = productses;
+		this.productses_1 = productses_1;
 	}
 
 	public Integer getSupplierId() {
@@ -161,6 +163,14 @@ public class Suppliers implements java.io.Serializable {
 
 	public void setProductses(Set<Products> productses) {
 		this.productses = productses;
+	}
+
+	public Set<Products> getProductses_1() {
+		return this.productses_1;
+	}
+
+	public void setProductses_1(Set<Products> productses_1) {
+		this.productses_1 = productses_1;
 	}
 
 }

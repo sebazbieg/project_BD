@@ -1,5 +1,5 @@
 package info.projekt.database;
-// Generated 2016-11-29 22:19:11 by Hibernate Tools 5.2.0.Beta1
+// Generated 2017-01-07 11:30:43 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +29,9 @@ public class Employees implements java.io.Serializable {
 	private String photo;
 	private String notes;
 	private Set<Orders> orderses = new HashSet<Orders>(0);
+	private Set<Orders> orderses_1 = new HashSet<Orders>(0);
 	private Set<Employees> employeeses = new HashSet<Employees>(0);
+	private Set<Employees> employeeses_1 = new HashSet<Employees>(0);
 
 	public Employees() {
 	}
@@ -56,7 +58,7 @@ public class Employees implements java.io.Serializable {
 	public Employees(Employees employees, String lastName, String firstName, String title, String titleOfCourtesy,
 			Date birthDate, Date hireDate, String address, String city, String region, String postalCode,
 			String country, String homePhone, String extension, String photo, String notes, Set<Orders> orderses,
-			Set<Employees> employeeses) {
+			Set<Orders> orderses_1, Set<Employees> employeeses, Set<Employees> employeeses_1) {
 		this.employees = employees;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -74,7 +76,9 @@ public class Employees implements java.io.Serializable {
 		this.photo = photo;
 		this.notes = notes;
 		this.orderses = orderses;
+		this.orderses_1 = orderses_1;
 		this.employeeses = employeeses;
+		this.employeeses_1 = employeeses_1;
 	}
 
 	public Integer getEmployeeId() {
@@ -221,12 +225,28 @@ public class Employees implements java.io.Serializable {
 		this.orderses = orderses;
 	}
 
+	public Set<Orders> getOrderses_1() {
+		return this.orderses_1;
+	}
+
+	public void setOrderses_1(Set<Orders> orderses_1) {
+		this.orderses_1 = orderses_1;
+	}
+
 	public Set<Employees> getEmployeeses() {
 		return this.employeeses;
 	}
 
 	public void setEmployeeses(Set<Employees> employeeses) {
 		this.employeeses = employeeses;
+	}
+
+	public Set<Employees> getEmployeeses_1() {
+		return this.employeeses_1;
+	}
+
+	public void setEmployeeses_1(Set<Employees> employeeses_1) {
+		this.employeeses_1 = employeeses_1;
 	}
 
 }
